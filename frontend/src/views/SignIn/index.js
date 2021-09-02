@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Paper, Button, Box, TextField, Typography, Link, SvgIcon } from '@material-ui/core';
+import { Grid, Paper, Button, Box, TextField, Typography, Link, SvgIcon, useTheme } from '@material-ui/core';
 import { useFormik } from "formik"
 import * as yup from 'yup';
 import { useNavigate } from 'react-router';
@@ -16,6 +16,7 @@ export default function Signup(props) {
   const [otp, setOTP] = React.useState()
   const dispatch = useDispatch()
   const navigation = useNavigate()
+  const theme = useTheme()
   const otpValidationSchema = yup.object({
 otp: yup
       .number()
@@ -71,7 +72,7 @@ otp: yup
             <form onSubmit={formik.handleSubmit}>
               <Box>
                 <Box className={classes.addMargin}>
-                  <Typography variant={"h4"} className={classes.alignLabel} >{"Lets get Started"}</Typography>
+                  <Typography variant={"h5"} className={classes.alignLabel} >{"Let's get Started"}</Typography>
                   <Typography>{"Please login with email or continue with Google to complete your E-KYC"}</Typography>
                 </Box>
                 <Box >
@@ -107,9 +108,9 @@ otp: yup
             <Box>
               <form onSubmit={otpFormik.handleSubmit}>
               <Box className={classes.addMarginTwo}>
-                <Typography className={classes.alignLabel} variant={"h4"} >{"Verify email"}</Typography>
+                <Typography className={classes.alignLabel} variant={"h5"} >{"Verify email"}</Typography>
                 <Typography>{"We have sent you an OTP on email"}
-                <Typography variant="h6" gutterBottom>{formik.values.email}</Typography>
+                <Typography variant="h6"style={{marginTop:"4%"}} gutterBottom>{formik.values.email}</Typography>
                 </Typography>
                
               </Box>
@@ -122,13 +123,14 @@ otp: yup
                   onChange={(event)=>{
                     setOTP(event)}}
                   numInputs={6}
+                  isInputNum={true}
                   // separator={<span>-</span>}
                   inputStyle={{width:"70%",border:0,borderBottom: "1px solid black",height:"150%"}}
                   focusStyle={{outline:"none"}}
                   // hasErrored={otpFormik.touched.otp && Boolean(otpFormik.errors.otp)}
                 />
                 <Typography className={classes.resendOtp}> {"Haven't received OTP?"}
-                <Button color={"secondary"}>{"Resend OTP"}</Button></Typography>
+                <Button color={"secondary"} style={{textTransform:"none",fontSize:"1.1em",color:theme.palette.primary.contrastText,fontWeight:'bold'}}>{"Resend OTP"}</Button></Typography>
                 <Button color={"secondary"}
                  type={"submit"}
                   className={classes.submitButton}

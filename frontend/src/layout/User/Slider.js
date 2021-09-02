@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { RadioButtonChecked, RadioButtonUnchecked } from '@material-ui/icons';
 
-import { withStyles, List, ListItem, ListItemText, ListItemIcon, useTheme } from '@material-ui/core';
+import { withStyles, Typography,List, ListItem, ListItemText, ListItemIcon, useTheme } from '@material-ui/core';
 const styles = theme => ({
   root: {
     width: '100%',
@@ -30,7 +30,8 @@ function Slider(props) {
                 <ListItemIcon>
                   {step.status === 'complete' ? <RadioButtonChecked style={{fill:theme.palette.primary.contrastText}} /> : <RadioButtonUnchecked />}
                 </ListItemIcon>
-                <ListItemText primary={step.label} />
+                <ListItemText  disableTypography
+        primary={<Typography variant="h6"  style={{ fontWeight:"bold" }}>{step.label}</Typography>} />
 
               </ListItem>
 

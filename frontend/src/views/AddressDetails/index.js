@@ -16,53 +16,52 @@ export default function AddressDetails() {
   const [toggleEmail, setToggleEmail] = React.useState(false)
   const data = [
     {
-      city:"pune"
+      city: "pune"
     },
     {
-      city:"Banglore"
+      city: "Banglore"
     },
     {
-      city:"Mumbai"
+      city: "Mumbai"
     },
     {
-      city:"Mysore"
+      city: "Mysore"
     }
   ]
   const validationSchema = yup.object({
-    pan: yup
+    houseNumber: yup
       .string()
-      .matches('[A-Z]{5}[0-9]{4}[A-Z]{1}', "Please Enter a Valid Pan Number consist of first 5 are alphabets,followed with 4 numbers and a 1 alphabet.")
-      .required("Please Enter Pan Number"),
-    adhar: yup
+      .required("Please Enter House Number/Name"),
+    addressLine1: yup
       .string()
-      .required("Please Enter Adhar Number"),
-    // .matches("[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}", "ENter Valid Adhar Card Number"),
-    contactNumber: yup
+      .required("Please Enter Address"),
+      addressLine2: yup
+      .string(),
+    landmark: yup
       .string()
-      .matches('^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$', "Enter Valid Contact Number")
-      .required('Please Enter Mobile Number')
+      .required('Please Enter Landmark'),
+      city:yup
+      .string()
+      .required('Please select city or state')
   })
   const formik = useFormik({
     initialValues: {
-      pan: "",
-      adhar: "",
-      contactNumber: ""
+      houseNumber: "",
+      addressLine1: "",
+      addressLine2:"",
+      landmark: "",
+      city:""
     },
-    // validationSchema: validationSchema,
+    validationSchema: validationSchema,
     onSubmit: (event) => {
-      debugger
-      // alert(JSON.stringify("Values : "+formik.values.pan, null, 2));
-      // event.preventDefault();
       console.log("Form SSubmited")
       dispatch({
         type: CHANGE_STATUS,
         payload: {
-          label: "Address Details",
+          label: "Aadhaar Validations",
           status: "complete"
         }
       })
-      navigation('\addressDetails');
-
     },
   });
   return (
@@ -78,66 +77,64 @@ export default function AddressDetails() {
                 style={{ marginBottom: "5%" }}
                 fullWidth
                 variant={"outlined"}
-                id={"pan"}
-                name={"pan"}
+                id={"houseNumber"}
+                name={"houseNumber"}
                 label={"House Number/Name "}
-                value={formik.values.pan}
+                value={formik.values.houseNumber}
                 onChange={formik.handleChange}
-                error={formik.touched.pan && Boolean(formik.errors.pan)}
-                helperText={formik.touched.pan && formik.errors.pan}
+                error={formik.touched.houseNumber && Boolean(formik.errors.houseNumber)}
+                helperText={formik.touched.houseNumber && formik.errors.houseNumber}
               />
               <TextField
                 style={{ marginBottom: "5%" }}
                 fullWidth
                 variant={"outlined"}
-                id={"pan"}
-                name={"pan"}
+                id={"addressLine1"}
+                name={"addressLine1"}
                 label={"Address Line 1"}
-                value={formik.values.pan}
+                value={formik.values.addressLine1}
                 onChange={formik.handleChange}
-                error={formik.touched.pan && Boolean(formik.errors.pan)}
-                helperText={formik.touched.pan && formik.errors.pan}
+                error={formik.touched.addressLine1 && Boolean(formik.errors.addressLine1)}
+                helperText={formik.touched.addressLine1 && formik.errors.addressLine1}
               />
               <TextField
                 style={{ marginBottom: "5%" }}
                 fullWidth
                 variant={"outlined"}
-                id={"pan"}
-                name={"pan"}
+                id={"addressLine2"}
+                name={"addressLine2"}
                 label={"Address Line 2"}
-                value={formik.values.pan}
+                value={formik.values.addressLine2}
                 onChange={formik.handleChange}
-                error={formik.touched.pan && Boolean(formik.errors.pan)}
-                helperText={formik.touched.pan && formik.errors.pan}
+                error={formik.touched.addressLine2 && Boolean(formik.errors.addressLine2)}
+                helperText={formik.touched.addressLine2 && formik.errors.addressLine2}
               />
               <Dropdown
-              label="Select City/State"
-              data={data || []}
-              objKey={"city"}
-              onChangeListner={(selectedData)=>{
-                console.log(selectedData)
-              }}
-              prevData={[]}
-              name={"city"}
-              error={false}
-              helperText={""} />
+                label="Select City/State"
+                data={data || []}
+                objKey={"city"}
+                onChangeListner={(selectedData) => {
+                  console.log(selectedData)
+                  formik.setFieldValue(selectedData)
+                }}
+                prevData={[]}
+                name={"city"}
+                error={formik.touched.city && Boolean(formik.errors.city)}
+                helperText={formik.touched.city && formik.errors.city} />
               <TextField
                 style={{ marginBottom: "5%" }}
                 fullWidth
                 variant={"outlined"}
-                id={"pan"}
-                name={"pan"}
-                required
+                id={"landmark"}
+                name={"landmark"}
                 label={"Landmark"}
-                value={formik.values.pan}
+                value={formik.values.landmark}
                 onChange={formik.handleChange}
-                error={formik.touched.pan && Boolean(formik.errors.pan)}
-                helperText={formik.touched.pan && formik.errors.pan}
+                error={formik.touched.landmark && Boolean(formik.errors.landmark)}
+                helperText={formik.touched.landmark && formik.errors.landmark}
               />
             </Box>
-            <Typography display="inline" style={{ marginBottom: "3%", marginTop: "5%" }}>
-              <Checkbox /><Typography variant={"h8"}>I hereby consent for the use of my adhar number --- provided in application, to carryout Identity Validation</Typography></Typography>
-            <Box style={{ marginLeft: "40%", marginRight: "40%", marginTop: "5%" }}>
+            <Box style={{ marginLeft: "40%", marginRight: "40%", marginTop: "7%" }}>
               <Button color="secondary"
                 variant="contained"
                 className={classes.nextButton}
