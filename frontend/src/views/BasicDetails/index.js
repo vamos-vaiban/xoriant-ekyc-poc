@@ -25,6 +25,9 @@ export default function BasicDetails() {
       .string()
       .required("Please Enter Adhar Number"),
       // .matches("[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}", "ENter Valid Adhar Card Number"),
+      acceptTerms: yup.bool()
+      .required("Please Accept the terms first")
+      .oneOf([true], 'Accept Terms & Conditions is required')
     })
   const formik = useFormik({
     initialValues: {
@@ -112,7 +115,11 @@ export default function BasicDetails() {
               /> */}
             </Box>
             <Typography display="inline" style={{marginBottom:"3%",marginTop:"5%"}}>
-            <Checkbox /><Typography variant={"h8"}>I hereby consent for the use of my adhar number --- provided in application, to carryout Identity Validation</Typography></Typography>
+            <Checkbox 
+            name={"acceptTerms"} 
+            value={formik.values.acceptTerms}
+            onChange={formik.handleChange} 
+            required/><Typography variant={"h8"}>I hereby consent for the use of my adhar number --- provided in application, to carryout Identity Validation</Typography></Typography>
             <Box style={{marginLeft:"40%",marginRight:"40%",marginTop:"5%"}}>
             <Button color="secondary"
               variant="contained"

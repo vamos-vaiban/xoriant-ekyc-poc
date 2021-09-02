@@ -115,7 +115,6 @@ export default function AddressDetails() {
               data={data || []}
               objKey={"city"}
               onChangeListner={(selectedData)=>{
-                debugger
                 console.log(selectedData)
               }}
               prevData={[]}
@@ -128,6 +127,7 @@ export default function AddressDetails() {
                 variant={"outlined"}
                 id={"pan"}
                 name={"pan"}
+                required
                 label={"Landmark"}
                 value={formik.values.pan}
                 onChange={formik.handleChange}
