@@ -36,7 +36,7 @@ export default function Dropdown({ onChangeListner, name, data=[], label, prevDa
                 labelId="demo-simple-select-outlined-label"
                 value={selectedData}
                 defaultValue={prevData}
-                input={selectedData}
+                // input={selectedData}
                 MenuProps={MenuProps}
                 fullWidth
                 error={error}

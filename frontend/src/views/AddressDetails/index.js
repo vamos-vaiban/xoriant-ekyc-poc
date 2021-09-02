@@ -114,7 +114,10 @@ export default function AddressDetails() {
               label="Select City/State"
               data={data || []}
               objKey={"city"}
-              onChangeListner={()=>{}}
+              onChangeListner={(selectedData)=>{
+                debugger
+                console.log(selectedData)
+              }}
               prevData={[]}
               name={"city"}
               error={false}
