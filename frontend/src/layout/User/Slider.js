@@ -25,7 +25,7 @@ function Slider(props) {
       <List>
         {
           props.data && props.data.map((step, index) => (
-            <>
+            <React.Fragment key={index}>
               <ListItem onClick={() => { }}>
                 <ListItemIcon>
                   {step.status === 'complete' ? <RadioButtonChecked style={{fill:theme.palette.primary.contrastText}} /> : <RadioButtonUnchecked />}
@@ -36,7 +36,7 @@ function Slider(props) {
               </ListItem>
 
               {length > index + 1 ? <div className={classes.vertical}></div> : null}
-            </>
+            </React.Fragment>
           ))
         }
 

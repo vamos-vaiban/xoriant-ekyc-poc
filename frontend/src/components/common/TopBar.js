@@ -15,14 +15,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TopBar() {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
+    // const [open, setOpen] = React.useState(false);
     const isUser = useSelector((data)=>data.auth.isUser)
-    const drawerHandler = () => {
-        setOpen(!open);
-    };
-    function valuetext(value) {
-        return `${value}°C`;
-    }
+    // const drawerHandler = () => {
+    //     setOpen(!open);
+    // };
+    // function valuetext(value) {
+    //     return `${value}°C`;
+    // }
 
     return (
         <div className={classes.root}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Paper, Button, Box, TextField, Typography, Link, SvgIcon, useTheme } from '@material-ui/core';
+import { Grid, Paper, Button, Box, TextField, Typography, SvgIcon, useTheme } from '@material-ui/core';
 import { useFormik } from "formik"
 import * as yup from 'yup';
 import { useNavigate } from 'react-router';
@@ -8,7 +8,7 @@ import { useStyles } from "./styles"
 import OtpInput from 'react-otp-input';
 import {ReactComponent as GoogleIcon} from "../../assets/icons8-google.svg"
 import { useDispatch } from 'react-redux';
-import { AUTH_LOGIN, IS_USER, SHOW_MESSAGE } from '../../redux/constants';
+import { IS_USER, SHOW_MESSAGE } from '../../redux/constants';
 
 export default function Signup(props) {
   const classes = useStyles(props);
@@ -17,12 +17,12 @@ export default function Signup(props) {
   const dispatch = useDispatch()
   const navigation = useNavigate()
   const theme = useTheme()
-  const otpValidationSchema = yup.object({
-otp: yup
-      .number()
-      .min(6, 'OTP should be of minimum 6 numbers length')
-      .required('OTP is required'),
-  })
+//   const otpValidationSchema = yup.object({
+// otp: yup
+//       .number()
+//       .min(6, 'OTP should be of minimum 6 numbers length')
+//       .required('OTP is required'),
+//   })
   const validationSchema = yup.object({
     email: yup
       .string('Enter your email')
@@ -59,14 +59,13 @@ otp: yup
 
 
   return (
-    <Grid container alignItems="center" >
+    <Grid container alignItems="center" justifyContent={"center"}>
       <Grid item xs={12} sm={6} 
         className={classes.gridOne}
         >
         <Content />
       </Grid>
-      <Grid item xs={12} sm={6}  justifyContent={"center"}
-        alignItems={"center"} className={classes.gridSecond}>
+      <Grid item xs={12} sm={6} className={classes.gridSecond}>
         <Paper elevation={3} className={classes.paper}>
           {generateOTP === false ?
             <form onSubmit={formik.handleSubmit}>
