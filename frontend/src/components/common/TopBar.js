@@ -2,7 +2,9 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, CssBaseline, Toolbar, Grid, Typography, Avatar,MenuItem,Menu,Button } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { useSelector } from "react-redux"
+import { useSelector,useDispatch } from "react-redux"
+import { useNavigate } from 'react-router';
+import { IS_USER, SHOW_MESSAGE } from '../../redux/constants';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,6 +21,8 @@ export default function TopBar() {
     const [open, setOpen] = React.useState(false);
     const isUser = useSelector((data) => data.auth.isUser)
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const navigation = useNavigate()
+    const dispatch=useDispatch()
 
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -26,6 +30,11 @@ export default function TopBar() {
   
     const handleClose = () => {
       setAnchorEl(null);
+      navigation('/');
+      dispatch({
+        type:IS_USER,
+        payload:false
+      })
     };
     const drawerHandler = () => {
         setOpen(!open);
