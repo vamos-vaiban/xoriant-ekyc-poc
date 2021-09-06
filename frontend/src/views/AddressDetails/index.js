@@ -5,7 +5,7 @@ import { useFormik } from "formik"
 import { useStyles } from "./styles"
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { CHANGE_STATUS } from '../../redux/constants';
+import { CHANGE_STATUS,SHOW_MESSAGE } from '../../redux/constants';
 import { useNavigate } from 'react-router';
 import Dropdown from "../../components/Dropdown"
 
@@ -62,6 +62,14 @@ export default function AddressDetails() {
           status: "complete"
         }
       })
+      dispatch({
+        type:SHOW_MESSAGE,
+        payload:{
+          type:"success",
+          message:"Step 2: Address details completed"
+        }
+      })
+      navigation('/home/aadharValidation')
     },
   });
   return (
@@ -115,7 +123,7 @@ export default function AddressDetails() {
                 objKey={"city"}
                 onChangeListner={(selectedData) => {
                   console.log(selectedData)
-                  formik.setFieldValue(selectedData)
+                  formik.setFieldValue("city",selectedData)
                 }}
                 prevData={[]}
                 name={"city"}

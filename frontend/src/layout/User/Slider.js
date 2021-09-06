@@ -31,7 +31,7 @@ function Slider(props) {
                   {step.status === 'complete' ? <RadioButtonChecked style={{fill:theme.palette.primary.contrastText}} /> : <RadioButtonUnchecked />}
                 </ListItemIcon>
                 <ListItemText  disableTypography
-        primary={<Typography variant="h6"  style={{ fontWeight:"bold" }}>{step.label}</Typography>} />
+        primary={<Typography variant="h6"  >{step.label}</Typography>} />
 
               </ListItem>
 

@@ -6,7 +6,7 @@ import { useStyles } from "./styles"
 import * as yup from 'yup';
 import Content from "./content"
 import { useDispatch } from 'react-redux';
-import { CHANGE_STATUS } from '../../redux/constants';
+import { CHANGE_STATUS,SHOW_MESSAGE } from '../../redux/constants';
 import { useNavigate } from 'react-router';
 
 
@@ -46,6 +46,13 @@ export default function BasicDetails() {
         payload:{
           label:"Address Details",
           status:"complete"
+        }
+      })
+      dispatch({
+        type:SHOW_MESSAGE,
+        payload:{
+          type:"success",
+          message:"Step 1: Basic details completed"
         }
       })
       navigation('\addressDetails');

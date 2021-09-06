@@ -140,13 +140,6 @@ otp: yup
                       otp:otp
                     }
                     dispatch({
-                      type:SHOW_MESSAGE,
-                      payload:{
-                        type:"success",
-                        message:"Login Success"
-                      }
-                    })
-                    dispatch({
                       type:IS_USER,
                       payload:true
                     })
