@@ -13,7 +13,7 @@ import { IS_USER, SHOW_MESSAGE } from '../../redux/constants';
 export default function Signup(props) {
   const classes = useStyles(props);
   const [generateOTP, setGenerateOTP] = React.useState(false)
-  const [otp, setOTP] = React.useState()
+  const [otp, setOTP] = React.useState('555555')
   const dispatch = useDispatch()
   const navigation = useNavigate()
   const theme = useTheme()
@@ -142,7 +142,7 @@ export default function Signup(props) {
                       type:IS_USER,
                       payload:true
                     })
-                    alert(JSON.stringify(values, null, 2));
+                    // alert(JSON.stringify(values, null, 2));
                     navigation("/home")
                   }}
                   variant={"contained"}>{"Submit"}</Button>
