@@ -33,7 +33,7 @@ export default function TopBar() {
     function valuetext(value) {
         return `${value}°C`;
     }
-
+   
     return (
         <div className={classes.root}>
             <CssBaseline />

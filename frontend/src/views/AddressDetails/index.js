@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Button, Box, TextField, Paper, Checkbox } from '@material-ui/core';
 import { useFormik } from "formik"
 import { useStyles } from "./styles"
@@ -8,12 +7,13 @@ import { useDispatch } from 'react-redux';
 import { CHANGE_STATUS,SHOW_MESSAGE } from '../../redux/constants';
 import { useNavigate } from 'react-router';
 import Dropdown from "../../components/Dropdown"
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 
 export default function AddressDetails() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigation = useNavigate()
-  const [toggleEmail, setToggleEmail] = React.useState(false)
+  // const [toggleEmail, setToggleEmail] = React.useState(false)
   const data = [
     {
       city: "pune"
@@ -73,9 +73,9 @@ export default function AddressDetails() {
     },
   });
   return (
-    <Grid container alignItems={"center"} style={{ overflow: "none" }}>
-      <Grid item xs={12} sm={6} justifyContent={"center"}
-        alignItems={"center"} className={classes.grid}>
+    <Grid container alignItems={"center"} justifyContent={"center"} style={{ overflow: "none" }}>
+      <Grid item xs={12} sm={6} 
+        className={classes.grid}>
         <Paper elevation={3} className={classes.paper}>
           <form onSubmit={formik.handleSubmit}>
             <Typography variant={"h4"} className={classes.title}> Where Do you live!</Typography>
@@ -142,11 +142,19 @@ export default function AddressDetails() {
                 helperText={formik.touched.landmark && formik.errors.landmark}
               />
             </Box>
-            <Box style={{ marginLeft: "40%", marginRight: "40%", marginTop: "7%" }}>
+            <FormControlLabel
+              control={<Checkbox />}
+              label={<Typography variant="subtitle1" >I hereby consent for the use of my adhar number --- provided in application, to carryout Identity Validation</Typography>}
+            />
+
+            {/* <Typography display="inline" style={{ marginBottom: "3%", marginTop: "5%" }}>
+              <Checkbox /><Typography variant={"h6"}>I hereby consent for the use of my adhar number --- provided in application, to carryout Identity Validation</Typography></Typography> */}
+            <Box style={{ marginLeft: "40%", marginRight: "40%", marginTop: "5%" }}>
               <Button color="secondary"
                 variant="contained"
                 className={classes.nextButton}
-                type="submit">Next</Button></Box>
+                type="submit">Next</Button>
+                </Box>
           </form>
         </Paper>
       </Grid>

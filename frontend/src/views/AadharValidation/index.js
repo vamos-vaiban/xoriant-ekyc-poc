@@ -7,9 +7,8 @@ export default function AadharValidation() {
   const classes = useStyles();
  
   return (
-    <Grid container alignItems={"center"} style={{ overflow: "none" }}>
-      <Grid item xs={12} sm={6} justifyContent={"center"}
-        alignItems={"center"} className={classes.grid}>
+    <Grid container alignItems={"center"} justifyContent={"center"} style={{ overflow: "none" }}>
+      <Grid item xs={12} sm={6} className={classes.grid}>
         <Paper elevation={3} className={classes.paper}>
           <form>
             <Typography variant={"h4"} className={classes.title}> Aadhar Validation!</Typography>
