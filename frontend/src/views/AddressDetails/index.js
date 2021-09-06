@@ -62,13 +62,13 @@ export default function AddressDetails() {
           status: "complete"
         }
       })
-      dispatch({
-        type:SHOW_MESSAGE,
-        payload:{
-          type:"success",
-          message:"Step 2: Address details completed"
-        }
-      })
+      // dispatch({
+      //   type:SHOW_MESSAGE,
+      //   payload:{
+      //     type:"success",
+      //     message:"Step 2: Address details completed"
+      //   }
+      // })
       navigation('/home/aadharValidation')
     },
   });

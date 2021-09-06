@@ -48,14 +48,14 @@ export default function BasicDetails() {
           status:"complete"
         }
       })
-      dispatch({
-        type:SHOW_MESSAGE,
-        payload:{
-          type:"success",
-          message:"Step 1: Basic details completed"
-        }
-      })
-      navigation('\addressDetails');
+      // dispatch({
+      //   type:SHOW_MESSAGE,
+      //   payload:{
+      //     type:"success",
+      //     message:"Step 1: Basic details completed"
+      //   }
+      // })
+      navigation('/home/addressDetails');
       
     },
   });
