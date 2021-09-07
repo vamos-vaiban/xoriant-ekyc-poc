@@ -60,7 +60,7 @@ export default function TopBar() {
                             </div>
                             : null
                     }
-                   {isUser? <Grid container direction={"row"} spacing="1" justify="flex-end">
+                   {isUser? <Grid container direction={"row"} spacing={1} justify="flex-end">
                         <Grid item><Typography>John Doe</Typography></Grid>
                         <Grid item>
                             <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
