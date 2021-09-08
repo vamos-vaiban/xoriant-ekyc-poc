@@ -45,7 +45,7 @@ function MobileVerification(props) {
         },
         validationSchema: validationSchema,
         onSubmit: () => {
-            props.validateMobileNumber();
+            props.validateMobileNumber(formik.values.mobile);
         }
     });
 

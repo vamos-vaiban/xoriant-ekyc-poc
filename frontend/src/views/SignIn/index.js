@@ -10,11 +10,12 @@ import { ReactComponent as GoogleIcon } from "../../assets/icons8-google.svg"
 import { useDispatch } from 'react-redux';
 import { IS_USER, SHOW_MESSAGE } from '../../redux/constants';
 import MobileVerification from './MobileVerification';
-
+import { DoUserSignInAction } from '../../redux/actions/AuthActions';
 export default function Signup(props) {
   const classes = useStyles(props);
   const [generateOTP, setGenerateOTP] = React.useState(false)
   const [emailVerification, setEmailVerification] = React.useState(true);
+  const [mobileNumber, setMobileNumber] = React.useState('');
   const [otp, setOTP] = React.useState('555555')
   const dispatch = useDispatch()
   const navigation = useNavigate()
@@ -37,15 +38,22 @@ export default function Signup(props) {
       otp: "",
     },
     //  validationSchema:otpValidationSchema,
-    onSubmit: (values) => {
-      console.log("I Am here")
-      dispatch({
-        type: SHOW_MESSAGE,
-        payload: {
-          type: "success",
-          message: "Login Success"
-        }
-      })
+    onSubmit: (value) => {
+      debugger
+      let values = {
+        "mode_Of_Authentication":emailVerification ? "via-email":"via-mobile",
+        "email_id":formik.values.email,
+        "email_id_otp":emailVerification ? otp :"",
+        "mobile_number": emailVerification ? "" : mobileNumber,
+        "mobile_number_otp":emailVerification ? "" :otp
+      }
+      // dispatch({
+      //   type: IS_USER,
+      //   payload: true
+      // })
+      dispatch(DoUserSignInAction({userData:values,key:"user_sign_in"}))
+      alert(JSON.stringify(values, null, 2));
+      // navigation("/home")
     }
   })
   const formik = useFormik({
@@ -62,7 +70,7 @@ export default function Signup(props) {
   const submitMobileNumber = () => {
     setGenerateOTP(true);
   }
-console.log("generatOTP ", generateOTP)
+  console.log("generatOTP ", generateOTP)
 
   return (
     <Grid container alignItems="center" justifyContent={"center"}>
@@ -104,18 +112,6 @@ console.log("generatOTP ", generateOTP)
                   <Button color={"secondary"}
                     type={"submit"}
                     className={classes.submitButton}
-                    onClick={(event) => {
-                      let values = {
-                        email: formik.values.email,
-                        otp: otp
-                      }
-                      dispatch({
-                        type: IS_USER,
-                        payload: true
-                      })
-                      // alert(JSON.stringify(values, null, 2));
-                      navigation("/home")
-                    }}
                     variant={"contained"}>{"Submit"}</Button>
 
                 </Box>
@@ -160,7 +156,10 @@ console.log("generatOTP ", generateOTP)
               </form>
             ) : (
               <MobileVerification
-                validateMobileNumber={() => setGenerateOTP(true)}
+                validateMobileNumber={(mobNo) => {
+                  setGenerateOTP(true) 
+                  setMobileNumber(mobNo)
+                }}
                 cancelMobileVerification={() => setEmailVerification(true)}
               />
             )
