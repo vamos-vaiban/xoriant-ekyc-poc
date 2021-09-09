@@ -31,7 +31,7 @@ function CustomSnakbar({key,message,type}) {
     }
 
     setOpen(false);
-    dispatch({type:HIDE_MESSAGE,payload:{key,message}})
+    // dispatch({type:HIDE_MESSAGE,payload:{key,message}})
   };
 
   return (

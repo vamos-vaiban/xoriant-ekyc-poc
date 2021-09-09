@@ -40,7 +40,6 @@ export default function NavigationReducer(state = initialState,actions){
     let newState=cloneDeep(state)
     switch(actions.type){
         case CHANGE_STATUS:{
-            debugger
             //get the element
             let targetedStepIndex = findIndex(newState.stepsForKyc,{label : actions.payload.label})
             //change the status

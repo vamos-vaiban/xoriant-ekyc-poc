@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid, Paper, Button, Box, TextField, Typography, SvgIcon, useTheme } from '@material-ui/core';
 import { useFormik } from "formik"
 import * as yup from 'yup';
-import { useNavigate } from 'react-router';
+import { Navigate, useNavigate } from 'react-router';
 import Content from "./content"
 import { useStyles } from "./styles"
 import OtpInput from 'react-otp-input';
 import { ReactComponent as GoogleIcon } from "../../assets/icons8-google.svg"
-import { useDispatch } from 'react-redux';
-import { IS_USER, SHOW_MESSAGE } from '../../redux/constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { IS_USER, SHOW_MESSAGE,AUTH_USER_SIGNIN_SUCCESS } from '../../redux/constants';
 import MobileVerification from './MobileVerification';
 import { DoUserSignInAction } from '../../redux/actions/AuthActions';
+import {findLast} from "lodash"
 export default function Signup(props) {
   const classes = useStyles(props);
   const [generateOTP, setGenerateOTP] = React.useState(false)
@@ -20,6 +21,22 @@ export default function Signup(props) {
   const dispatch = useDispatch()
   const navigation = useNavigate()
   const theme = useTheme()
+  const ui = useSelector((data)=>data.ui)
+  useEffect(()=>{
+    if(ui["messages"]){
+      let refObj = findLast(ui["messages"],{key:"user_sign_in"});
+     //change error to success once server is attached
+      if(refObj && refObj.type === "error"){
+        navigation("/home")
+        //addded for temporary purpose- need to remove once server attached
+        dispatch({
+          type:AUTH_USER_SIGNIN_SUCCESS,
+          payload:true,
+      })
+      }
+    }
+  },[ui])
+  
   //   const otpValidationSchema = yup.object({
   // otp: yup
   //       .number()
@@ -33,13 +50,13 @@ export default function Signup(props) {
       .required('Email is required'),
 
   })
+  
   const otpFormik = useFormik({
     initialValues: {
       otp: "",
     },
     //  validationSchema:otpValidationSchema,
     onSubmit: (value) => {
-      debugger
       let values = {
         "mode_Of_Authentication":emailVerification ? "via-email":"via-mobile",
         "email_id":formik.values.email,

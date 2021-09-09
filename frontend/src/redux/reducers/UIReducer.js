@@ -9,13 +9,13 @@ export default function UIReducer(state = initialState,actions){
     switch(actions.type){
         case UI_LOADING:{
             newState.loading=actions.payload
-            return {...newState};
+            return  {...newState};
         }
         case ERROR :{
             newState.loading = false;
             newState.error = true;
             newState.message = actions.payload
-            return {...newState};
+            return  {...newState};
         }
         case SHOW_MESSAGE:{
             debugger
@@ -28,24 +28,24 @@ export default function UIReducer(state = initialState,actions){
             return {...newState}
         }
 
-        case HIDE_MESSAGE:{
-            if(actions.payload.key){
-                let index = findIndex(newState["messages"],{
-                    key:actions.payload.key
-                })
-                if(index >-1){
-                    newState["messages"] = newState["messages"].splice(index,1)
-                }
-            }else{
-                let index = findIndex(newState["messages"],{
-                    message:actions.payload.message
-                })
-                if (index > -1){
-                    newState["messages"] = newState["messages"].splice(index,1)
-                }
-            }
-            return {...newState};
-        }
+        // case HIDE_MESSAGE:{
+        //     if(actions.payload.key){
+        //         let index = findIndex(newState["messages"],{
+        //             key:actions.payload.key
+        //         })
+        //         if(index >-1){
+        //             newState["messages"] = newState["messages"].splice(index,1)
+        //         }
+        //     }else{
+        //         let index = findIndex(newState["messages"],{
+        //             message:actions.payload.message
+        //         })
+        //         if (index > -1){
+        //             newState["messages"] = newState["messages"].splice(index,1)
+        //         }
+        //     }
+        //     return newState;
+        // }
         default:{
             return newState;
         }
