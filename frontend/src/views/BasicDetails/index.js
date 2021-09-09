@@ -1,12 +1,11 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Button, Box, TextField, Paper, Checkbox } from '@material-ui/core';
 import { useFormik } from "formik"
 import { useStyles } from "./styles"
 import * as yup from 'yup';
 import Content from "./content"
 import { useDispatch } from 'react-redux';
-import { CHANGE_STATUS,SHOW_MESSAGE } from '../../redux/constants';
+import { CHANGE_STATUS } from '../../redux/constants';
 import { useNavigate } from 'react-router';
 
 
@@ -14,7 +13,6 @@ export default function BasicDetails() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigation = useNavigate()
-  const [toggleEmail, setToggleEmail] = React.useState(false)
 
   const validationSchema = yup.object({
     pan: yup

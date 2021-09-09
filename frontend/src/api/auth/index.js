@@ -4,6 +4,8 @@ const DoSignInApi = userData =>{
     return axios.post("signOn/",userData);
 }
 
-export default {
+const API =  {
     DoSignInApi,
 }
+
+export default API;

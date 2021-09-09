@@ -2,8 +2,7 @@ import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
-import {useSelector,useDispatch} from 'react-redux'
-import { HIDE_MESSAGE } from '../redux/constants';
+import {useSelector} from 'react-redux'
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -20,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
 function CustomSnakbar({key,message,type}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-    const dispatch = useDispatch()
   // const handleClick = () => {
   //   setOpen(true);
   // };

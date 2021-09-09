@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
-import { Grid, Paper, Button, Box, TextField, Typography, SvgIcon, useTheme } from '@material-ui/core';
+import { Grid, Paper, Button, Box, TextField, Typography,  useTheme } from '@material-ui/core';
 import { useFormik } from "formik"
 import * as yup from 'yup';
-import { Navigate, useNavigate } from 'react-router';
+import {  useNavigate } from 'react-router';
 import Content from "./content"
 import { useStyles } from "./styles"
 import OtpInput from 'react-otp-input';
-import { ReactComponent as GoogleIcon } from "../../assets/icons8-google.svg"
 import { useDispatch, useSelector } from 'react-redux';
-import { IS_USER, SHOW_MESSAGE,AUTH_USER_SIGNIN_SUCCESS } from '../../redux/constants';
+import { AUTH_USER_SIGNIN_SUCCESS } from '../../redux/constants';
 import MobileVerification from './MobileVerification';
 import { DoUserSignInAction } from '../../redux/actions/AuthActions';
 import {findLast} from "lodash"
@@ -35,7 +34,7 @@ export default function Signup(props) {
       })
       }
     }
-  },[ui])
+  },[ui,dispatch,navigation])
   
   //   const otpValidationSchema = yup.object({
   // otp: yup
@@ -84,10 +83,10 @@ export default function Signup(props) {
     },
   });
 
-  const submitMobileNumber = () => {
-    setGenerateOTP(true);
-  }
-  console.log("generatOTP ", generateOTP)
+  // const submitMobileNumber = () => {
+  //   setGenerateOTP(true);
+  // }
+  // console.log("generatOTP ", generateOTP)
 
   return (
     <Grid container alignItems="center" justifyContent={"center"}>

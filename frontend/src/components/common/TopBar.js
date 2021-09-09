@@ -4,7 +4,7 @@ import { AppBar, CssBaseline, Toolbar, Grid, Typography, Avatar,MenuItem,Menu,Bu
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useSelector,useDispatch } from "react-redux"
 import { useNavigate } from 'react-router';
-import { IS_USER, SHOW_MESSAGE } from '../../redux/constants';
+import { IS_USER } from '../../redux/constants';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TopBar() {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
+    // const [open, setOpen] = React.useState(false);
     const isUser = useSelector((data) => data.auth.isUser)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const navigation = useNavigate()
@@ -36,12 +36,12 @@ export default function TopBar() {
         payload:false
       })
     };
-    const drawerHandler = () => {
-        setOpen(!open);
-    };
-    function valuetext(value) {
-        return `${value}°C`;
-    }
+    // const drawerHandler = () => {
+    //     setOpen(!open);
+    // };
+    // function valuetext(value) {
+    //     return `${value}°C`;
+    // }
    
     return (
         <div className={classes.root}>

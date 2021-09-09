@@ -1,6 +1,5 @@
-import {ERROR,UI_LOADING,SHOW_MESSAGE,HIDE_MESSAGE} from "../constants/index"
+import {ERROR,UI_LOADING,SHOW_MESSAGE} from "../constants/index"
 import cloneDeep from 'lodash';
-import findIndex from 'lodash';
 
 const initialState={loading:false,messages:[]}
 
@@ -19,7 +18,7 @@ export default function UIReducer(state = initialState,actions){
         }
         case SHOW_MESSAGE:{
             debugger
-            if(newState.messages == undefined){
+            if(newState.messages === undefined){
                 newState.messages = [actions.payload]
             }else{
                 newState.messages.push(actions.payload)
