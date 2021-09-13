@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Toolbar, AppBar } from '@material-ui/core';
 import { Outlet } from 'react-router-dom';
 import TopBar from '../components/common/TopBar';
 const useStyles = makeStyles((theme) => ({

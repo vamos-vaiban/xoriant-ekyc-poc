@@ -62,6 +62,7 @@ const useStyles = makeStyles((theme)=>({
     alignLabel:{
         marginBottom:"5%",
         color:theme.palette.primary.contrastText,
+        fontWeight:"bold"
     },
     addMargin:{
         marginBottom:"10%"
@@ -71,7 +72,7 @@ const useStyles = makeStyles((theme)=>({
     },
     resendOtp :{
         marginBottom:"5%",
-        float:"right"
+        float:"left"
     }
 }));
 

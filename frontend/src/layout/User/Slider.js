@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { RadioButtonChecked, RadioButtonUnchecked } from '@material-ui/icons';
 
-import { withStyles, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
+import { withStyles, Typography,List, ListItem, ListItemText, ListItemIcon, useTheme } from '@material-ui/core';
 const styles = theme => ({
   root: {
     width: '100%',
@@ -18,23 +18,25 @@ const styles = theme => ({
 
 function Slider(props) {
   const { classes } = props;
+  const theme = useTheme()
   const length = props.data && props.data.length
   return (
     <div className={classes.root}>
       <List>
         {
           props.data && props.data.map((step, index) => (
-            <>
+            <React.Fragment key={index}>
               <ListItem onClick={() => { }}>
                 <ListItemIcon>
-                  {step.status === 'complete' ? <RadioButtonChecked /> : <RadioButtonUnchecked />}
+                  {step.status === 'complete' ? <RadioButtonChecked style={{fill:theme.palette.primary.contrastText}} /> : <RadioButtonUnchecked />}
                 </ListItemIcon>
-                <ListItemText primary={step.label} />
+                <ListItemText  disableTypography
+        primary={<Typography variant="h6"  >{step.label}</Typography>} />
 
               </ListItem>
 
               {length > index + 1 ? <div className={classes.vertical}></div> : null}
-            </>
+            </React.Fragment>
           ))
         }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Drawer, AppBar, CssBaseline, Toolbar, List, Typography, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { Drawer, CssBaseline, Toolbar, List, Typography, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TopBar from '../../components/common/TopBar';
@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
   },
   //newly added
   drawer: {
-    width: "240px",
     height: "300px",
     // marginTop:"20%",
     width: drawerWidth,
@@ -59,18 +58,24 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(9) + 1,
     },
   },
+  label:{
+    fontWeight:"bold",
+    fontSize:"1.7em",
+    color:theme.palette.primary.contrastText
+  }
 }));
 
 export default function ClippedDrawer() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  // const theme = useTheme()
   const stepsForKyc = useSelector((data)=>data.nav.stepsForKyc)
   const drawerHandler = () => {
     setOpen(!open);
   };
-  function valuetext(value) {
-    return `${value}°C`;
-  }
+  // function valuetext(value) {
+  //   return `${value}°C`;
+  // }
 
  
   return (
@@ -95,8 +100,8 @@ export default function ClippedDrawer() {
           <Divider />
           <List>
             <ListItem button key={"text"} onClick={drawerHandler}>
-              <ListItemIcon>{open === true ? <ChevronLeftIcon /> : <ChevronRightIcon />}</ListItemIcon>
-              <ListItemText primary={"Steps for KYC"} />
+              <ListItemIcon className={classes.label}>{open === true ? <ChevronLeftIcon /> : <ChevronRightIcon />}</ListItemIcon>
+              <ListItemText ><Typography className={classes.label}>{"Steps For KYC"}</Typography></ListItemText>
             </ListItem>
 
             <Divider />

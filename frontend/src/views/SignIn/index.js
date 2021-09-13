@@ -1,49 +1,76 @@
-import React from 'react';
-import { Grid, Paper, Button, Box, TextField, Typography, Link, SvgIcon } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { Grid, Paper, Button, Box, TextField, Typography,  useTheme } from '@material-ui/core';
 import { useFormik } from "formik"
 import * as yup from 'yup';
-import { useNavigate } from 'react-router';
+import {  useNavigate } from 'react-router';
 import Content from "./content"
 import { useStyles } from "./styles"
 import OtpInput from 'react-otp-input';
-import {ReactComponent as GoogleIcon} from "../../assets/icons8-google.svg"
-import { useDispatch } from 'react-redux';
-import { AUTH_LOGIN, IS_USER, SHOW_MESSAGE } from '../../redux/constants';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { AUTH_USER_SIGNIN_SUCCESS } from '../../redux/constants';
+import MobileVerification from './MobileVerification';
+import { DoUserSignInAction } from '../../redux/actions/AuthActions';
+import {findLast} from "lodash"
 export default function Signup(props) {
   const classes = useStyles(props);
   const [generateOTP, setGenerateOTP] = React.useState(false)
-  const [otp, setOTP] = React.useState()
+  const [emailVerification, setEmailVerification] = React.useState(true);
+  const [mobileNumber, setMobileNumber] = React.useState('');
+  const [otp, setOTP] = React.useState('555555')
   const dispatch = useDispatch()
   const navigation = useNavigate()
-  const otpValidationSchema = yup.object({
-otp: yup
-      .number()
-      .min(6, 'OTP should be of minimum 6 numbers length')
-      .required('OTP is required'),
-  })
+  const theme = useTheme()
+  const ui = useSelector((data)=>data.ui)
+  useEffect(()=>{
+    if(ui["messages"]){
+      let refObj = findLast(ui["messages"],{key:"user_sign_in"});
+     //change error to success once server is attached
+      if(refObj && refObj.type === "error"){
+        navigation("/home")
+        //addded for temporary purpose- need to remove once server attached
+        dispatch({
+          type:AUTH_USER_SIGNIN_SUCCESS,
+          payload:true,
+      })
+      }
+    }
+  },[ui,dispatch,navigation])
+  
+  //   const otpValidationSchema = yup.object({
+  // otp: yup
+  //       .number()
+  //       .min(6, 'OTP should be of minimum 6 numbers length')
+  //       .required('OTP is required'),
+  //   })
   const validationSchema = yup.object({
     email: yup
       .string('Enter your email')
       .email('Enter a valid email')
       .required('Email is required'),
-    
+
   })
+  
   const otpFormik = useFormik({
-    initialValues:{
-      otp:"", 
+    initialValues: {
+      otp: "",
     },
-//  validationSchema:otpValidationSchema,
- onSubmit:(values)=>{
-   console.log("I Am here")
-   dispatch({
-     type:SHOW_MESSAGE,
-     payload:{
-       type:"success",
-       message:"Login Success"
-     }
-   })
- }   
+    //  validationSchema:otpValidationSchema,
+    onSubmit: (value) => {
+      let values = {
+        "mode_Of_Authentication":emailVerification ? "via-email":"via-mobile",
+        "email_id":formik.values.email,
+        "email_id_otp":emailVerification ? otp :"",
+        "mobile_number": emailVerification ? "" : mobileNumber,
+        "mobile_number_otp":emailVerification ? "" :otp
+      }
+      // dispatch({
+      //   type: IS_USER,
+      //   payload: true
+      // })
+      dispatch(DoUserSignInAction({userData:values,key:"user_sign_in"}))
+      alert(JSON.stringify(values, null, 2));
+      // navigation("/home")
+    }
   })
   const formik = useFormik({
     initialValues: {
@@ -56,107 +83,104 @@ otp: yup
     },
   });
 
+  // const submitMobileNumber = () => {
+  //   setGenerateOTP(true);
+  // }
+  // console.log("generatOTP ", generateOTP)
 
   return (
-    <Grid container alignItems="center" >
-      <Grid item xs={12} sm={6} 
+    <Grid container alignItems="center" justifyContent={"center"}>
+      <Grid item xs={12} sm={6}
         className={classes.gridOne}
-        >
+      >
         <Content />
       </Grid>
-      <Grid item xs={12} sm={6}  justifyContent={"center"}
-        alignItems={"center"} className={classes.gridSecond}>
+      <Grid item xs={12} sm={6} className={classes.gridSecond}>
         <Paper elevation={3} className={classes.paper}>
-          {generateOTP === false ?
-            <form onSubmit={formik.handleSubmit}>
-              <Box>
-                <Box className={classes.addMargin}>
-                  <Typography variant={"h4"} className={classes.alignLabel} >{"Lets get Started"}</Typography>
-                  <Typography>{"Please login with email or continue with Google to complete your E-KYC"}</Typography>
-                </Box>
-                <Box >
-                  <TextField
-                    fullWidth
-                    name="email"
-                    id="email"
-                    label="Email"
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                    error={formik.touched.email && Boolean(formik.errors.email)}
-                    helperText={formik.touched.email && formik.errors.email} />
-
-                  {formik.values.email !== '' ?
-
-                    <Button color="secondary"
-                      variant="contained"
-                      type="submit"
-                      className={classes.generateOTPButton}>{"Generate OTP"}</Button>
-                    :
-                    <>
-                      <Typography className={classes.OrLabel}>Or</Typography>
-                      <Button color={"secondary"}
-                       className={classes.signInWithGoogleButton}
-                       startIcon={<SvgIcon><GoogleIcon /></SvgIcon>}
-                       variant={"contained"}>{"Sign in With Google"}</Button>
-                    </>}
-                </Box>
-              </Box>
-            </form>
-            :
-            
+          {generateOTP ? (
             <Box>
               <form onSubmit={otpFormik.handleSubmit}>
-              <Box className={classes.addMarginTwo}>
-                <Typography className={classes.alignLabel} variant={"h4"} >{"Verify email"}</Typography>
-                <Typography>{"We have sent you an OTP on email"}
-                <Typography variant="h6" gutterBottom>{formik.values.email}</Typography>
-                </Typography>
-               
-              </Box>
-              <Box>
-                <Typography>{"Please enter OTP"}</Typography>
-                
-                <OtpInput
-                className={classes.otp}
-                  value={otp}
-                  onChange={(event)=>{
-                    setOTP(event)}}
-                  numInputs={6}
-                  // separator={<span>-</span>}
-                  inputStyle={{width:"70%",border:0,borderBottom: "1px solid black",height:"150%"}}
-                  focusStyle={{outline:"none"}}
-                  // hasErrored={otpFormik.touched.otp && Boolean(otpFormik.errors.otp)}
-                />
-                <Typography className={classes.resendOtp}> {"Haven't received OTP?"}
-                <Button color={"secondary"}>{"Resend OTP"}</Button></Typography>
-                <Button color={"secondary"}
-                 type={"submit"}
-                  className={classes.submitButton}
-                  onClick={(event)=>{
-                    let values ={
-                      email:formik.values.email,
-                      otp:otp
-                    }
-                    dispatch({
-                      type:SHOW_MESSAGE,
-                      payload:{
-                        type:"success",
-                        message:"Login Success"
-                      }
-                    })
-                    dispatch({
-                      type:IS_USER,
-                      payload:true
-                    })
-                    alert(JSON.stringify(values, null, 2));
-                    navigation("/home")
-                  }}
-                  variant={"contained"}>{"Submit"}</Button>
+                <Box className={classes.addMarginTwo}>
+                  <Typography className={classes.alignLabel} variant={"h5"} >{"Verify email"}</Typography>
+                  <Typography>{"We have sent you an OTP on email"}
+                    <Typography variant="h6" style={{ marginTop: "4%" }} gutterBottom>{formik.values.email}</Typography>
+                  </Typography>
 
-              </Box>
+                </Box>
+                <Box>
+                  <Typography>{"Please enter OTP"}</Typography>
+
+                  <OtpInput
+                    className={classes.otp}
+                    value={otp}
+                    onChange={(event) => {
+                      setOTP(event)
+                    }}
+                    numInputs={6}
+                    isInputNum={true}
+                    // separator={<span>-</span>}
+                    inputStyle={{ width: "70%", border: 0, borderBottom: "1px solid black", height: "150%" }}
+                    focusStyle={{ outline: "none" }}
+                  // hasErrored={otpFormik.touched.otp && Boolean(otpFormik.errors.otp)}
+                  />
+                  <Typography className={classes.resendOtp}> {"Haven't received OTP?"}
+                    <Button color={"secondary"} style={{ textTransform: "none", fontSize: "1.1em", color: theme.palette.primary.contrastText, fontWeight: 'bold' }}>{"Resend OTP"}</Button></Typography>
+                  <Button color={"secondary"}
+                    type={"submit"}
+                    className={classes.submitButton}
+                    variant={"contained"}>{"Submit"}</Button>
+
+                </Box>
               </form>
             </Box>
-           }
+          ) : (
+            emailVerification ? (
+              <form onSubmit={formik.handleSubmit}>
+                <Box>
+                  <Box className={classes.addMargin}>
+                    <Typography variant={"h5"} className={classes.alignLabel} >{"Let's get Started"}</Typography>
+                    <Typography>{"Please login with email or continue with Google to complete your E-KYC"}</Typography>
+                  </Box>
+                  <Box >
+                    <TextField
+                      fullWidth
+                      name="email"
+                      id="email"
+                      label="Email"
+                      value={formik.values.email}
+                      onChange={formik.handleChange}
+                      error={formik.touched.email && Boolean(formik.errors.email)}
+                      helperText={formik.touched.email && formik.errors.email} />
+
+                    {formik.values.email !== '' ?
+
+                      <Button color="secondary"
+                        variant="contained"
+                        type="submit"
+                        className={classes.generateOTPButton}>{"Generate OTP"}</Button>
+                      :
+                      <>
+                        <Typography className={classes.OrLabel}>Or</Typography>
+                        <Button color={"secondary"}
+                          className={classes.signInWithGoogleButton}
+                          onClick={() => setEmailVerification(false)}
+                          // startIcon={<SvgIcon><GoogleIcon /></SvgIcon>}
+                          variant={"contained"}>Try with mobile number</Button>
+                      </>}
+                  </Box>
+                </Box>
+              </form>
+            ) : (
+              <MobileVerification
+                validateMobileNumber={(mobNo) => {
+                  setGenerateOTP(true) 
+                  setMobileNumber(mobNo)
+                }}
+                cancelMobileVerification={() => setEmailVerification(true)}
+              />
+            )
+          )
+          }
         </Paper>
       </Grid>
     </Grid>

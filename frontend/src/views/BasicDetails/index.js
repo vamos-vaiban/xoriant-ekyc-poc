@@ -1,21 +1,36 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect } from 'react';
 import { Grid, Typography, Button, Box, TextField, Paper, Checkbox } from '@material-ui/core';
 import { useFormik } from "formik"
 import { useStyles } from "./styles"
 import * as yup from 'yup';
 import Content from "./content"
-import { useDispatch } from 'react-redux';
-import { CHANGE_STATUS } from '../../redux/constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { CHANGE_STATUS,SHOW_MESSAGE } from '../../redux/constants';
 import { useNavigate } from 'react-router';
-
+import { DoValidatePanNumberAction } from '../../redux/actions/basicDetailsAction';
+import {findLast} from "lodash"
 
 export default function BasicDetails() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigation = useNavigate()
-  const [toggleEmail, setToggleEmail] = React.useState(false)
-
+  const uiData = useSelector((data)=>data.ui)
+  useEffect(()=>{
+    //check the response for the pan Number if success, dispatch action for adhar 
+    if(uiData["messages"]){
+      let refObj = findLast(uiData["messages"],{key:"validate_pan"});
+     //change error to success once server is attached
+      if(refObj && refObj.type === "error"){
+        dispatch({
+          type:SHOW_MESSAGE,
+          payload:{
+              type:"success",
+              message:"PAN number is valid",
+            }
+      })
+      }
+    }
+  },[uiData])
   const validationSchema = yup.object({
     pan: yup
       .string()
@@ -25,6 +40,9 @@ export default function BasicDetails() {
       .string()
       .required("Please Enter Adhar Number"),
       // .matches("[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}", "ENter Valid Adhar Card Number"),
+      acceptTerms: yup.bool()
+      .required("Please Accept the terms first")
+      .oneOf([true], 'Accept Terms & Conditions is required')
     })
   const formik = useFormik({
     initialValues: {
@@ -35,24 +53,32 @@ export default function BasicDetails() {
     validationSchema: validationSchema,
     onSubmit: (event) => {
       debugger
-      // alert(JSON.stringify("Values : "+formik.values.pan, null, 2));
-      // event.preventDefault();
-      console.log("Form SSubmited")
-      dispatch({
-        type:CHANGE_STATUS,
-        payload:{
-          label:"Address Details",
-          status:"complete"
-        }
-      })
-      navigation('\addressDetails');
+      let panNumber = {
+        pan_number:"ADLAA1234A"
+      }
+      dispatch(DoValidatePanNumberAction({panNumber,key:"validate_pan"}))
+      //things to permform after successful validation and saved the details
+      // dispatch({
+      //   type:CHANGE_STATUS,
+      //   payload:{
+      //     label:"Address Details",
+      //     status:"complete"
+      //   }
+      // })
+      // dispatch({
+      //   type:SHOW_MESSAGE,
+      //   payload:{
+      //     type:"success",
+      //     message:"Step 1: Basic details completed"
+      //   }
+      // })
+      // navigation('/home/addressDetails');
       
     },
   });
   return (
-    <Grid container alignItems={"center"} style={{overflow:"none"}}>
-      <Grid item xs={12} sm={6} justifyContent={"center"}
-        alignItems={"center"} className={classes.grid}>
+    <Grid container alignItems={"center"} justifyContent={"center"} style={{overflow:"none"}}>
+      <Grid item xs={12} sm={6} className={classes.grid}>
         <Paper elevation={3} className={classes.paper}>
           <form onSubmit={formik.handleSubmit}>
             <Typography variant={"h4"} className={classes.title}> First thing first !</Typography>
@@ -99,7 +125,7 @@ export default function BasicDetails() {
                 helperText={formik.touched.adhar && formik.errors.adhar}
                 label={"Enter your Adhar number"}
               />
-              {/* <TextField variant={"outlined"}
+              <TextField variant={"outlined"}
               style={{marginBottom:"5%"}}
                 id={"contactNumber"}
                 fullWidth
@@ -109,10 +135,14 @@ export default function BasicDetails() {
                 error={formik.touched.contactNumber && Boolean(formik.errors.contactNumber)}
                 helperText={formik.touched.contactNumber && formik.errors.contactNumber}
                 label={"Enter Mobile number"}
-              /> */}
+              />
             </Box>
             <Typography display="inline" style={{marginBottom:"3%",marginTop:"5%"}}>
-            <Checkbox /><Typography variant={"h8"}>I hereby consent for the use of my adhar number --- provided in application, to carryout Identity Validation</Typography></Typography>
+            <Checkbox 
+            name={"acceptTerms"} 
+            value={formik.values.acceptTerms}
+            onChange={formik.handleChange} 
+            required/><Typography variant={"h8"}>I hereby consent for the use of my adhar number --- provided in application, to carryout Identity Validation</Typography></Typography>
             <Box style={{marginLeft:"40%",marginRight:"40%",marginTop:"5%"}}>
             <Button color="secondary"
               variant="contained"
