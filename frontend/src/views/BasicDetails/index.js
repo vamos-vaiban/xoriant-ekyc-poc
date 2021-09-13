@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid, Typography, Button, Box, TextField, Paper, Checkbox } from '@material-ui/core';
 import { useFormik } from "formik"
 import { useStyles } from "./styles"
 import * as yup from 'yup';
 import Content from "./content"
-import { useDispatch } from 'react-redux';
-import { CHANGE_STATUS } from '../../redux/constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { CHANGE_STATUS,SHOW_MESSAGE } from '../../redux/constants';
 import { useNavigate } from 'react-router';
+import { DoValidatePanNumberAction } from '../../redux/actions/basicDetailsAction';
 
 
 export default function BasicDetails() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigation = useNavigate()
-
+  const uiData = useSelector((data)=>data.ui)
+  useEffect(()=>{
+    //check the response for the pan Number if success, dispatch action for adhar 
+  },[uiData])
   const validationSchema = yup.object({
     pan: yup
       .string()
@@ -35,17 +39,18 @@ export default function BasicDetails() {
     },
     validationSchema: validationSchema,
     onSubmit: (event) => {
-      debugger
-      // alert(JSON.stringify("Values : "+formik.values.pan, null, 2));
-      // event.preventDefault();
-      console.log("Form SSubmited")
-      dispatch({
-        type:CHANGE_STATUS,
-        payload:{
-          label:"Address Details",
-          status:"complete"
-        }
-      })
+      let panNumber = {
+        pan_number:"ADLAA1234A"
+      }
+      dispatch(DoValidatePanNumberAction({panNumber,key:"validate_pan"}))
+      //things to permform after successful validation and saved the details
+      // dispatch({
+      //   type:CHANGE_STATUS,
+      //   payload:{
+      //     label:"Address Details",
+      //     status:"complete"
+      //   }
+      // })
       // dispatch({
       //   type:SHOW_MESSAGE,
       //   payload:{
@@ -53,7 +58,7 @@ export default function BasicDetails() {
       //     message:"Step 1: Basic details completed"
       //   }
       // })
-      navigation('/home/addressDetails');
+      // navigation('/home/addressDetails');
       
     },
   });
@@ -106,7 +111,7 @@ export default function BasicDetails() {
                 helperText={formik.touched.adhar && formik.errors.adhar}
                 label={"Enter your Adhar number"}
               />
-              {/* <TextField variant={"outlined"}
+              <TextField variant={"outlined"}
               style={{marginBottom:"5%"}}
                 id={"contactNumber"}
                 fullWidth
@@ -116,7 +121,7 @@ export default function BasicDetails() {
                 error={formik.touched.contactNumber && Boolean(formik.errors.contactNumber)}
                 helperText={formik.touched.contactNumber && formik.errors.contactNumber}
                 label={"Enter Mobile number"}
-              /> */}
+              />
             </Box>
             <Typography display="inline" style={{marginBottom:"3%",marginTop:"5%"}}>
             <Checkbox 
