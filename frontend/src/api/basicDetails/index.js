@@ -11,10 +11,15 @@ const DoValidateAadharNumberApi = aadharNumber =>{
 const DoValidateMobileNumberApi = mobileNumber =>{
     return axios.post('MobileNumber/',mobileNumber)
 }
+
+const DoSaveBasicDetailsApi = userData =>{
+    return axios.post('PanAadharMobile/',userData)
+}
 const API =  {
     DoValidatePanNumberApi,
     DoValidateAadharNumberApi,
-    DoValidateMobileNumberApi
+    DoValidateMobileNumberApi,
+    DoSaveBasicDetailsApi
 }
 
 export default API;
