@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CHANGE_STATUS,SHOW_MESSAGE } from '../../redux/constants';
 import { useNavigate } from 'react-router';
 import { DoValidatePanNumberAction } from '../../redux/actions/basicDetailsAction';
-
+import {findLast} from "lodash"
 
 export default function BasicDetails() {
   const classes = useStyles();
@@ -17,6 +17,19 @@ export default function BasicDetails() {
   const uiData = useSelector((data)=>data.ui)
   useEffect(()=>{
     //check the response for the pan Number if success, dispatch action for adhar 
+    if(uiData["messages"]){
+      let refObj = findLast(uiData["messages"],{key:"validate_pan"});
+     //change error to success once server is attached
+      if(refObj && refObj.type === "error"){
+        dispatch({
+          type:SHOW_MESSAGE,
+          payload:{
+              type:"success",
+              message:"PAN number is valid",
+            }
+      })
+      }
+    }
   },[uiData])
   const validationSchema = yup.object({
     pan: yup
@@ -39,6 +52,7 @@ export default function BasicDetails() {
     },
     validationSchema: validationSchema,
     onSubmit: (event) => {
+      debugger
       let panNumber = {
         pan_number:"ADLAA1234A"
       }
