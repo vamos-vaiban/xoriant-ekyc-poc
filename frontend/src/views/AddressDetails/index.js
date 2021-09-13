@@ -142,10 +142,10 @@ export default function AddressDetails() {
                 helperText={formik.touched.landmark && formik.errors.landmark}
               />
             </Box>
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox />}
               label={<Typography variant="subtitle1" >I hereby consent for the use of my adhar number --- provided in application, to carryout Identity Validation</Typography>}
-            />
+            /> */}
 
             {/* <Typography display="inline" style={{ marginBottom: "3%", marginTop: "5%" }}>
               <Checkbox /><Typography variant={"h6"}>I hereby consent for the use of my adhar number --- provided in application, to carryout Identity Validation</Typography></Typography> */}
