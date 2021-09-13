@@ -5,32 +5,86 @@ import { useStyles } from "./styles"
 import * as yup from 'yup';
 import Content from "./content"
 import { useDispatch, useSelector } from 'react-redux';
-import { CHANGE_STATUS,SHOW_MESSAGE } from '../../redux/constants';
+import { CHANGE_STATUS, SHOW_MESSAGE } from '../../redux/constants';
 import { useNavigate } from 'react-router';
-import { DoValidatePanNumberAction } from '../../redux/actions/basicDetailsAction';
-import {findLast} from "lodash"
+import { DoValidatePanNumberAction, DoValidateAadharNumberAction, DoValidateMobileNumberAction, DoSaveBasicDetailsAction } from '../../redux/actions/basicDetailsAction';
+import { findLast } from "lodash"
 
 export default function BasicDetails() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigation = useNavigate()
-  const uiData = useSelector((data)=>data.ui)
-  useEffect(()=>{
+  const uiData = useSelector((data) => data.ui)
+  useEffect(() => {
     //check the response for the pan Number if success, dispatch action for adhar 
-    if(uiData["messages"]){
-      let refObj = findLast(uiData["messages"],{key:"validate_pan"});
-     //change error to success once server is attached
-      if(refObj && refObj.type === "error"){
+    if (uiData["messages"]) {
+      let refObj = findLast(uiData["messages"], { key: "validate_pan" });
+      //change error to success once server is attached
+      if (refObj && refObj.type === "error") {
+
+        let userData = {
+          aadhar_number: formik.values.adhar
+        }
+        dispatch(DoValidateAadharNumberAction({ userData, key: "validate_adhar" }))
         dispatch({
-          type:SHOW_MESSAGE,
-          payload:{
-              type:"success",
-              message:"PAN number is valid",
-            }
-      })
+          type: SHOW_MESSAGE,
+          payload: {
+            type: "success",
+            message: "PAN number is valid",
+          }
+        })
+      }
+      let adharRefObj = findLast(uiData["messages"], { key: "validate_adhar" })
+      if (adharRefObj && adharRefObj.type === "error") {
+        let userData = {
+          mobile_number: formik.values.contactNumber
+        }
+        dispatch(DoValidateMobileNumberAction({ userData, key: "validate_mobile" }))
+        dispatch({
+          type: SHOW_MESSAGE,
+          payload: {
+            type: "success",
+            message: "Aadhar number is valid",
+          }
+        })
+      }
+      let mobileRefObj = findLast(uiData["messages"], { key: "validate_mobile" })
+      if (mobileRefObj && mobileRefObj.type === "error") {
+        dispatch({
+          type: SHOW_MESSAGE,
+          payload: {
+            type: "success",
+            message: "Mobile number is valid",
+          }
+        })
+        let userData = {
+          pan_number: formik.values.pan,
+          aadhar_number: formik.values.adhar,
+          mobile_number: formik.values.contactNumber,
+          aadhar_Linked_Mobile_no: formik.values.contactNumber
+        }
+        dispatch(DoSaveBasicDetailsAction({ userData, key: "save_basic_details" }))
+      }
+      let saveRefObj = findLast(uiData["messages"], { key: "save_basic_details" })
+      if (saveRefObj && saveRefObj.type === "error") {
+        dispatch({
+          type: CHANGE_STATUS,
+          payload: {
+            label: "Address Details",
+            status: "complete"
+          }
+        })
+        dispatch({
+          type: SHOW_MESSAGE,
+          payload: {
+            type: "success",
+            message: "Step 1: Basic details completed"
+          }
+        })
+        navigation('/home/addressDetails');
       }
     }
-  },[uiData])
+  }, [uiData])
   const validationSchema = yup.object({
     pan: yup
       .string()
@@ -39,11 +93,11 @@ export default function BasicDetails() {
     adhar: yup
       .string()
       .required("Please Enter Adhar Number"),
-      // .matches("[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}", "ENter Valid Adhar Card Number"),
-      acceptTerms: yup.bool()
+    // .matches("[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}", "ENter Valid Adhar Card Number"),
+    acceptTerms: yup.bool()
       .required("Please Accept the terms first")
       .oneOf([true], 'Accept Terms & Conditions is required')
-    })
+  })
   const formik = useFormik({
     initialValues: {
       pan: "",
@@ -53,39 +107,22 @@ export default function BasicDetails() {
     validationSchema: validationSchema,
     onSubmit: (event) => {
       debugger
-      let panNumber = {
-        pan_number:"ADLAA1234A"
+      let userData = {
+        pan_number: formik.values.pan
       }
-      dispatch(DoValidatePanNumberAction({panNumber,key:"validate_pan"}))
-      //things to permform after successful validation and saved the details
-      // dispatch({
-      //   type:CHANGE_STATUS,
-      //   payload:{
-      //     label:"Address Details",
-      //     status:"complete"
-      //   }
-      // })
-      // dispatch({
-      //   type:SHOW_MESSAGE,
-      //   payload:{
-      //     type:"success",
-      //     message:"Step 1: Basic details completed"
-      //   }
-      // })
-      // navigation('/home/addressDetails');
-      
+      dispatch(DoValidatePanNumberAction({ userData, key: "validate_pan" }))
     },
   });
   return (
-    <Grid container alignItems={"center"} justifyContent={"center"} style={{overflow:"none"}}>
+    <Grid container alignItems={"center"} justifyContent={"center"} style={{ overflow: "none" }}>
       <Grid item xs={12} sm={6} className={classes.grid}>
         <Paper elevation={3} className={classes.paper}>
           <form onSubmit={formik.handleSubmit}>
             <Typography variant={"h4"} className={classes.title}> First thing first !</Typography>
-            <Typography variant={"h6"} style={{marginBottom:"7%"}}> Please submit the details below to get started with E-KYC</Typography>
+            <Typography variant={"h6"} style={{ marginBottom: "7%" }}> Please submit the details below to get started with E-KYC</Typography>
             <Box>
               <TextField
-              style={{marginBottom:"5%"}}
+                style={{ marginBottom: "5%" }}
                 fullWidth
                 variant={"outlined"}
                 id={"pan"}
@@ -97,36 +134,36 @@ export default function BasicDetails() {
                 helperText={formik.touched.pan && formik.errors.pan}
               />
               <TextField
-              style={{marginBottom:"5%"}}
+                style={{ marginBottom: "5%" }}
                 fullWidth
                 variant={"outlined"}
                 id={"adhar"}
                 name={"adhar"}
                 value={formik.values.adhar}
-                onChange={(e)=>{
-                  
-                    const inputVal = e.target.value.replace(/ /g, "");
-                    let inputNumbersOnly = inputVal.replace(/\D/g, "");
-                
-                    if (inputNumbersOnly.length > 12) {
-                      inputNumbersOnly = inputNumbersOnly.substr(0, 12);
-                    }
-                
-                    const splits = inputNumbersOnly.match(/.{1,4}/g);
-                
-                    let spacedNumber = "";
-                    if (splits) {
-                      spacedNumber = splits.join(" ");
-                    }
-                
-                   formik.setFieldValue("adhar",spacedNumber);
+                onChange={(e) => {
+
+                  const inputVal = e.target.value.replace(/ /g, "");
+                  let inputNumbersOnly = inputVal.replace(/\D/g, "");
+
+                  if (inputNumbersOnly.length > 12) {
+                    inputNumbersOnly = inputNumbersOnly.substr(0, 12);
+                  }
+
+                  const splits = inputNumbersOnly.match(/.{1,4}/g);
+
+                  let spacedNumber = "";
+                  if (splits) {
+                    spacedNumber = splits.join(" ");
+                  }
+
+                  formik.setFieldValue("adhar", spacedNumber);
                 }}
                 error={formik.touched.adhar && Boolean(formik.errors.adhar)}
                 helperText={formik.touched.adhar && formik.errors.adhar}
                 label={"Enter your Adhar number"}
               />
               <TextField variant={"outlined"}
-              style={{marginBottom:"5%"}}
+                style={{ marginBottom: "5%" }}
                 id={"contactNumber"}
                 fullWidth
                 name={"contactNumber"}
@@ -137,17 +174,17 @@ export default function BasicDetails() {
                 label={"Enter Mobile number"}
               />
             </Box>
-            <Typography display="inline" style={{marginBottom:"3%",marginTop:"5%"}}>
-            <Checkbox 
-            name={"acceptTerms"} 
-            value={formik.values.acceptTerms}
-            onChange={formik.handleChange} 
-            required/><Typography variant={"h8"}>I hereby consent for the use of my adhar number --- provided in application, to carryout Identity Validation</Typography></Typography>
-            <Box style={{marginLeft:"40%",marginRight:"40%",marginTop:"5%"}}>
-            <Button color="secondary"
-              variant="contained"
-              className={classes.nextButton}
-              type="submit">Next</Button></Box>
+            <Typography display="inline" style={{ marginBottom: "3%", marginTop: "5%" }}>
+              <Checkbox
+                name={"acceptTerms"}
+                value={formik.values.acceptTerms}
+                onChange={formik.handleChange}
+                required /><Typography variant={"h8"}>I hereby consent for the use of my adhar number --- provided in application, to carryout Identity Validation</Typography></Typography>
+            <Box style={{ marginLeft: "40%", marginRight: "40%", marginTop: "5%" }}>
+              <Button color="secondary"
+                variant="contained"
+                className={classes.nextButton}
+                type="submit">Next</Button></Box>
           </form>
         </Paper>
       </Grid>

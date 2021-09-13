@@ -121,3 +121,42 @@ export const DoValidateMobileNumberAction =(action)=>{
         })
     }
 }
+//Action to Save Basic Details 
+export const DoSaveBasicDetailsAction =(action)=>{
+    return (dispatch)=>{
+        API.DoSaveBasicDetailsApi(action.userData)
+        .then(data=>data.data)
+        .then(response =>{
+            if(response){
+                dispatch({
+                    type:SHOW_MESSAGE,
+                    payload:{
+                        type:"success",
+                        message:"Saved Basic Details",
+                        key:action.key
+                    }
+                })
+            }else{
+                dispatch({
+                    type:SHOW_MESSAGE,
+                    payload:{
+                        type:"error",
+                        message:"Error while Saving Basic Details",
+                        key:action.key
+                    }
+                })
+            }
+        })
+        .catch(err=>{
+            dispatch({
+                type:SHOW_MESSAGE,
+                payload:{
+                    type:"error",
+                    message:"err.response && err.response.data && err.response.data.detail",
+                    key:action.key
+
+                }
+            })
+        })
+    }
+}
