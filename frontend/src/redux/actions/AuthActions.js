@@ -8,8 +8,8 @@ export const DoUserSignInAction =(action)=>{
         .then(data=>data.data)
         .then(response =>{
             if(response){
-                // localStorage.setItem("userData",JSON.stringify(response))
-                // Storage.storeUserData(response)
+                localStorage.setItem("userData",JSON.stringify(response))
+                Storage.storeUserData(response)
                 dispatch({
                     type:AUTH_USER_SIGNIN_SUCCESS,
                     payload:response,

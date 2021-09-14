@@ -5,8 +5,7 @@ import API from "../../api"
 //Action to Address Details 
 export const DoSaveAddressDetailsAction=(action)=>{
     return (dispatch)=>{
-        API.DoSaveAddressDetailsAPI(action.userData),
-        (action.userData)
+        API.DoSaveAddressDetailsAPI(action.userData)
         .then(data=>data.data)
         .then(response =>{
             if(response){
