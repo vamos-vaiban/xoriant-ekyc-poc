@@ -21,9 +21,12 @@ export default function BasicDetails() {
       let refObj = findLast(uiData["messages"], { key: "validate_pan" });
       //change error to success once server is attached
       if (refObj && refObj.type === "success") {
-
+        let adharNumber =formik.values.adhar
+        let number = adharNumber.split( " ") 
+        let final = number.join()
+       final =  final.replace(/,/g,"")
         let userData = {
-          aadhar_number: formik.values.adhar
+          aadhar_number: final
         }
         dispatch(DoValidateAadharNumberAction({ userData, key: "validate_adhar" }))
         dispatch({
@@ -106,7 +109,7 @@ export default function BasicDetails() {
     },
     validationSchema: validationSchema,
     onSubmit: (event) => {
-      debugger
+      
       let userData = {
         pan_number: formik.values.pan
       }

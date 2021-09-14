@@ -17,7 +17,7 @@ export default function UIReducer(state = initialState,actions){
             return  {...newState};
         }
         case SHOW_MESSAGE:{
-            debugger
+            
             if(newState.messages === undefined){
                 newState.messages = [actions.payload]
             }else{
