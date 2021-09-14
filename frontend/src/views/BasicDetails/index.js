@@ -20,7 +20,7 @@ export default function BasicDetails() {
     if (uiData["messages"]) {
       let refObj = findLast(uiData["messages"], { key: "validate_pan" });
       //change error to success once server is attached
-      if (refObj && refObj.type === "error") {
+      if (refObj && refObj.type === "success") {
 
         let userData = {
           aadhar_number: formik.values.adhar
@@ -35,7 +35,7 @@ export default function BasicDetails() {
         })
       }
       let adharRefObj = findLast(uiData["messages"], { key: "validate_adhar" })
-      if (adharRefObj && adharRefObj.type === "error") {
+      if (adharRefObj && adharRefObj.type === "success") {
         let userData = {
           mobile_number: formik.values.contactNumber
         }
@@ -49,7 +49,7 @@ export default function BasicDetails() {
         })
       }
       let mobileRefObj = findLast(uiData["messages"], { key: "validate_mobile" })
-      if (mobileRefObj && mobileRefObj.type === "error") {
+      if (mobileRefObj && mobileRefObj.type === "success") {
         dispatch({
           type: SHOW_MESSAGE,
           payload: {
@@ -66,7 +66,7 @@ export default function BasicDetails() {
         dispatch(DoSaveBasicDetailsAction({ userData, key: "save_basic_details" }))
       }
       let saveRefObj = findLast(uiData["messages"], { key: "save_basic_details" })
-      if (saveRefObj && saveRefObj.type === "error") {
+      if (saveRefObj && saveRefObj.type === "success") {
         dispatch({
           type: CHANGE_STATUS,
           payload: {
