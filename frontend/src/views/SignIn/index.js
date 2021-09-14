@@ -27,11 +27,6 @@ export default function Signup(props) {
      //change error to success once server is attached
       if(refObj && refObj.type === "success"){
         navigation("/home")
-        //addded for temporary purpose- need to remove once server attached
-        dispatch({
-          type:AUTH_USER_SIGNIN_SUCCESS,
-          payload:true,
-      })
       }
     }
   },[ui,dispatch,navigation])
