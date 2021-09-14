@@ -25,7 +25,7 @@ export default function Signup(props) {
     if(ui["messages"]){
       let refObj = findLast(ui["messages"],{key:"user_sign_in"});
      //change error to success once server is attached
-      if(refObj && refObj.type === "error"){
+      if(refObj && refObj.type === "success"){
         navigation("/home")
         //addded for temporary purpose- need to remove once server attached
         dispatch({
