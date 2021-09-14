@@ -29,7 +29,7 @@ const appRoutes = (data)=>{
             element:<UserLayout />,
             children:[
                 {
-                    path :"/",
+                    path :"/home",
                     element:<BasicDetails />
                 },
                 {
