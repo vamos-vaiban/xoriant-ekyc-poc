@@ -109,7 +109,7 @@ export default function BasicDetails() {
     },
     validationSchema: validationSchema,
     onSubmit: (event) => {
-      debugger
+      
       let userData = {
         pan_number: formik.values.pan
       }

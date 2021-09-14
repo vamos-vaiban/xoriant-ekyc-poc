@@ -3,7 +3,7 @@ import API from "../../api"
 
 //Action to validate PAN 
 export const DoValidatePanNumberAction =(action)=>{
-    debugger
+    
     return (dispatch)=>{
         API.DoValidatePanNumberApi(action.userData)
         .then(data=>data.data)
