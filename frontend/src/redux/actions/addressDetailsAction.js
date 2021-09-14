@@ -1,24 +1,20 @@
+import { SHOW_MESSAGE} from "../constants/index"
 import API from "../../api"
-import {AUTH_USER_SIGNIN_SUCCESS, SHOW_MESSAGE} from "../constants/index"
-import Storage from "../../utils/Storage"
 
-export const DoUserSignInAction =(action)=>{
+
+//Action to Address Details 
+export const DoSaveAddressDetailsAction=(action)=>{
     return (dispatch)=>{
-        API.DoSignInApi(action.userData)
+        API.DoSaveAddressDetailsAPI(action.userData),
+        (action.userData)
         .then(data=>data.data)
         .then(response =>{
             if(response){
-                // localStorage.setItem("userData",JSON.stringify(response))
-                // Storage.storeUserData(response)
-                dispatch({
-                    type:AUTH_USER_SIGNIN_SUCCESS,
-                    payload:response,
-                })
                 dispatch({
                     type:SHOW_MESSAGE,
                     payload:{
                         type:"success",
-                        message:"SignIN Successful",
+                        message:"Saved Address Details",
                         key:action.key
                     }
                 })
@@ -27,7 +23,7 @@ export const DoUserSignInAction =(action)=>{
                     type:SHOW_MESSAGE,
                     payload:{
                         type:"error",
-                        message:"Unable to SignIN",
+                        message:"Error while Saving  Details",
                         key:action.key
                     }
                 })
