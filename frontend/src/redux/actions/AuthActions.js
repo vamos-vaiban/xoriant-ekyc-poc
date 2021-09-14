@@ -14,14 +14,14 @@ export const DoUserSignInAction =(action)=>{
                     type:AUTH_USER_SIGNIN_SUCCESS,
                     payload:response,
                 })
-                dispatch({
-                    type:SHOW_MESSAGE,
-                    payload:{
-                        type:"success",
-                        message:"SignIN Successful",
-                        key:action.key
-                    }
-                })
+                // dispatch({
+                //     type:SHOW_MESSAGE,
+                //     payload:{
+                //         type:"success",
+                //         message:"SignIN Successful",
+                //         key:action.key
+                //     }
+                // })
             }else{
                 dispatch({
                     type:SHOW_MESSAGE,
@@ -38,7 +38,7 @@ export const DoUserSignInAction =(action)=>{
                 type:SHOW_MESSAGE,
                 payload:{
                     type:"error",
-                    message:"err.response && err.response.data && err.response.data.detail",
+                    message:err&& err.response && err.response.details,
                     key:action.key
 
                 }

@@ -33,7 +33,7 @@ export const DoValidatePanNumberAction =(action)=>{
                 type:SHOW_MESSAGE,
                 payload:{
                     type:"error",
-                    message:"err.response && err.response.data && err.response.data.detail",
+                    message:err&& err.response && err.response.details,
                     key:action.key
 
                 }
@@ -73,7 +73,7 @@ export const DoValidateAadharNumberAction =(action)=>{
                 type:SHOW_MESSAGE,
                 payload:{
                     type:"error",
-                    message:"err.response && err.response.data && err.response.data.detail",
+                    message:err&& err.response && err.response.details,
                     key:action.key
 
                 }
@@ -113,7 +113,7 @@ export const DoValidateMobileNumberAction =(action)=>{
                 type:SHOW_MESSAGE,
                 payload:{
                     type:"error",
-                    message:"err.response && err.response.data && err.response.data.detail",
+                    message:err&& err.response && err.response.details,
                     key:action.key
 
                 }
@@ -152,7 +152,7 @@ export const DoSaveBasicDetailsAction =(action)=>{
                 type:SHOW_MESSAGE,
                 payload:{
                     type:"error",
-                    message:"err.response && err.response.data && err.response.data.detail",
+                    message:err&& err.response && err.response.details,
                     key:action.key
 
                 }
