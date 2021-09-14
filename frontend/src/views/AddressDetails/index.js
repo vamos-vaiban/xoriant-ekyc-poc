@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid, Typography, Button, Box, TextField, Paper, Checkbox } from '@material-ui/core';
 import { useFormik } from "formik"
 import { useStyles } from "./styles"
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CHANGE_STATUS } from '../../redux/constants';
 import { useNavigate } from 'react-router';
 import Dropdown from "../../components/Dropdown"
 import FormControlLabel from '@material-ui/core/FormControlLabel'
+import { DoSaveAddressDetailsAction } from '../../redux/actions/addressDetailsAction';
 
 export default function AddressDetails() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigation = useNavigate()
   // const [toggleEmail, setToggleEmail] = React.useState(false)
+  const uiData = useSelector(data=>data.ui)
   const data = [
     {
       city: "pune"
@@ -28,6 +30,28 @@ export default function AddressDetails() {
       city: "Mysore"
     }
   ]
+  useEffect(()=>{
+    if(uiData["messages"]){
+      let refObj = findLast(uiData["messages"], { key: "Save_address_details" })
+      if (refObj && refObj.type === "success") {
+        dispatch({
+          type: CHANGE_STATUS,
+          payload: {
+            label: "Aadhaar Validations",
+            status: "complete"
+          }
+        })
+        // dispatch({
+        //   type:SHOW_MESSAGE,
+        //   payload:{
+        //     type:"success",
+        //     message:"Step 2: Address details completed"
+        //   }
+        // })
+        navigation('/home/aadharValidation')
+      }
+    }
+  },[uiData])
   const validationSchema = yup.object({
     houseNumber: yup
       .string()
@@ -55,21 +79,15 @@ export default function AddressDetails() {
     validationSchema: validationSchema,
     onSubmit: (event) => {
       console.log("Form SSubmited")
-      dispatch({
-        type: CHANGE_STATUS,
-        payload: {
-          label: "Aadhaar Validations",
-          status: "complete"
-        }
-      })
-      // dispatch({
-      //   type:SHOW_MESSAGE,
-      //   payload:{
-      //     type:"success",
-      //     message:"Step 2: Address details completed"
-      //   }
-      // })
-      navigation('/home/aadharValidation')
+      let userData = {
+        "house_no":formik.values.houseNumber,
+        "address_line_1":formik.values.addressLine1,
+        "address_line_2":formik.values.addressLine2,
+        "city":formik.values.city,
+        "landmark":formik.values.landmark,     
+     }
+     dispatch(DoSaveAddressDetailsAction({userData , key:"Save_address_details"}))
+   
     },
   });
   return (
