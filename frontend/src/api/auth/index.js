@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const DoSignInApi = userData =>{
-    return axios.post("signOn/",userData);
+    return axios.post("signOn",userData);
 }
 
 const API =  {
