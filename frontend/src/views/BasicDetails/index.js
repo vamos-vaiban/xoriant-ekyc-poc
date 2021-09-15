@@ -87,7 +87,7 @@ export default function BasicDetails() {
         navigation('/home/addressDetails');
       }
     }
-  }, [uiData])
+  }, [uiData,navigation,dispatch])
   const validationSchema = yup.object({
     pan: yup
       .string()

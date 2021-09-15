@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import authAPI from "./auth";
 import basicDetailsAPI from "./basicDetails"
 import addressDetailsAPI from "./addressDetails"
