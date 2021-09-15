@@ -11,7 +11,7 @@ export default function AadharValidation() {
       <Grid item xs={12} sm={6} className={classes.grid}>
         <Paper elevation={3} className={classes.paper}>
           <form>
-            <Typography variant={"h4"} className={classes.title}> Aadhar Validation!</Typography>
+            <Typography variant={"h4"} className={classes.title}> Thank You!</Typography>
           </form>
         </Paper>
       </Grid>

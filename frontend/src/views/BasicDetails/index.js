@@ -29,13 +29,13 @@ export default function BasicDetails() {
           aadhar_number: final
         }
         dispatch(DoValidateAadharNumberAction({ userData, key: "validate_adhar" }))
-        dispatch({
-          type: SHOW_MESSAGE,
-          payload: {
-            type: "success",
-            message: "PAN number is valid",
-          }
-        })
+        // dispatch({
+        //   type: SHOW_MESSAGE,
+        //   payload: {
+        //     type: "success",
+        //     message: "PAN number is valid",
+        //   }
+        // })
       }
       let adharRefObj = findLast(uiData["messages"], { key: "validate_adhar" })
       if (adharRefObj && adharRefObj.type === "success") {
@@ -43,23 +43,23 @@ export default function BasicDetails() {
           mobile_number: formik.values.contactNumber
         }
         dispatch(DoValidateMobileNumberAction({ userData, key: "validate_mobile" }))
-        dispatch({
-          type: SHOW_MESSAGE,
-          payload: {
-            type: "success",
-            message: "Aadhar number is valid",
-          }
-        })
+        // dispatch({
+        //   type: SHOW_MESSAGE,
+        //   payload: {
+        //     type: "success",
+        //     message: "Aadhar number is valid",
+        //   }
+        // })
       }
       let mobileRefObj = findLast(uiData["messages"], { key: "validate_mobile" })
       if (mobileRefObj && mobileRefObj.type === "success") {
-        dispatch({
-          type: SHOW_MESSAGE,
-          payload: {
-            type: "success",
-            message: "Mobile number is valid",
-          }
-        })
+        // dispatch({
+        //   type: SHOW_MESSAGE,
+        //   payload: {
+        //     type: "success",
+        //     message: "Mobile number is valid",
+        //   }
+        // })
         let userData = {
           pan_number: formik.values.pan,
           aadhar_number: formik.values.adhar,
