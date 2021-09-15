@@ -1,5 +1,5 @@
 import axios from "axios"
-const host = 'http://localhost:8000/'
+const host = 'http://localhost:7575/'
 
 const DoSaveAddressDetailsAPI = userData =>{
     return axios.post(host+"Address",userData);

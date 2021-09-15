@@ -12,6 +12,7 @@ export default function AadharValidation() {
         <Paper elevation={3} className={classes.paper}>
           <form>
             <Typography variant={"h4"} className={classes.title}> Thank You!</Typography>
+            <Typography variant={"h4"} > Your response have been recorded</Typography>
           </form>
         </Paper>
       </Grid>
