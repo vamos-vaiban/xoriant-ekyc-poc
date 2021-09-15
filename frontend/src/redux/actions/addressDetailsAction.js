@@ -13,7 +13,7 @@ export const DoSaveAddressDetailsAction=(action)=>{
                     type:SHOW_MESSAGE,
                     payload:{
                         type:"success",
-                        message:"Saved Address Details",
+                        message:"Address details saved successfully ",
                         key:action.key
                     }
                 })
@@ -33,7 +33,7 @@ export const DoSaveAddressDetailsAction=(action)=>{
                 type:SHOW_MESSAGE,
                 payload:{
                     type:"error",
-                    message:err&& err.response && err.response.details,
+                    message:err&& err.response && err.response.data && err.response.data.details,
                     key:action.key
 
                 }
