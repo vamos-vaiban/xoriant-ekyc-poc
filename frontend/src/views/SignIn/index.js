@@ -7,7 +7,6 @@ import Content from "./content"
 import { useStyles } from "./styles"
 import OtpInput from 'react-otp-input';
 import { useDispatch, useSelector } from 'react-redux';
-import { AUTH_USER_SIGNIN_SUCCESS } from '../../redux/constants';
 import MobileVerification from './MobileVerification';
 import { DoUserSignInAction } from '../../redux/actions/AuthActions';
 import {findLast} from "lodash"

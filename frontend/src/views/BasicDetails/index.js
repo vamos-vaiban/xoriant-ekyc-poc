@@ -87,7 +87,7 @@ export default function BasicDetails() {
         navigation('/home/addressDetails');
       }
     }
-  }, [uiData])
+  }, [uiData,navigation,dispatch])
   const validationSchema = yup.object({
     pan: yup
       .string()
@@ -182,7 +182,8 @@ export default function BasicDetails() {
                 name={"acceptTerms"}
                 value={formik.values.acceptTerms}
                 onChange={formik.handleChange}
-                required /><Typography variant={"h8"}>I hereby consent for the use of my adhar number --- provided in application, to carryout Identity Validation</Typography></Typography>
+                required /><Typography variant={"h8"}>I understand and accept the
+                 <Button color={"secondary"} style={{ textTransform: "none", fontSize: "0.9em", fontWeight: 'bold' }}>{"Terms and conditions"}</Button></Typography></Typography>
             <Box style={{ marginLeft: "40%", marginRight: "40%", marginTop: "5%" }}>
               <Button color="secondary"
                 variant="contained"

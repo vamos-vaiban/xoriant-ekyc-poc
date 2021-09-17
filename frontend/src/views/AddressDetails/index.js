@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Grid, Typography, Button, Box, TextField, Paper, Checkbox } from '@material-ui/core';
+import { Grid, Typography, Button, Box, TextField, Paper } from '@material-ui/core';
 import { useFormik } from "formik"
 import { useStyles } from "./styles"
 import * as yup from 'yup';
@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CHANGE_STATUS } from '../../redux/constants';
 import { useNavigate } from 'react-router';
 import Dropdown from "../../components/Dropdown"
-import FormControlLabel from '@material-ui/core/FormControlLabel'
 import { DoSaveAddressDetailsAction } from '../../redux/actions/addressDetailsAction';
 import {findLast}from "lodash"
 
