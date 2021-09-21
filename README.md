@@ -41,12 +41,12 @@ detection job has completed.
 * comapring face from the image.
 
 
-**Image detection**
+**Image comparision**
 
 Run this example at a command prompt with the following command.
 
 ```
-python face_detected.py
+python face_compare.py
 ``` 
 
 ## Additional information
