@@ -11,8 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user_identification_values1")
-public class AadharPanModel implements Serializable{
+@Table(name = "user_identification_values")
+public class AadharPanModel implements Serializable {
 
 	/**
 	 * 
@@ -37,33 +37,43 @@ public class AadharPanModel implements Serializable{
 
 	@Column(name = "Inserted_date")
 	private Date Inserted_date;
+	
+	/*
+	 * @OneToOne(fetch = FetchType.LAZY)
+	 * 
+	 * @JoinTable(name ="user_authentication")
+	 * 
+	 * @JoinColumn(name = "request_Id") private SingleSign singleSign;
+	 */
+	
 
-	//@Id
-	private int user_Request_id;
-	
-	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	/*
+	 * public int getUser_Request_id() { return user_Request_id; }
+	 * 
+	 * public void setUser_Request_id(int user_Request_id) { this.user_Request_id =
+	 * user_Request_id; }
+	 */
+
 	public AadharPanModel() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public AadharPanModel(Integer id, String pan_number, String aadhar_number, String mobile_number,
-			String aadhar_Linked_Mobile_no, Date inserted_date, int user_Request_id) {
-		super();
-		this.id = id;
-		this.pan_number = pan_number;
-		this.aadhar_number = aadhar_number;
-		this.mobile_number = mobile_number;
-		Aadhar_Linked_Mobile_no = aadhar_Linked_Mobile_no;
-		Inserted_date = inserted_date;
-		this.user_Request_id = user_Request_id;
-	}
+
 
 	/*
 	 * @OneToOne(fetch = FetchType.LAZY)
 	 * 
 	 * @JoinColumn(name = "user_Request_id", referencedColumnName = "request_Id")
+	 * // @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = //
+	 * "aadharPan")
 	 */
-	//@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "aadharPan")
 	//private SingleSign singleSign;
 
 	public Date getInserted_date() {
@@ -91,13 +101,11 @@ public class AadharPanModel implements Serializable{
 		Aadhar_Linked_Mobile_no = aadhar_Linked_Mobile_no;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	/*
+	 * public Integer getId() { return id; }
+	 * 
+	 * public void setId(Integer id) { this.id = id; }
+	 */
 
 	public String getPan_number() {
 		return pan_number;
@@ -115,19 +123,6 @@ public class AadharPanModel implements Serializable{
 		this.mobile_number = mobile_number;
 	}
 
-	@Override
-	public String toString() {
-		return "AadharPanModel [id=" + id + ", pan_number=" + pan_number + ", aadhar_number=" + aadhar_number
-				+ ", mobile_number=" + mobile_number + ", Aadhar_Linked_Mobile_no=" + Aadhar_Linked_Mobile_no
-				+ ", Inserted_date=" + Inserted_date + "]";
-	}
+	
 
-
-	public int getUser_Request_id() {
-		return user_Request_id;
-	}
-
-	public void setUser_Request_id(int user_Request_id) {
-		this.user_Request_id = user_Request_id;
-	}
 }

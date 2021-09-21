@@ -6,7 +6,11 @@ import org.springframework.stereotype.Repository;
 import com.code.model.SingleSign;
 
 @Repository
-public interface SignRepository extends CrudRepository<SingleSign, Integer> {
+public interface SignRepository extends CrudRepository<SingleSign, String> {
+
+	boolean existsById(int id);
+
+	/* boolean existsById(String request_Id); */
 
 	/* public Optional<SingleSign> findByRequestId(int request_Id); */
 }

@@ -7,14 +7,14 @@ public class AadharNumber {
 
 	@NotEmpty(message = "Aadhar number should be 12 digits")
 	@Pattern(regexp = "[0-9]{12}", message = "Aadhar number should be 12 digits")
-	private String Aadhar_number;
+	private String id_number;
 
-	public String getAadhar_number() {
-		return Aadhar_number;
+	public String getId_number() {
+		return id_number;
 	}
 
-	public void setAadhar_number(String aadhar_number) {
-		this.Aadhar_number = aadhar_number;
+	public void setId_number(String id_number) {
+		this.id_number = id_number;
 	}
 
 }

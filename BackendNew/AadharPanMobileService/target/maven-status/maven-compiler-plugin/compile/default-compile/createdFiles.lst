@@ -1,4 +1,5 @@
 com\code\controller\MainAppController.class
+com\code\controller\AppConfig.class
 com\code\exception\GlobalExceptionHandler.class
 com\code\exception\ErrorsDetails.class
 com\code\service\PanAadharService.class
