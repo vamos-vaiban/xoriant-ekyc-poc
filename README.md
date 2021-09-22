@@ -9,8 +9,6 @@ recognize people, objects, and text in images and videos.
 * Create a collection of indexed faces and search for faces in your collection 
 that match a reference image.
 * Detect faces, celebrities, and objects in a video.
-* Create a notification channel so your code can determine when a video
-detection job has completed.
 
 ## Prerequisites
 

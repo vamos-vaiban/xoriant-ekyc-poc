@@ -1,6 +1,7 @@
 import boto3
 from flask import Flask, request, render_template
 
+
 app = Flask('face_rekognition')
 
 s3 = boto3.client('s3',
