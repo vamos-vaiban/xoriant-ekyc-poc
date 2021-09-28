@@ -62,7 +62,7 @@ export default function Signup(props) {
       //   payload: true
       // })
       dispatch(DoUserSignInAction({userData:values,key:"user_sign_in"}))
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
       // navigation("/home")
     }
   })
