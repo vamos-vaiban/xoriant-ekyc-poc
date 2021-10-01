@@ -64,7 +64,7 @@ export default function FileUploader({ changeHandler, fileName, id, accept, file
                         accept={accept}
                         onChange={fileChangeHandler} />
                     <label htmlFor={"contained-button-file" + id}>
-                        <div className={classes.dragAndDrop}>
+                        <div className={classes.dragAndDrop} >
                             <div className={classes.container}>
                                 <Typography align={"center"}>{label}</Typography>
                                 <Typography align={"center"}>{"or"}</Typography>

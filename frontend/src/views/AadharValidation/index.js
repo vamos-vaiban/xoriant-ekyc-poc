@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { Grid, Typography, Paper, Button } from '@material-ui/core';
 import { useStyles } from "./styles"
 import FileUploader from "../../components/FileUploader"
-
+import {DoCompareTheDocumentAction} from "../../redux/actions/aadharValidationActions"
+import { useDispatch } from 'react-redux';
 export default function AadharValidation() {
   const classes = useStyles();
+  const dispatch = useDispatch()
+  
   const [aadharFile, setAadharFile] = useState()
   const [userPic, setUserPic] = useState()
   const [errorAdhar, setErrorAdhar] =useState()
   const [errorUser, setErrorUser] =useState()
+
   const aadharChangeHandler = (file, fileName,error) => {
     setAadharFile({
       file: file,
@@ -22,6 +26,15 @@ export default function AadharValidation() {
       fileName: fileName
     })
     setErrorUser(error)
+  }
+  const saveImageHandler=()=>{
+    let document = aadharFile && aadharFile.file
+    let user = userPic && userPic.file
+    let data ={
+      "document photo": document,
+      "user photo" : user
+    }
+    dispatch(DoCompareTheDocumentAction(data))
   }
   return (
     <Grid container alignItems={"center"} justifyContent={"center"} style={{ overflow: "none" }}>
@@ -61,7 +74,7 @@ export default function AadharValidation() {
             }
 
           </form>
-          <Button style={{marginLeft:"40%",backgroundColor:"grey",marginTop:"10%"}}>Next</Button>
+          <Button style={{marginLeft:"40%",backgroundColor:"grey",marginTop:"10%"}} onClick={saveImageHandler}>Next</Button>
         </Paper>
       </Grid>
       <Grid item xs={12} sm={6}
