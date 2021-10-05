@@ -6,6 +6,7 @@ import Home from "./views/SignIn"
 import BasicDetails from "./views/BasicDetails"
 import AddressDetails from "./views/AddressDetails";
 import AadharValidation from "./views/AadharValidation";
+import Review from "./views/Review"
 const appRoutes = (data)=>{
     const routes =[
         data && data === true?
@@ -39,6 +40,10 @@ const appRoutes = (data)=>{
                 {
                     path:'aadharValidation',
                     element:<AadharValidation />
+                },
+                {
+                    path:'review',
+                    element:<Review />
                 }
             ]
 
