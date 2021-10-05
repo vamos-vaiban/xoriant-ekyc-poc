@@ -8,7 +8,7 @@ import { useStyles } from "./styles"
 import OtpInput from 'react-otp-input';
 import { useDispatch, useSelector } from 'react-redux';
 import MobileVerification from './MobileVerification';
-import { DoUserSignInAction } from '../../redux/actions/AuthActions';
+import { DoUserSignInAction,DoGenerateOTPAction } from '../../redux/actions/AuthActions';
 import {findLast} from "lodash"
 export default function Signup(props) {
   const classes = useStyles(props);
@@ -29,6 +29,16 @@ export default function Signup(props) {
       }
     }
   },[ui,dispatch,navigation])
+
+  useEffect(()=>{
+    if(ui["messages"]){
+      let refObj = findLast(ui["messages"],{key:"generate_otp"});
+     //change error to success once server is attached
+      if(refObj && refObj.type === "success"){
+        setGenerateOTP(true)
+      }
+    }
+  },[ui])
   
   //   const otpValidationSchema = yup.object({
   // otp: yup
@@ -72,8 +82,13 @@ export default function Signup(props) {
       // otp: ''
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      setGenerateOTP(true)
+    onSubmit: (value) => {
+      let values = {
+        "mode_Of_Authentication":emailVerification ? "via-email":"via-mobile",
+        "email_id":formik.values.email? formik.values.email : "", 
+        "mobile_number": emailVerification ? "" : mobileNumber,
+      }
+dispatch(DoGenerateOTPAction({userData:values,otpSentOn:emailVerification ? "email":"mobile",key:"generate_otp"}))
     },
   });
 
