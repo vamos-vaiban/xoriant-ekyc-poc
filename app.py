@@ -1,5 +1,4 @@
 import os.path
-
 import boto3
 from flask import Flask, request, render_template
 from os import getcwd
