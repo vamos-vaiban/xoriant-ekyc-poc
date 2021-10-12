@@ -1,6 +1,6 @@
-D:\eKYC-POC\eKYC\ModelService\src\main\java\com\code\model\AadharNumber.java
-D:\eKYC-POC\eKYC\ModelService\src\main\java\com\code\model\MobileNumber.java
-D:\eKYC-POC\eKYC\ModelService\src\main\java\com\code\model\AadharPanModel.java
-D:\eKYC-POC\eKYC\ModelService\src\main\java\com\code\model\PanCard.java
-D:\eKYC-POC\eKYC\ModelService\src\main\java\com\code\model\SingleSign.java
-D:\eKYC-POC\eKYC\ModelService\src\main\java\com\code\model\Address.java
+D:\eKYC-POC\eKYC\ModelService\src\main\java\com\kotak\ekyc\model\AddressModel.java
+D:\eKYC-POC\eKYC\ModelService\src\main\java\com\kotak\ekyc\model\AadharNumber.java
+D:\eKYC-POC\eKYC\ModelService\src\main\java\com\kotak\ekyc\model\PanCard.java
+D:\eKYC-POC\eKYC\ModelService\src\main\java\com\kotak\ekyc\model\AadharPanModel.java
+D:\eKYC-POC\eKYC\ModelService\src\main\java\com\kotak\ekyc\model\SingleSignInModel.java
+D:\eKYC-POC\eKYC\ModelService\src\main\java\com\kotak\ekyc\model\MobileNumber.java
