@@ -15,7 +15,7 @@ export default function Signup(props) {
   const [generateOTP, setGenerateOTP] = React.useState(false)
   const [emailVerification, setEmailVerification] = React.useState(true);
   const [mobileNumber, setMobileNumber] = React.useState('');
-  const [otp, setOTP] = React.useState('555555')
+  const [otp, setOTP] = React.useState('')
   const dispatch = useDispatch()
   const navigation = useNavigate()
   const theme = useTheme()
