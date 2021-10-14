@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Typography, Paper, Button } from '@material-ui/core';
 import { useStyles } from "./styles"
 import FileUploader from "../../components/FileUploader"
 import {DoCompareTheDocumentAction} from "../../redux/actions/aadharValidationActions"
-import { useDispatch } from 'react-redux';
+import { CHANGE_STATUS } from '../../redux/constants';
+import { useDispatch,useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import {findLast}from "lodash"
 export default function AadharValidation() {
   const classes = useStyles();
   const dispatch = useDispatch()
-  
+  const navigation = useNavigate()
   const [aadharFile, setAadharFile] = useState()
   const [userPic, setUserPic] = useState()
   const [errorAdhar, setErrorAdhar] =useState()
   const [errorUser, setErrorUser] =useState()
-
+  const uiData = useSelector(data=>data.ui)
   const aadharChangeHandler = (file, fileName,error) => {
     setAadharFile({
       file: file,
@@ -27,6 +30,20 @@ export default function AadharValidation() {
     })
     setErrorUser(error)
   }
+  useEffect(()=>{
+    if(uiData["messages"]){
+      let refObj = findLast(uiData["messages"], { key: "adhar_upload" })
+      if (refObj && refObj.type === "error") {
+        dispatch({
+          type: CHANGE_STATUS,
+          payload: {
+            label: "Review",
+            status: "complete"
+          }
+        })
+        navigation('/home/review')
+      }}
+  },[uiData])
   const saveImageHandler=()=>{
     let document = aadharFile && aadharFile.file
     let user = userPic && userPic.file
@@ -34,7 +51,8 @@ export default function AadharValidation() {
       "document photo": document,
       "user photo" : user
     }
-    dispatch(DoCompareTheDocumentAction(data))
+    dispatch(DoCompareTheDocumentAction({data:data,key:"adhar_upload"}))
+    
   }
   return (
     <Grid container alignItems={"center"} justifyContent={"center"} style={{ overflow: "none" }}>

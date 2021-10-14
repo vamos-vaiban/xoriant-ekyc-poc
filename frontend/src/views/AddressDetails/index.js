@@ -48,6 +48,13 @@ export default function AddressDetails() {
         //     message:"Step 2: Address details completed"
         //   }
         // })
+        dispatch({
+          type: CHANGE_STATUS,
+          payload: {
+            label: "Aadhaar Validations",
+            status: "complete"
+          }
+        })
         navigation('/home/aadharValidation')
       }
     }

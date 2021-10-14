@@ -4,7 +4,7 @@ import API from "../../api"
 //Action to validate PAN 
 export const DoCompareTheDocumentAction =(action)=>{
     return (dispatch)=>{
-        API.DoCompareTheDocument(action)
+        API.DoCompareTheDocument(action.data)
         .then(data=>data.data)
         .then(response =>{
             if(response){
@@ -12,8 +12,8 @@ export const DoCompareTheDocumentAction =(action)=>{
                     type:SHOW_MESSAGE,
                     payload:{
                         type:"success",
-                        message:"PAN number is valid",
-                        // key:action.key
+                        message:"Files are uploaded",
+                        key:action.key
                     }
                 })
             }else{
@@ -21,8 +21,8 @@ export const DoCompareTheDocumentAction =(action)=>{
                     type:SHOW_MESSAGE,
                     payload:{
                         type:"error",
-                        message:"PAN number is not valid",
-                        // key:action.key
+                        message:"Error while uploading files",
+                        key:action.key
                     }
                 })
             }
@@ -33,7 +33,7 @@ export const DoCompareTheDocumentAction =(action)=>{
                 payload:{
                     type:"error",
                     message:err&& err.response && err.response.data && err.response.data.details,
-                    // key:action.key
+                    key:action.key
 
                 }
             })
