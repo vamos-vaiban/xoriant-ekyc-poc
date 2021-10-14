@@ -1,4 +1,5 @@
-com\code\controller\AddressMainController.class
-com\code\repository\AddressRepository.class
-com\code\service\AddressService.class
-com\code\controller\AddressController.class
+com\kotak\ekyc\ddao\AddressRepository.class
+com\kotak\ekyc\controller\AddressController.class
+com\kotak\ekyc\service\AddressService.class
+com\kotak\ekyc\controller\AddressMainController.class
+com\kotak\ekyc\serviceImpl\AddressServiceImpl.class

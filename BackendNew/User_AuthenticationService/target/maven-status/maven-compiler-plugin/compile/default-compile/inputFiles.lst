@@ -1,7 +1,8 @@
-D:\eKYC-POC\eKYC\User_AuthenticationService\src\main\java\com\code\controller\ServletInitializer.java
-D:\eKYC-POC\eKYC\User_AuthenticationService\src\main\java\com\code\repository\SignRepository.java
-D:\eKYC-POC\eKYC\User_AuthenticationService\src\main\java\com\code\controller\MainSpringBootApp.java
-D:\eKYC-POC\eKYC\User_AuthenticationService\src\main\java\com\code\controller\DataNotFoundExceptions.java
-D:\eKYC-POC\eKYC\User_AuthenticationService\src\main\java\com\code\controller\SingleSignOnController.java
-D:\eKYC-POC\eKYC\User_AuthenticationService\src\main\java\com\code\service\SignService.java
-D:\eKYC-POC\eKYC\User_AuthenticationService\src\main\java\com\code\controller\AppConfig.java
+D:\eKYC-POC\eKYC\User_AuthenticationService\src\main\java\com\kotak\ekyc\controller\AppConfig.java
+D:\eKYC-POC\eKYC\User_AuthenticationService\src\main\java\com\kotak\ekyc\service\SignInService.java
+D:\eKYC-POC\eKYC\User_AuthenticationService\src\main\java\com\kotak\ekyc\serviceImpl\SignInServiceImpl.java
+D:\eKYC-POC\eKYC\User_AuthenticationService\src\main\java\com\kotak\ekyc\controller\DataNotFoundExceptions.java
+D:\eKYC-POC\eKYC\User_AuthenticationService\src\main\java\com\kotak\ekyc\controller\MainSpringBootApp.java
+D:\eKYC-POC\eKYC\User_AuthenticationService\src\main\java\com\kotak\ekyc\dao\SignInRepository.java
+D:\eKYC-POC\eKYC\User_AuthenticationService\src\main\java\com\kotak\ekyc\controller\SingleSignOnController.java
+D:\eKYC-POC\eKYC\User_AuthenticationService\src\main\java\com\kotak\ekyc\controller\ServletInitializer.java

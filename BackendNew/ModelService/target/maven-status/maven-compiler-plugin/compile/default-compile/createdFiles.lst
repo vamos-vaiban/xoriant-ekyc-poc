@@ -1,6 +1,6 @@
-com\code\model\Address.class
-com\code\model\PanCard.class
-com\code\model\AadharPanModel.class
-com\code\model\SingleSign.class
-com\code\model\AadharNumber.class
-com\code\model\MobileNumber.class
+com\kotak\ekyc\model\PanCard.class
+com\kotak\ekyc\model\MobileNumber.class
+com\kotak\ekyc\model\AadharPanModel.class
+com\kotak\ekyc\model\AddressModel.class
+com\kotak\ekyc\model\AadharNumber.class
+com\kotak\ekyc\model\SingleSignInModel.class

@@ -1,4 +1,5 @@
-D:\eKYC-POC\eKYC\AddressService\src\main\java\com\code\controller\AddressController.java
-D:\eKYC-POC\eKYC\AddressService\src\main\java\com\code\repository\AddressRepository.java
-D:\eKYC-POC\eKYC\AddressService\src\main\java\com\code\service\AddressService.java
-D:\eKYC-POC\eKYC\AddressService\src\main\java\com\code\controller\AddressMainController.java
+D:\eKYC-POC\eKYC\AddressService\src\main\java\com\kotak\ekyc\service\AddressService.java
+D:\eKYC-POC\eKYC\AddressService\src\main\java\com\kotak\ekyc\controller\AddressMainController.java
+D:\eKYC-POC\eKYC\AddressService\src\main\java\com\kotak\ekyc\ddao\AddressRepository.java
+D:\eKYC-POC\eKYC\AddressService\src\main\java\com\kotak\ekyc\serviceImpl\AddressServiceImpl.java
+D:\eKYC-POC\eKYC\AddressService\src\main\java\com\kotak\ekyc\controller\AddressController.java
