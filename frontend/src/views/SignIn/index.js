@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
-import { Grid, Paper, Button, Box, TextField, Typography,  useTheme } from '@material-ui/core';
+import { Grid, Paper, Button, Box, TextField, Typography, useTheme } from '@material-ui/core';
 import { useFormik } from "formik"
 import * as yup from 'yup';
-import {  useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import Content from "./content"
 import { useStyles } from "./styles"
 import OtpInput from 'react-otp-input';
 import { useDispatch, useSelector } from 'react-redux';
 import MobileVerification from './MobileVerification';
-import { DoUserSignInAction,DoGenerateOTPAction } from '../../redux/actions/AuthActions';
-import {findLast} from "lodash"
+import { DoUserSignInAction, DoGenerateOTPAction } from '../../redux/actions/AuthActions';
+import { findLast } from "lodash"
 export default function Signup(props) {
   const classes = useStyles(props);
   const [generateOTP, setGenerateOTP] = React.useState(false)
@@ -19,27 +19,27 @@ export default function Signup(props) {
   const dispatch = useDispatch()
   const navigation = useNavigate()
   const theme = useTheme()
-  const ui = useSelector((data)=>data.ui)
-  useEffect(()=>{
-    if(ui["messages"]){
-      let refObj = findLast(ui["messages"],{key:"user_sign_in"});
-     //change error to success once server is attached
-      if(refObj && refObj.type === "success"){
+  const ui = useSelector((data) => data.ui)
+  useEffect(() => {
+    if (ui["messages"]) {
+      let refObj = findLast(ui["messages"], { key: "user_sign_in" });
+      //change error to success once server is attached
+      if (refObj && refObj.type === "success") {
         navigation("/home")
       }
     }
-  },[ui,dispatch,navigation])
+  }, [ui, dispatch, navigation])
 
-  useEffect(()=>{
-    if(ui["messages"]){
-      let refObj = findLast(ui["messages"],{key:"generate_otp"});
-     //change error to success once server is attached
-      if(refObj && refObj.type === "success"){
+  useEffect(() => {
+    if (ui["messages"]) {
+      let refObj = findLast(ui["messages"], { key: "generate_otp" });
+      //change error to success once server is attached
+      if (refObj && refObj.type === "success") {
         setGenerateOTP(true)
       }
     }
-  },[ui])
-  
+  }, [ui])
+
   //   const otpValidationSchema = yup.object({
   // otp: yup
   //       .number()
@@ -53,7 +53,7 @@ export default function Signup(props) {
       .required('Email is required'),
 
   })
-  
+
   const otpFormik = useFormik({
     initialValues: {
       otp: "",
@@ -61,17 +61,17 @@ export default function Signup(props) {
     //  validationSchema:otpValidationSchema,
     onSubmit: (value) => {
       let values = {
-        "mode_Of_Authentication":emailVerification ? "via-email":"via-mobile",
-        "email_id":formik.values.email,
-        "email_id_otp":emailVerification ? otp :"",
+        "mode_Of_Authentication": emailVerification ? "via-email" : "via-mobile",
+        "email_id": formik.values.email,
+        "email_id_otp": emailVerification ? otp : "",
         "mobile_number": emailVerification ? "" : mobileNumber,
-        "mobile_number_otp":emailVerification ? "" :otp
+        "mobile_number_otp": emailVerification ? "" : otp
       }
       // dispatch({
       //   type: IS_USER,
       //   payload: true
       // })
-      dispatch(DoUserSignInAction({userData:values,key:"user_sign_in"}))
+      dispatch(DoUserSignInAction({ userData: values, key: "user_sign_in" }))
       // alert(JSON.stringify(values, null, 2));
       // navigation("/home")
     }
@@ -84,11 +84,11 @@ export default function Signup(props) {
     validationSchema: validationSchema,
     onSubmit: (value) => {
       let values = {
-        "mode_Of_Authentication":emailVerification ? "via-email":"via-mobile",
-        "email_id":formik.values.email? formik.values.email : "", 
+        "mode_Of_Authentication": emailVerification ? "via-email" : "via-mobile",
+        "email_id": formik.values.email ? formik.values.email : "",
         "mobile_number": emailVerification ? "" : mobileNumber,
       }
-dispatch(DoGenerateOTPAction({userData:values,otpSentOn:emailVerification ? "email":"mobile",key:"generate_otp"}))
+      dispatch(DoGenerateOTPAction({ userData: values, otpSentOn: emailVerification ? "email" : "mobile", key: "generate_otp" }))
     },
   });
 
@@ -156,6 +156,7 @@ dispatch(DoGenerateOTPAction({userData:values,otpSentOn:emailVerification ? "ema
                       name="email"
                       id="email"
                       label="Email"
+                      disabled={true}
                       value={formik.values.email}
                       onChange={formik.handleChange}
                       error={formik.touched.email && Boolean(formik.errors.email)}
@@ -182,7 +183,7 @@ dispatch(DoGenerateOTPAction({userData:values,otpSentOn:emailVerification ? "ema
             ) : (
               <MobileVerification
                 validateMobileNumber={(mobNo) => {
-                  setGenerateOTP(true) 
+                  setGenerateOTP(true)
                   setMobileNumber(mobNo)
                 }}
                 cancelMobileVerification={() => setEmailVerification(true)}
