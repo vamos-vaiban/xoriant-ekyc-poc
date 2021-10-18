@@ -53,20 +53,25 @@ function MobileVerification(props) {
         <form onSubmit={formik.handleSubmit}>
             <Box>
                 <Box className={classes.addMargin}>
-                    <Typography variant={"h5"} className={classes.alignLabel} >
+                {/* --------------added for commenting login with email functionality------------- */}
+                    {/* <Typography variant={"h5"} className={classes.alignLabel} >
                         <IconButton size="small" onClick={props.cancelMobileVerification}>
                             <KeyboardBackspaceIcon />
                         </IconButton>
                         Verify Mobile Number
                     </Typography>
-                    <Typography>Please enter mobile number registered with bank account</Typography>
+                    <Typography>Please enter mobile number registered with bank account</Typography> */}
+                     <Box className={classes.addMargin}>
+                    <Typography variant={"h5"} className={classes.alignLabel} >{"Let's get Started"}</Typography>
+                    <Typography>{"Please login with your mobile number to complete your E-KYC"}</Typography>
+                  </Box>
                 </Box>
                 <Box >
                     <TextField
                         fullWidth
                         name="mobile"
                         id="mobile"
-                        label="mobile"
+                        // label="mobile"
                         value={formik.values.mobile}
                         onChange={formik.handleChange}
                         error={formik.touched.mobile && Boolean(formik.errors.mobile)}

@@ -10,10 +10,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import MobileVerification from './MobileVerification';
 import { DoUserSignInAction, DoGenerateOTPAction } from '../../redux/actions/AuthActions';
 import { findLast } from "lodash"
+import Storage from '../../utils/Storage';
 export default function Signup(props) {
   const classes = useStyles(props);
   const [generateOTP, setGenerateOTP] = React.useState(false)
-  const [emailVerification, setEmailVerification] = React.useState(true);
+  const [emailVerification, setEmailVerification] = React.useState(false);
   const [mobileNumber, setMobileNumber] = React.useState('');
   const [otp, setOTP] = React.useState('')
   const dispatch = useDispatch()
@@ -24,7 +25,56 @@ export default function Signup(props) {
     if (ui["messages"]) {
       let refObj = findLast(ui["messages"], { key: "user_sign_in" });
       //change error to success once server is attached
-      if (refObj && refObj.type === "success") {
+      if (refObj && refObj.type === "error") {
+        //things to save after login
+        let user = localStorage.getItem('user');
+        debugger
+        if(user){
+          let userData = JSON.parse(user)
+          let userList = localStorage.getItem('userList');
+          if(userList){
+//push new item
+debugger
+            let userListItems = JSON.parse(userList)
+            userListItems.push(userData)
+            localStorage.setItem("userList", JSON.stringify(userListItems))
+            Storage.storeUserData(userListItems)
+            
+            let user={
+              reqId: userData.reqId + 1,
+              accountNumber:userData.accountNumber + 1,
+              crnNumber:"123456789A",
+              mobileNumber: mobileNumber,
+            }
+            localStorage.setItem("user", JSON.stringify(user))
+            Storage.storeUserData(user)
+          }else{
+            //create and push
+            let userArray = []
+            userArray.push(userData)
+            localStorage.setItem("userList", JSON.stringify(userArray))
+            Storage.storeUserData(userArray)
+
+            let user={
+              reqId: userData.reqId + 1,
+              accountNumber:userData.accountNumber + 1,
+              crnNumber:"123456789A",
+              mobileNumber: mobileNumber,
+            }
+            localStorage.setItem("user", JSON.stringify(user))
+            Storage.storeUserData(user)
+          }
+        }else{
+          let user={
+            reqId: 1,
+            accountNumber:1001000001,
+            crnNumber:"123456789A",
+            mobileNumber: mobileNumber,
+          }
+          localStorage.setItem("user", JSON.stringify(user))
+          Storage.storeUserData(user)
+        }
+        
         navigation("/home")
       }
     }
@@ -34,7 +84,7 @@ export default function Signup(props) {
     if (ui["messages"]) {
       let refObj = findLast(ui["messages"], { key: "generate_otp" });
       //change error to success once server is attached
-      if (refObj && refObj.type === "success") {
+      if (refObj && refObj.type === "error") {
         setGenerateOTP(true)
       }
     }
@@ -83,12 +133,13 @@ export default function Signup(props) {
     },
     validationSchema: validationSchema,
     onSubmit: (value) => {
-      let values = {
-        "mode_Of_Authentication": emailVerification ? "via-email" : "via-mobile",
-        "email_id": formik.values.email ? formik.values.email : "",
-        "mobile_number": emailVerification ? "" : mobileNumber,
-      }
-      dispatch(DoGenerateOTPAction({ userData: values, otpSentOn: emailVerification ? "email" : "mobile", key: "generate_otp" }))
+      //--------------- commenting login with email functionality-------------------
+      // let values = {
+      //   "mode_Of_Authentication": emailVerification ? "via-email" : "via-mobile",
+      //   "email_id": formik.values.email ? formik.values.email : "",
+      //   "mobile_number": emailVerification ? "" : mobileNumber,
+      // }
+      // dispatch(DoGenerateOTPAction({ userData: values, otpSentOn: emailVerification ? "email" : "mobile", key: "generate_otp" }))
     },
   });
 
@@ -183,8 +234,15 @@ export default function Signup(props) {
             ) : (
               <MobileVerification
                 validateMobileNumber={(mobNo) => {
-                  setGenerateOTP(true)
+                  // setGenerateOTP(true)
                   setMobileNumber(mobNo)
+                  //------------added for commenting login with email functionality----------
+                  let values = {
+                    "mode_Of_Authentication": emailVerification ? "via-email" : "via-mobile",
+                    "email_id": formik.values.email ? formik.values.email : "",
+                    "mobile_number": emailVerification ? "" : mobNo,
+                  }
+                  dispatch(DoGenerateOTPAction({ userData: values, otpSentOn: emailVerification ? "email" : "mobile", key: "generate_otp" }))
                 }}
                 cancelMobileVerification={() => setEmailVerification(true)}
               />
