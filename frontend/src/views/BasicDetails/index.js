@@ -9,6 +9,7 @@ import { CHANGE_STATUS, SHOW_MESSAGE } from '../../redux/constants';
 import { useNavigate } from 'react-router';
 import { DoValidatePanNumberAction, DoValidateAadharNumberAction, DoValidateMobileNumberAction, DoSaveBasicDetailsAction } from '../../redux/actions/basicDetailsAction';
 import { findLast } from "lodash"
+import Storage from '../../utils/Storage';
 
 export default function BasicDetails() {
   const classes = useStyles();
@@ -20,7 +21,7 @@ export default function BasicDetails() {
     if (uiData["messages"]) {
       let refObj = findLast(uiData["messages"], { key: "validate_pan" });
       //change error to success once server is attached
-      if (refObj && refObj.type === "success") {
+      if (refObj && refObj.type === "error") {
         let adharNumber =formik.values.adhar
         let number = adharNumber.split( " ") 
         let final = number.join()
@@ -38,7 +39,7 @@ export default function BasicDetails() {
         // })
       }
       let adharRefObj = findLast(uiData["messages"], { key: "validate_adhar" })
-      if (adharRefObj && adharRefObj.type === "success") {
+      if (adharRefObj && adharRefObj.type === "error") {
         let userData = {
           mobile_number: formik.values.contactNumber
         }
@@ -52,7 +53,7 @@ export default function BasicDetails() {
         // })
       }
       let mobileRefObj = findLast(uiData["messages"], { key: "validate_mobile" })
-      if (mobileRefObj && mobileRefObj.type === "success") {
+      if (mobileRefObj && mobileRefObj.type === "error") {
         // dispatch({
         //   type: SHOW_MESSAGE,
         //   payload: {
@@ -67,9 +68,22 @@ export default function BasicDetails() {
           aadhar_Linked_Mobile_no: formik.values.contactNumber
         }
         dispatch(DoSaveBasicDetailsAction({ userData, key: "save_basic_details" }))
+        let user = localStorage.getItem('user');
+  debugger
+  //save details in Local Storage
+  let userInfo = JSON.parse(user)
+  let newUserInfo = {
+    ...userInfo,
+    adharNumber : formik.values.adhar,
+    registeredMobile : formik.values.contactNumber,
+    panNumber : formik.values.pan
+  }
+  
+  localStorage.setItem("user", JSON.stringify(newUserInfo))
+  Storage.storeUserData(user)
       }
       let saveRefObj = findLast(uiData["messages"], { key: "save_basic_details" })
-      if (saveRefObj && saveRefObj.type === "success") {
+      if (saveRefObj && saveRefObj.type === "error") {
         dispatch({
           type: CHANGE_STATUS,
           payload: {
@@ -80,7 +94,7 @@ export default function BasicDetails() {
         dispatch({
           type: SHOW_MESSAGE,
           payload: {
-            type: "success",
+            type: "error",
             message: "Step 1: Basic details completed"
           }
         })

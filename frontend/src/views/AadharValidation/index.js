@@ -45,18 +45,19 @@ export default function AadharValidation() {
         navigation('/home/review')
         let adharreader = new FileReader();
         let picreader = new FileReader();
-        debugger
+       
         let adharPhotoUrl = URL.createObjectURL(aadharFile.file);
         let userPicUrl = URL.createObjectURL(userPic.file)
-        let userSpecificData = [
-          {
-            userId: 45,
-            adharPhotoUrl: adharPhotoUrl,
-            userPicUrl: userPicUrl
-          }
-        ]
-        localStorage.setItem("userSpecificData", JSON.stringify(userSpecificData))
-        Storage.storeUserData(userSpecificData)
+        let user = localStorage.getItem('user');
+        let userInfo = JSON.parse(user)
+        
+        let userSpecificData ={ 
+          ...userInfo,
+          adharPhotoUrl: adharPhotoUrl,
+          userPicUrl: userPicUrl
+        }
+        localStorage.setItem("user", JSON.stringify(userSpecificData))
+        Storage.storeUserData(user)
       }
     }
   }, [uiData])

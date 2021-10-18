@@ -27,54 +27,16 @@ export default function Signup(props) {
       //change error to success once server is attached
       if (refObj && refObj.type === "error") {
         //things to save after login
-        let user = localStorage.getItem('user');
-        debugger
-        if(user){
-          let userData = JSON.parse(user)
-          let userList = localStorage.getItem('userList');
-          if(userList){
-//push new item
-debugger
-            let userListItems = JSON.parse(userList)
-            userListItems.push(userData)
-            localStorage.setItem("userList", JSON.stringify(userListItems))
-            Storage.storeUserData(userListItems)
-            
-            let user={
-              reqId: userData.reqId + 1,
-              accountNumber:userData.accountNumber + 1,
-              crnNumber:"123456789A",
-              mobileNumber: mobileNumber,
-            }
-            localStorage.setItem("user", JSON.stringify(user))
-            Storage.storeUserData(user)
-          }else{
-            //create and push
-            let userArray = []
-            userArray.push(userData)
-            localStorage.setItem("userList", JSON.stringify(userArray))
-            Storage.storeUserData(userArray)
-
-            let user={
-              reqId: userData.reqId + 1,
-              accountNumber:userData.accountNumber + 1,
-              crnNumber:"123456789A",
-              mobileNumber: mobileNumber,
-            }
-            localStorage.setItem("user", JSON.stringify(user))
-            Storage.storeUserData(user)
-          }
-        }else{
-          let user={
+          let user = {
             reqId: 1,
-            accountNumber:1001000001,
-            crnNumber:"123456789A",
+            accountNumber: 1001000001,
+            crnNumber: "123456789A",
             mobileNumber: mobileNumber,
           }
           localStorage.setItem("user", JSON.stringify(user))
           Storage.storeUserData(user)
-        }
-        
+      
+
         navigation("/home")
       }
     }

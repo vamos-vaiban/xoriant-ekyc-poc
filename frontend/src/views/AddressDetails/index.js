@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router';
 import Dropdown from "../../components/Dropdown"
 import { DoSaveAddressDetailsAction } from '../../redux/actions/addressDetailsAction';
 import {findLast}from "lodash"
-
+import Storage from '../../utils/Storage';
 export default function AddressDetails() {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ export default function AddressDetails() {
   useEffect(()=>{
     if(uiData["messages"]){
       let refObj = findLast(uiData["messages"], { key: "Save_address_details" })
-      if (refObj && refObj.type === "success") {
+      if (refObj && refObj.type === "error") {
         dispatch({
           type: CHANGE_STATUS,
           payload: {
@@ -41,13 +41,21 @@ export default function AddressDetails() {
             status: "complete"
           }
         })
-        // dispatch({
-        //   type:SHOW_MESSAGE,
-        //   payload:{
-        //     type:"success",
-        //     message:"Step 2: Address details completed"
-        //   }
-        // })
+  
+        //save details to local Storage
+        let user = localStorage.getItem('user');
+        let userInfo = JSON.parse(user)
+        let newUserInfo ={
+          ...userInfo,
+          "house_no":formik.values.houseNumber,
+          "address_line_1":formik.values.addressLine1,
+          "address_line_2":formik.values.addressLine2,
+          "city":formik.values.city,
+          "landmark":formik.values.landmark,     
+       }
+        
+        localStorage.setItem("user", JSON.stringify(newUserInfo))
+        Storage.storeUserData(user)
         dispatch({
           type: CHANGE_STATUS,
           payload: {
