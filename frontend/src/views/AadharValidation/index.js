@@ -2,36 +2,37 @@ import React, { useEffect, useState } from 'react';
 import { Grid, Typography, Paper, Button } from '@material-ui/core';
 import { useStyles } from "./styles"
 import FileUploader from "../../components/FileUploader"
-import {DoCompareTheDocumentAction} from "../../redux/actions/aadharValidationActions"
+import { DoCompareTheDocumentAction } from "../../redux/actions/aadharValidationActions"
 import { CHANGE_STATUS } from '../../redux/constants';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import {findLast}from "lodash"
+import { findLast } from "lodash"
+import Storage from "../../utils/Storage"
 export default function AadharValidation() {
   const classes = useStyles();
   const dispatch = useDispatch()
   const navigation = useNavigate()
   const [aadharFile, setAadharFile] = useState()
   const [userPic, setUserPic] = useState()
-  const [errorAdhar, setErrorAdhar] =useState()
-  const [errorUser, setErrorUser] =useState()
-  const uiData = useSelector(data=>data.ui)
-  const aadharChangeHandler = (file, fileName,error) => {
+  const [errorAdhar, setErrorAdhar] = useState()
+  const [errorUser, setErrorUser] = useState()
+  const uiData = useSelector(data => data.ui)
+  const aadharChangeHandler = (file, fileName, error) => {
     setAadharFile({
       file: file,
       fileName: fileName
     })
     setErrorAdhar(error)
   }
-  const userPicChangeHandler = (file, fileName,error) => {
+  const userPicChangeHandler = (file, fileName, error) => {
     setUserPic({
       file: file,
       fileName: fileName
     })
     setErrorUser(error)
   }
-  useEffect(()=>{
-    if(uiData["messages"]){
+  useEffect(() => {
+    if (uiData["messages"]) {
       let refObj = findLast(uiData["messages"], { key: "adhar_upload" })
       if (refObj && refObj.type === "error") {
         dispatch({
@@ -42,17 +43,32 @@ export default function AadharValidation() {
           }
         })
         navigation('/home/review')
-      }}
-  },[uiData])
-  const saveImageHandler=()=>{
+        let adharreader = new FileReader();
+        let picreader = new FileReader();
+        debugger
+        let adharPhotoUrl = URL.createObjectURL(aadharFile.file);
+        let userPicUrl = URL.createObjectURL(userPic.file)
+        let userSpecificData = [
+          {
+            userId: 45,
+            adharPhotoUrl: adharPhotoUrl,
+            userPicUrl: userPicUrl
+          }
+        ]
+        localStorage.setItem("userSpecificData", JSON.stringify(userSpecificData))
+        Storage.storeUserData(userSpecificData)
+      }
+    }
+  }, [uiData])
+  const saveImageHandler = () => {
     let document = aadharFile && aadharFile.file
     let user = userPic && userPic.file
-    let data ={
+    let data = {
       "document photo": document,
-      "user photo" : user
+      "user photo": user
     }
-    dispatch(DoCompareTheDocumentAction({data:data,key:"adhar_upload"}))
-    
+    dispatch(DoCompareTheDocumentAction({ data: data, key: "adhar_upload" }))
+
   }
   return (
     <Grid container alignItems={"center"} justifyContent={"center"} style={{ overflow: "none" }}>
@@ -68,31 +84,31 @@ export default function AadharValidation() {
                 fileName={aadharFile && aadharFile.fileName}
                 accept={".jpeg", ".jpg"}
                 fileSize={1024000}
-                supportedFormats={["image/jpeg","image/jpg","image/png"]}
+                supportedFormats={["image/jpeg", "image/jpg", "image/png"]}
                 maxFileSize={"1024kb"}
                 label={"Drag and drop your Adhaar image here"}
               />
             </Grid>
-            <Grid style={{marginTop:"3%"}}>
+            <Grid style={{ marginTop: "3%" }}>
               <FileUploader
                 id={"profile"}
                 changeHandler={userPicChangeHandler}
                 fileName={userPic && userPic.fileName}
                 accept={".jpeg", ".jpg"}
                 fileSize={1024000}
-                supportedFormats={["image/jpeg","image/jpg","image/png"]}
+                supportedFormats={["image/jpeg", "image/jpg", "image/png"]}
                 maxFileSize={"1024kb"}
                 label={"Drag and drop your Photo here"}
               />
             </Grid>
             {
-                errorAdhar || errorUser ?
-                    <Typography  align={"center"} style={{ color: "red",marginTop:"8%" }}>{errorAdhar || errorUser}</Typography>
-                    : null
+              errorAdhar || errorUser ?
+                <Typography align={"center"} style={{ color: "red", marginTop: "8%" }}>{errorAdhar || errorUser}</Typography>
+                : null
             }
 
           </form>
-          <Button style={{marginLeft:"40%",backgroundColor:"grey",marginTop:"10%"}} onClick={saveImageHandler}>Next</Button>
+          <Button style={{ marginLeft: "40%", backgroundColor: "grey", marginTop: "10%" }} onClick={saveImageHandler}>Next</Button>
         </Paper>
       </Grid>
       <Grid item xs={12} sm={6}
