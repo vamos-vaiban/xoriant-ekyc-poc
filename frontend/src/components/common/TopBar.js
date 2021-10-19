@@ -56,14 +56,15 @@ export default function TopBar() {
                     {
                         isUser ?
                             <div style={{ float: "right", marginLeft: "85%", }} >
-                                <span><Avatar >JD</Avatar></span>
+                                {/* <span><Avatar >JD</Avatar></span> */}
                             </div>
                             : null
                     }
                    {isUser? <Grid container direction={"row"} spacing={1} justify="flex-end">
-                        <Grid item><Typography>John Doe</Typography></Grid>
+                        {/* <Grid item><Typography>John Doe</Typography></Grid> */}
+                        <MenuItem onClick={handleClose}>Logout</MenuItem>
                         <Grid item>
-                            <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                            {/* <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                                 <ExpandMoreIcon />
                             </Button>
                             <Menu
@@ -74,7 +75,7 @@ export default function TopBar() {
                                 onClose={handleClose}
                             >
                                 <MenuItem onClick={handleClose}>Logout</MenuItem>
-                            </Menu>
+                            </Menu> */}
                         </Grid>
                     </Grid>:null}
                 </Toolbar>

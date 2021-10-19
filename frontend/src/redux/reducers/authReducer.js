@@ -1,4 +1,4 @@
-import {AUTH_LOGIN, IS_USER,AUTH_USER_SIGNIN_SUCCESS} from "../constants/index"
+import {AUTH_LOGIN, IS_USER,AUTH_USER_SIGNIN_SUCCESS,SET_LOGIN_AS_BANK_PERSONNEL,LOGGED_IN_AS_BANK_PERSONNEL} from "../constants/index"
 import {cloneDeep} from "lodash"
 
 const userData =localStorage.getItem("userData")
@@ -8,7 +8,13 @@ const emptyData ={
     mobile_number:"",
     RequestId:""
 }
-const initialState={isLoggedIn:true,isUser:false,userData : (userData&&JSON.parse(userData) || {...emptyData})}
+const initialState={
+    loginAsBankPersonnel : false,
+    isLoggedIn:true,
+    isBankPersonnelLoggedIn:false,
+    isUser:false,
+    userData : (userData&&JSON.parse(userData) || {...emptyData})
+}
 export default function AuthReducer(state = initialState,actions){
     let newState=cloneDeep(state)
     switch(actions.type){
@@ -26,6 +32,17 @@ export default function AuthReducer(state = initialState,actions){
             newState.userData = actions.payload
             return {...newState}
         }
+
+        case SET_LOGIN_AS_BANK_PERSONNEL :{
+            newState.loginAsBankPersonnel = actions.payload
+            return {...newState}
+        }
+
+        case LOGGED_IN_AS_BANK_PERSONNEL:{
+            newState.isBankPersonnelLoggedIn = actions.payload
+            return {...newState}
+        }
+        
     
         default:{
             return newState;

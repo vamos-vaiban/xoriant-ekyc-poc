@@ -1,43 +1,57 @@
 import * as React from 'react';
-// import { useTheme } from '@mui/material/styles';
-import { Grid, Typography, Button, Box, TextField, Paper, Checkbox,IconButton,Card,CardContent,CardMedia } from '@material-ui/core';
-
-// import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
-// import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-// import SkipNextIcon from '@mui/icons-material/SkipNext';
-
-export default function Review() {
-//   const theme = useTheme();
-
+import { Grid, Typography, Avatar, Button, Box, TextField, Paper, Checkbox, IconButton, Card, CardContent, CardMedia } from '@material-ui/core';
+import { useStyles } from "./styles"
+import { find } from "lodash"
+import Storage from "../../utils/Storage"
+export default function Review(props) {
+  const userSpecificDataString = localStorage.getItem('user');
+  debugger
+  const userSpecificData = JSON.parse(userSpecificDataString)
+  //   const theme = useTheme();
+  const classes = useStyles(props);
   return (
-    <Card sx={{ display: 'flex' }}>
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <CardContent sx={{ flex: '1 0 auto' }}>
-          <Typography component="div" variant="h5">
-            Live From Space
-          </Typography>
-          <Typography variant="subtitle1" color="text.secondary" component="div">
-            Mac Miller
-          </Typography>
-        </CardContent>
-        <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-          <IconButton aria-label="previous">
-            {/* {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />} */}
-          </IconButton>
-          <IconButton aria-label="play/pause">
-            {/* <PlayArrowIcon sx={{ height: 38, width: 38 }} /> */}
-          </IconButton>
-          <IconButton aria-label="next">
-            {/* {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />} */}
-          </IconButton>
-        </Box>
-      </Box>
-      <CardMedia
-        component="img"
-        sx={{ width: 151 }}
-        image="/static/images/cards/live-from-space.jpg"
-        alt="Live from space album cover"
-      />
-    </Card>
+    <Grid className={classes.grid}>
+    <Paper elevation={3} className={classes.paper}>
+      <Grid container spacing={2}>
+        <Grid item xs={3}>
+          <div><img style={{ borderRadius: '50%' }} height={150} width={150} src={userSpecificData && userSpecificData.userPicUrl} />  </div>
+        </Grid>
+        <Grid item xs={8} style={{marginLeft:"5%"}}>
+          <Box >
+            <Typography variant={"h4"}>{"Review Application"}</Typography>
+          </Box>
+          <Box >
+            <Typography>{"Address : "}{userSpecificData && userSpecificData.house_no} {userSpecificData && userSpecificData.address_line_1} {userSpecificData && userSpecificData.address_line_2} {userSpecificData && userSpecificData.landmark}, {userSpecificData && userSpecificData.city}</Typography>
+            <Typography>{"Mob No : "}{userSpecificData && userSpecificData.mobileNumber}</Typography>
+            <Typography>{"Validated Adhar Number : "}{userSpecificData&&userSpecificData.adharNumber}</Typography>
+            <Typography>{"Validated Pan Number : "}{userSpecificData && userSpecificData.panNumber}</Typography>
+            <Typography>{"Similarity Percentage : "}{userSpecificData && userSpecificData.similarity}</Typography>            
+            <Typography variant={"h5"} style={{marginTop:"2%"}}>{"Please note down these numbers "}</Typography>
+          <Typography>{"Account Number : "}{userSpecificData && userSpecificData.accountNumber}</Typography>
+          <Typography>{"CRN number : "}{userSpecificData && userSpecificData.crnNumber}</Typography>
+          <Typography>{"Request Id : "}{userSpecificData && userSpecificData.reqId}</Typography>
+          </Box>
+        </Grid>
+        <Grid xs={12} style={{padding: "7%",marginLeft:"10%",marginRight:"10%"}}>
+          
+          <Button variant={'contained'} style={{marginRight: "5%"}} onClick={()=>{
+            let userList = localStorage.getItem('userList');
+            let userArray;
+            if(userList){
+              userArray = JSON.parse(userList)
+            }else{
+              userArray= []
+            }
+           
+            userArray.push(userSpecificData)
+             localStorage.setItem("userList", JSON.stringify(userArray))
+             Storage.storeUserData(userArray)
+ 
+          }} >Submit Application</Button>
+          <Button variant={'contained'}>Cancel</Button>
+        </Grid>
+      </Grid>
+    </Paper>
+    </Grid>
   );
 }

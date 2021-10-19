@@ -7,6 +7,8 @@ import BasicDetails from "./views/BasicDetails"
 import AddressDetails from "./views/AddressDetails";
 import AadharValidation from "./views/AadharValidation";
 import Review from "./views/Review"
+import AdminLayout from "./layout/Admin";
+import KYCRequests from "./views/KYCRequests";
 const appRoutes = (data)=>{
     const routes =[
         data && data === true?
@@ -34,6 +36,10 @@ const appRoutes = (data)=>{
                     element:<BasicDetails />
                 },
                 {
+                    path :"/home",
+                    element:<BasicDetails />
+                },
+                {
                     path:'addressDetails',
                     element:<AddressDetails />
                 },
@@ -48,7 +54,19 @@ const appRoutes = (data)=>{
             ]
 
         }
-        :null
+        :null,
+        data && data === true ?
+            {
+                path: "/kycRequests",
+                element: <AdminLayout />,
+                children: [
+                    {
+                        path: "/",
+                        element: <KYCRequests />
+                    }
+                ]
+            }
+            : null
         
     ]
     return routes.filter(r=>r!==undefined || r!== "")

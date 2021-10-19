@@ -16,22 +16,22 @@ const initialState={
           label:"Aadhaar Validations",
           status: "pending",
         },
-        {
-          label:"Concent",
-          status: "pending",
-        },
+        // {
+        //   label:"Concent",
+        //   status: "pending",
+        // },
         {
           label:"Review",
           status: "pending",
         },
-        {
-          label:"Account Preferrences",
-          status: "pending",
-        },
-        {
-          label:"Video KYC",
-          status: "pending",
-        },
+        // {
+        //   label:"Account Preferrences",
+        //   status: "pending",
+        // },
+        // {
+        //   label:"Video KYC",
+        //   status: "pending",
+        // },
     
       ]
 }
