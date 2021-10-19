@@ -3,89 +3,85 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import AssignmentIcon from '@material-ui/icons/Assignment';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import UserDetailsDialog from './KYCDetailsDialog';
 import RejectKYCReason from './RejectKYCDialog';
 import DataTable from '../../components/DataTable';
+import { Link } from '@material-ui/core';
 
 let handleStateFunc, handleApproveKYCFunc, setSelectedUserFunc;
 const columns = [
   {
-    id: 'reqId', label: 'ID', sortable: true, align: 'left'
+    id: 'reqId', label: 'ID', sortable: true, align: 'left',
+    component: ({ userData }) => (
+      <Link
+        component="button"
+        variant="body2"
+        style={{ "color": "#0072E5" }}
+        underline="always"
+        onClick={() => {
+          setSelectedUserFunc(userData);
+          handleStateFunc('detailsDialog', true);
+        }}
+      >
+        {userData.reqId}
+      </Link>
+    )
   },
   {
-    id: 'accountNumber', label: 'Account Number', sortable: true, align: 'left'
+    id: 'accountNumber', label: 'Account Number', sortable: true, align: 'center'
   },
   {
-    id: 'crnNumber', label: 'CRN Number', sortable: true, align: 'center'
+    id: 'crnNumber', label: 'CRN Number', sortable: true, align: 'right'
   },
   {
     id: 'registeredBy', label: 'Registered By', sortable: true, align: 'right'
   },
   {
-    id: 'registeredOn', label: 'Registered On', sortable: true, align: 'center'
+    id: 'registeredOn', label: 'Registered On', sortable: true, align: 'right'
   },
   {
-    id: 'details',
-    label: 'Details',
-    sortable: false,
-    component: ({ userData }) => {
-      return (
-        <Tooltip title="View Details">
-          <IconButton
-            onClick={() => {
-              console.log("clicked")
-              setSelectedUserFunc(userData);
-              handleStateFunc('detailsDialog', true);
-            }}
-            style={{ padding: 0, color: '#056fcb' }}
-          >
-            <AssignmentIcon />
-          </IconButton>
-        </Tooltip>
-      )
-    }
+    id: 'status', label: 'Status', sortable: true, align: 'right'
   },
   {
     id: 'actions',
     label: 'Actions',
     sortable: false,
-    component: ({ userData }) => {
-      return (
-        <>
-          <Tooltip title="Approve">
-            <IconButton
-              onClick={() => {
-                setSelectedUserFunc(userData);
-                handleApproveKYCFunc();
-              }}
-              style={{ padding: 0, marginRight: 16, color: '#028b1a' }}
-            >
-              <CheckCircleIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Reject">
-            <IconButton
-              onClick={() => {
-                setSelectedUserFunc(userData);
-                handleStateFunc('rejectDialog', true);
-              }}
-              color="secondary"
-              style={{ padding: 0 }}
-            >
-              <CancelIcon />
-            </IconButton>
-          </Tooltip>
-        </>
-      )
-    }
-  },
+    component: ({ userData }) => (
+      <>
+        <Tooltip title="Approve">
+          <IconButton
+            onClick={() => {
+              setSelectedUserFunc(userData);
+              handleApproveKYCFunc();
+            }}
+            disabled={userData.status != "Pending"}
+            style={{ padding: 0, marginRight: 16, color: userData.status === "Pending" && "#028b1a" }}
+          >
+            <CheckCircleIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Reject">
+          <IconButton
+            onClick={() => {
+              setSelectedUserFunc(userData);
+              handleStateFunc('rejectDialog', true);
+            }}
+            color="secondary"
+            disabled={userData.status != "Pending"}
+            style={{ padding: 0 }}
+          >
+            <CancelIcon />
+          </IconButton>
+        </Tooltip>
+      </>
+    )
+  }
 ];
 
 function createData(reqId, name, panNumber, adharNumber, mobile, email) {
-  return { reqId, registeredBy: name, registeredOn: new Date().toLocaleString(),accountNumber: 1001000001, crnNumber:"123456789A", mobileNumber: mobile, adharNumber, registeredMobile: mobile, panNumber, house_no:"Harsh Sagar",address_line_1:"Bhusari Colony",address_line_2:"Kothrud",city:"Pune",landmark:"Right Bhusari Colony",adharPhotoUrl:"blob:http://localhost:3000/b44aff41-8b90-48a3-ae87-b7e2804ee62d",userPicUrl:"blob:http://localhost:3000/afa44fea-632a-4ff7-9726-2f38878829c3"};
+  return { reqId, status: "Pending", registeredBy: name, registeredOn: new Date().toLocaleString(), accountNumber: 1001000001, crnNumber: "123456789A", mobileNumber: mobile, adharNumber, registeredMobile: mobile, panNumber, house_no: "Harsh Sagar", address_line_1: "Bhusari Colony", address_line_2: "Kothrud", city: "Pune", landmark: "Right Bhusari Colony", adharPhotoUrl: "blob:http://localhost:3000/b44aff41-8b90-48a3-ae87-b7e2804ee62d", userPicUrl: "blob:http://localhost:3000/afa44fea-632a-4ff7-9726-2f38878829c3" };
 }
 
 const rows = [
