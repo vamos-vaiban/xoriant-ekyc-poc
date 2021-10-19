@@ -18,22 +18,23 @@ export default function Review(props) {
         </Grid>
         <Grid item xs={8} style={{marginLeft:"5%"}}>
           <Box >
-            <Typography>{"Review your Application"}</Typography>
+            <Typography variant={"h4"}>{"Review Application"}</Typography>
           </Box>
           <Box >
-            <Typography>{"FirstName LastNAme"}</Typography>
             <Typography>{"Address : "}{userSpecificData && userSpecificData.house_no} {userSpecificData && userSpecificData.address_line_1} {userSpecificData && userSpecificData.address_line_2} {userSpecificData && userSpecificData.landmark}, {userSpecificData && userSpecificData.city}</Typography>
             <Typography>{"Mob No : "}{userSpecificData && userSpecificData.mobileNumber}</Typography>
             <Typography>{"Validated Adhar Number : "}{userSpecificData&&userSpecificData.adharNumber}</Typography>
             <Typography>{"Validated Pan Number : "}{userSpecificData && userSpecificData.panNumber}</Typography>
-          </Box>
-        </Grid>
-        <Grid>
-          <Typography>{"Please Note down these numbers "}</Typography>
+            <Typography>{"Similarity Percentage : "}{userSpecificData && userSpecificData.similarity}</Typography>            
+            <Typography variant={"h5"} style={{marginTop:"2%"}}>{"Please note down these numbers "}</Typography>
           <Typography>{"Account Number : "}{userSpecificData && userSpecificData.accountNumber}</Typography>
           <Typography>{"CRN number : "}{userSpecificData && userSpecificData.crnNumber}</Typography>
           <Typography>{"Request Id : "}{userSpecificData && userSpecificData.reqId}</Typography>
-          <Button onClick={()=>{
+          </Box>
+        </Grid>
+        <Grid xs={12} style={{padding: "7%",marginLeft:"10%",marginRight:"10%"}}>
+          
+          <Button variant={'contained'} style={{marginRight: "5%"}} onClick={()=>{
             let userList = localStorage.getItem('userList');
             let userArray;
             if(userList){
@@ -47,7 +48,7 @@ export default function Review(props) {
              Storage.storeUserData(userArray)
  
           }} >Submit Application</Button>
-          <Button >Cancel</Button>
+          <Button variant={'contained'}>Cancel</Button>
         </Grid>
       </Grid>
     </Paper>
