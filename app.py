@@ -1,5 +1,7 @@
+import json
 import os.path
 import boto3
+import jsonify
 from flask import Flask, request, render_template
 from os import getcwd
 
@@ -59,7 +61,14 @@ def login():
         print(document,photo)
         result=face_comparision(document.filename,photo.filename)
         print("result")
-    return render_template("index.html", result=result)
+
+
+        #print(json.dumps(result))
+        #json_result = json.dumps(result)
+
+
+
+    return render_template("index.html",result=result)
 
 
 if __name__ == '__main__':
