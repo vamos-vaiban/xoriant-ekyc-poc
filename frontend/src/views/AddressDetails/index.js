@@ -4,12 +4,13 @@ import { useFormik } from "formik"
 import { useStyles } from "./styles"
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { CHANGE_STATUS } from '../../redux/constants';
+import { CHANGE_STATUS,SAVE_USER_DETAILS } from '../../redux/constants';
 import { useNavigate } from 'react-router';
 import Dropdown from "../../components/Dropdown"
 import { DoSaveAddressDetailsAction } from '../../redux/actions/addressDetailsAction';
 import {findLast}from "lodash"
 import Storage from '../../utils/Storage';
+
 export default function AddressDetails() {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -56,6 +57,10 @@ export default function AddressDetails() {
         
         localStorage.setItem("user", JSON.stringify(newUserInfo))
         Storage.storeUserData(user)
+        dispatch({
+          type:SAVE_USER_DETAILS,
+          payload:newUserInfo
+        })
         dispatch({
           type: CHANGE_STATUS,
           payload: {

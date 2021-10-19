@@ -5,7 +5,7 @@ import { useStyles } from "./styles"
 import * as yup from 'yup';
 import Content from "./content"
 import { useDispatch, useSelector } from 'react-redux';
-import { CHANGE_STATUS, SHOW_MESSAGE } from '../../redux/constants';
+import { CHANGE_STATUS, SHOW_MESSAGE,SAVE_USER_DETAILS } from '../../redux/constants';
 import { useNavigate } from 'react-router';
 import { DoValidatePanNumberAction, DoValidateAadharNumberAction, DoValidateMobileNumberAction, DoSaveBasicDetailsAction } from '../../redux/actions/basicDetailsAction';
 import { findLast } from "lodash"
@@ -78,7 +78,10 @@ export default function BasicDetails() {
     registeredMobile : formik.values.contactNumber,
     panNumber : formik.values.pan
   }
-  
+  dispatch({
+    type:SAVE_USER_DETAILS,
+    payload:newUserInfo
+  })
   localStorage.setItem("user", JSON.stringify(newUserInfo))
   Storage.storeUserData(user)
       }

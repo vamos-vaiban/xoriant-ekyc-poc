@@ -11,7 +11,7 @@ import MobileVerification from './MobileVerification';
 import { DoUserSignInAction, DoGenerateOTPAction } from '../../redux/actions/AuthActions';
 import { findLast } from "lodash"
 import Storage from '../../utils/Storage';
-import {IS_USER} from '../../redux/constants/index'
+import {IS_USER,SAVE_USER_DETAILS} from '../../redux/constants/index'
 
 export default function Signup(props) {
   const classes = useStyles(props);
@@ -29,6 +29,7 @@ export default function Signup(props) {
       //change error to success once server is attached
       if (refObj && refObj.type === "error") {
         //things to save after login
+       
           let user = {
             reqId: 1,
             accountNumber: 1001000001,
@@ -37,6 +38,10 @@ export default function Signup(props) {
           }
           localStorage.setItem("user", JSON.stringify(user))
           Storage.storeUserData(user)
+          dispatch({
+            type:SAVE_USER_DETAILS,
+            payload : user
+          })
           dispatch({
             type:IS_USER,
             payload:true

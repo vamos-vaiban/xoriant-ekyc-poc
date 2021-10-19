@@ -3,10 +3,12 @@ import { Grid, Typography, Avatar, Button, Box, TextField, Paper, Checkbox, Icon
 import { useStyles } from "./styles"
 import { find } from "lodash"
 import Storage from "../../utils/Storage"
+import { useSelector } from 'react-redux';
 export default function Review(props) {
+  const userSpecificData = useSelector(state => state.auth.user)
   const userSpecificDataString = localStorage.getItem('user');
   debugger
-  const userSpecificData = JSON.parse(userSpecificDataString)
+  // const userSpecificData = JSON.parse(userSpecificDataString)
   //   const theme = useTheme();
   const classes = useStyles(props);
   return (

@@ -3,7 +3,7 @@ import { Grid, Typography, Paper, Button } from '@material-ui/core';
 import { useStyles } from "./styles"
 import FileUploader from "../../components/FileUploader"
 import { DoCompareTheDocumentAction } from "../../redux/actions/aadharValidationActions"
-import { CHANGE_STATUS } from '../../redux/constants';
+import { CHANGE_STATUS,SAVE_USER_DETAILS } from '../../redux/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { findLast } from "lodash"
@@ -58,6 +58,10 @@ export default function AadharValidation() {
         }
         localStorage.setItem("user", JSON.stringify(userSpecificData))
         Storage.storeUserData(user)
+        dispatch({
+          type:SAVE_USER_DETAILS,
+          payload:userSpecificData
+        })
       }
     }
   }, [uiData])
