@@ -34,7 +34,7 @@ export default function AadharValidation() {
   useEffect(() => {
     if (uiData["messages"]) {
       let refObj = findLast(uiData["messages"], { key: "adhar_upload" })
-      if (refObj && refObj.type === "error") {
+      if (refObj && refObj.type === "success") {
         dispatch({
           type: CHANGE_STATUS,
           payload: {
@@ -69,8 +69,8 @@ export default function AadharValidation() {
     let document = aadharFile && aadharFile.file
     let user = userPic && userPic.file
     let data = {
-      "document photo": document,
-      "user photo": user
+      "Document_Photo": document,
+      "User_Photo": user
     }
     dispatch(DoCompareTheDocumentAction({ data: data, key: "adhar_upload" }))
 
@@ -88,9 +88,9 @@ export default function AadharValidation() {
                 changeHandler={aadharChangeHandler}
                 fileName={aadharFile && aadharFile.fileName}
                 accept={".jpeg", ".jpg"}
-                fileSize={1024000}
+                fileSize={4024000}
                 supportedFormats={["image/jpeg", "image/jpg", "image/png"]}
-                maxFileSize={"1024kb"}
+                maxFileSize={"4024kb"}
                 label={"Drag and drop your Adhaar image here"}
               />
             </Grid>
@@ -100,9 +100,9 @@ export default function AadharValidation() {
                 changeHandler={userPicChangeHandler}
                 fileName={userPic && userPic.fileName}
                 accept={".jpeg", ".jpg"}
-                fileSize={1024000}
+                fileSize={4024000}
                 supportedFormats={["image/jpeg", "image/jpg", "image/png"]}
-                maxFileSize={"1024kb"}
+                maxFileSize={"4024kb"}
                 label={"Drag and drop your Photo here"}
               />
             </Grid>

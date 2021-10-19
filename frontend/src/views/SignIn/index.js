@@ -27,7 +27,7 @@ export default function Signup(props) {
     if (ui["messages"]) {
       let refObj = findLast(ui["messages"], { key: "user_sign_in" });
       //change error to success once server is attached
-      if (refObj && refObj.type === "error") {
+      if (refObj && refObj.type === "success") {
         //things to save after login
        
           let user = {
@@ -56,7 +56,7 @@ export default function Signup(props) {
     if (ui["messages"]) {
       let refObj = findLast(ui["messages"], { key: "generate_otp" });
       //change error to success once server is attached
-      if (refObj && refObj.type === "error") {
+      if (refObj && refObj.type === "success") {
         setGenerateOTP(true)
       }
     }
