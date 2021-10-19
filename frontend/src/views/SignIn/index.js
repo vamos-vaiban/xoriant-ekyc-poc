@@ -11,6 +11,8 @@ import MobileVerification from './MobileVerification';
 import { DoUserSignInAction, DoGenerateOTPAction } from '../../redux/actions/AuthActions';
 import { findLast } from "lodash"
 import Storage from '../../utils/Storage';
+import {IS_USER} from '../../redux/constants/index'
+
 export default function Signup(props) {
   const classes = useStyles(props);
   const [generateOTP, setGenerateOTP] = React.useState(false)
@@ -35,7 +37,10 @@ export default function Signup(props) {
           }
           localStorage.setItem("user", JSON.stringify(user))
           Storage.storeUserData(user)
-      
+          dispatch({
+            type:IS_USER,
+            payload:true
+          })
 
         navigation("/home")
       }

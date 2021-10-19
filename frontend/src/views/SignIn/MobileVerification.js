@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import {SET_LOGIN_AS_BANK_PERSONNEL,LOGGED_IN_AS_BANK_PERSONNEL} from '../../redux/constants/index'
+import {SET_LOGIN_AS_BANK_PERSONNEL,LOGGED_IN_AS_BANK_PERSONNEL,IS_USER} from '../../redux/constants/index'
 
 function NumberFormatCustom(props) {
     const { inputRef, onChange, ...other } = props;
@@ -106,6 +106,10 @@ function MobileVerification(props) {
                                 payload:true
                             })
                             navigation('/kycRequests')
+                            dispatch({
+                                type:IS_USER,
+                                payload:true
+                            })
                         }}
                     >
                        Login
