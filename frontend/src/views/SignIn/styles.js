@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme)=>({
     },
     OrLabel: {
         marginLeft: "40%",
-        marginRight: "40%",
+        //marginRight: "40%",
         marginBottom: "5%",
         marginTop: "5%"
     },
