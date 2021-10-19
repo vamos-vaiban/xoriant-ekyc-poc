@@ -2,10 +2,11 @@ import axios from "axios"
 const host = 'http://127.0.0.1:5000/'
 
 const DoCompareTheDocument = ( jsonData) => {
-    let url = `compare_faces`;
+    let url = host+`compare_faces`;
     const fileData = new FormData()
-    if (jsonData.hasOwnProperty("document photo")) { fileData.append("document photo", jsonData["document photo"]) }
-    if (jsonData.hasOwnProperty("user photo")) { fileData.append("user photo", jsonData["user photo"]) }
+    debugger
+    if (jsonData.hasOwnProperty("Document_Photo")) { fileData.append("Document_Photo", jsonData["Document_Photo"]) }
+    if (jsonData.hasOwnProperty("User_Photo")) { fileData.append("User_Photo", jsonData["User_Photo"]) }
     return axios.post(url, fileData, {
         body: {
             'Content-Type': 'multipart/form-data'

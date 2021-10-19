@@ -53,7 +53,7 @@ export default function BasicDetails() {
         // })
       }
       let mobileRefObj = findLast(uiData["messages"], { key: "validate_mobile" })
-      if (mobileRefObj && mobileRefObj.type === "error") {
+      if (mobileRefObj && mobileRefObj.type === "success") {
         // dispatch({
         //   type: SHOW_MESSAGE,
         //   payload: {

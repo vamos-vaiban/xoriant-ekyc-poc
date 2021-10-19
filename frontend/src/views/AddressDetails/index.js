@@ -33,7 +33,7 @@ export default function AddressDetails() {
   useEffect(()=>{
     if(uiData["messages"]){
       let refObj = findLast(uiData["messages"], { key: "Save_address_details" })
-      if (refObj && refObj.type === "error") {
+      if (refObj && refObj.type === "success") {
         dispatch({
           type: CHANGE_STATUS,
           payload: {

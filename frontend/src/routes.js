@@ -32,7 +32,7 @@ const appRoutes = (data)=>{
             element:<UserLayout />,
             children:[
                 {
-                    path :"/",
+                    path :"/home",
                     element:<BasicDetails />
                 },
                 {
@@ -61,7 +61,7 @@ const appRoutes = (data)=>{
                 element: <AdminLayout />,
                 children: [
                     {
-                        path: "/",
+                        path: "/kycRequests",
                         element: <KYCRequests />
                     }
                 ]
