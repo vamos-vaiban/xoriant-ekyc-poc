@@ -34,6 +34,7 @@ export default function AadharValidation() {
   useEffect(() => {
     if (uiData["messages"]) {
       let refObj = findLast(uiData["messages"], { key: "adhar_upload" })
+      debugger
       if (refObj && refObj.type === "success") {
         dispatch({
           type: CHANGE_STATUS,

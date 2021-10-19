@@ -1,6 +1,6 @@
 import { SHOW_MESSAGE,SAVE_USER_DETAILS } from "../constants/index"
 import API from "../../api"
-
+import Storage from "../../utils/Storage"
 //Action to validate PAN 
 export const DoCompareTheDocumentAction = (action) => {
     return (dispatch) => {

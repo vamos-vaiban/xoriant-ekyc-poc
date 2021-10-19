@@ -3,9 +3,10 @@ import { Grid, Typography, Avatar, Button, Box, TextField, Paper, Checkbox, Icon
 import { useStyles } from "./styles"
 import { find } from "lodash"
 import Storage from "../../utils/Storage"
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import {SHOW_MESSAGE} from '../../redux/constants/index'
 export default function Review(props) {
+  const dispatch = useDispatch()
   const userSpecificData = useSelector(state => state.auth.user)
   const userSpecificDataString = localStorage.getItem('user');
   debugger
@@ -54,7 +55,7 @@ export default function Review(props) {
               payload: {
                   type: "success",
                   message: "Thanks for submitting the application. We will get back to you",
-                  key: action.key
+                  
               }
           })
  

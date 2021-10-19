@@ -86,7 +86,7 @@ export default function BasicDetails() {
   Storage.storeUserData(user)
       }
       let saveRefObj = findLast(uiData["messages"], { key: "save_basic_details" })
-      if (saveRefObj && saveRefObj.type === "error") {
+      if (saveRefObj && saveRefObj.type === "success") {
         dispatch({
           type: CHANGE_STATUS,
           payload: {
