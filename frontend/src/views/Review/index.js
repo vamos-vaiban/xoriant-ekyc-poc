@@ -4,6 +4,7 @@ import { useStyles } from "./styles"
 import { find } from "lodash"
 import Storage from "../../utils/Storage"
 import { useSelector } from 'react-redux';
+import {SHOW_MESSAGE} from '../../redux/constants/index'
 export default function Review(props) {
   const userSpecificData = useSelector(state => state.auth.user)
   const userSpecificDataString = localStorage.getItem('user');
@@ -48,6 +49,14 @@ export default function Review(props) {
             userArray.push(userSpecificData)
              localStorage.setItem("userList", JSON.stringify(userArray))
              Storage.storeUserData(userArray)
+             dispatch({
+              type: SHOW_MESSAGE,
+              payload: {
+                  type: "success",
+                  message: "Thanks for submitting the application. We will get back to you",
+                  key: action.key
+              }
+          })
  
           }} >Submit Application</Button>
           <Button variant={'contained'}>Cancel</Button>
