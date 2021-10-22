@@ -10,7 +10,7 @@ import RejectKYCReason from './RejectKYCDialog';
 import DataTable from '../../components/DataTable';
 import { Link } from '@material-ui/core';
 
-let handleStateFunc, handleApproveKYCFunc, setSelectedUserFunc;
+let handleStateFunc, setSelectedUserFunc, setApproveKYCFunc;
 const columns = [
   {
     id: 'reqId', label: 'ID', sortable: true, align: 'left',
@@ -54,7 +54,7 @@ const columns = [
           <IconButton
             onClick={() => {
               setSelectedUserFunc(userData);
-              handleApproveKYCFunc();
+              setApproveKYCFunc(true);
             }}
             disabled={userData.status != "Pending"}
             style={{ padding: 0, marginRight: 16, color: userData.status === "Pending" && "#028b1a" }}
@@ -84,7 +84,7 @@ function createData(reqId, name, panNumber, adharNumber, mobile, email) {
   return { reqId, status: "Pending", registeredBy: name, registeredOn: new Date().toLocaleString(), accountNumber: 1001000001, crnNumber: "123456789A", mobileNumber: mobile, adharNumber, registeredMobile: mobile, panNumber, house_no: "Harsh Sagar", address_line_1: "Bhusari Colony", address_line_2: "Kothrud", city: "Pune", landmark: "Right Bhusari Colony", adharPhotoUrl: "blob:http://localhost:3000/b44aff41-8b90-48a3-ae87-b7e2804ee62d", userPicUrl: "blob:http://localhost:3000/afa44fea-632a-4ff7-9726-2f38878829c3" };
 }
 
-const rows = [
+const dataRows = [
   createData(1, 'John Doe', 'INQPI3427M', '132417133454', '7305606399', 'john.doe@gmail.com'),
   createData(2, 'John Doe', 'CNQPI3427M', '140350033465', '7305606399', 'john.doe@gmail.com'),
   createData(3, 'John Doe', 'ITQPI3427M', '604839733445', '7305606399', 'john.doe@gmail.com'),
@@ -110,18 +110,31 @@ const useStyles = makeStyles({
 
 export default function KYCRequests() {
   const classes = useStyles();
+  const [rows, setRows] = useState(dataRows)
   const [selectedUser, setSelectedUser] = useState({});
-  useEffect(() => {
-    handleStateFunc = handleState;
-    handleApproveKYCFunc = handleApproveKYC;
-    setSelectedUserFunc = setSelectedUser;
-  }, [])
-
+  const [approveKYC, setApproveKYC] = useState(false);
   const [state, setState] = useState({
     detailsDialog: false,
     rejectDialog: false,
     rejectComment: ''
   })
+
+  useEffect(() => {
+    handleStateFunc = handleState;
+    setSelectedUserFunc = setSelectedUser;
+    setApproveKYCFunc = setApproveKYC;
+
+    return () => {
+      handleStateFunc = setSelectedUserFunc = setApproveKYCFunc = null;
+    }
+  }, [])
+
+  //Handle approve KYC
+  useEffect(() => {
+    if(approveKYC) {
+      handleApproveKYC();
+    }
+  }, [approveKYC])
 
   const handleState = (key, value) => {
     setState({
@@ -143,12 +156,22 @@ export default function KYCRequests() {
   }
 
   const handleApproveKYC = () => {
-    console.log("KYC Approved");
+    changeKYCStatus('Approved');
+    setApproveKYC(false);
   }
 
   const submitComment = (comment) => {
+    changeKYCStatus('Rejected');
     setState({ ...state, rejectComment: comment, rejectDialog: false });
-    console.log("KYC rejected with comment :", comment);
+  }
+
+  const changeKYCStatus = status => {
+    const index = rows.findIndex(item => item.reqId === selectedUser.reqId);
+    setRows([
+      ...rows.slice(0,index),
+      Object.assign({}, rows[index], {status: status}),
+      ...rows.slice(index+1)
+   ]);
   }
 
   return (
