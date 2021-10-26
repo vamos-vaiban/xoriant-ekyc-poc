@@ -4,8 +4,11 @@ import boto3
 import jsonify
 from flask import Flask, request, render_template
 from os import getcwd
+from flask_cors import CORS, cross_origin
+
 
 app = Flask('face_rekognition')
+CORS(app, support_credentials=True)
 
 s3 = boto3.client('s3',
                   aws_access_key_id='ACCESS_KEY_ID',
@@ -47,6 +50,7 @@ def upload_to_aws(local_file, bucket, s3_file):
         return False
 
 @app.route('/compare_faces', methods=['GET','POST'])
+@cross_origin(origin='*')
 def login():
     result = ""
     if request.method == "POST":
