@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { findLast } from "lodash"
 import Storage from "../../utils/Storage"
+import Content from './content'; 
 export default function AadharValidation() {
   const classes = useStyles();
   const dispatch = useDispatch()
@@ -35,7 +36,7 @@ export default function AadharValidation() {
     if (uiData["messages"]) {
       let refObj = findLast(uiData["messages"], { key: "adhar_upload" })
       debugger
-      if (refObj && refObj.type === "success") {
+      if (refObj && refObj.type === "error") {
         dispatch({
           type: CHANGE_STATUS,
           payload: {
@@ -120,7 +121,7 @@ export default function AadharValidation() {
       <Grid item xs={12} sm={6}
         className={classes.contentGrid}
       >
-        {/* <Content /> */}
+         <Content />
       </Grid>
     </Grid>
   );

@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import { Grid, Typography, Button, Box, TextField, Paper } from '@material-ui/core';
 import { useFormik } from "formik"
 import { useStyles } from "./styles"
+//import overrideSettings from '../../theme/overrides';
 import * as yup from 'yup';
+import Content from "./content"
 import { useDispatch, useSelector } from 'react-redux';
 import { CHANGE_STATUS,SAVE_USER_DETAILS } from '../../redux/constants';
 import { useNavigate } from 'react-router';
@@ -10,9 +12,11 @@ import Dropdown from "../../components/Dropdown"
 import { DoSaveAddressDetailsAction } from '../../redux/actions/addressDetailsAction';
 import {findLast}from "lodash"
 import Storage from '../../utils/Storage';
+import overrideSettings from '../../theme/overrides';
 
 export default function AddressDetails() {
   const classes = useStyles();
+  const overrideClasses=overrideSettings();
   const dispatch = useDispatch();
   const navigation = useNavigate()
   // const [toggleEmail, setToggleEmail] = React.useState(false)
@@ -34,7 +38,7 @@ export default function AddressDetails() {
   useEffect(()=>{
     if(uiData["messages"]){
       let refObj = findLast(uiData["messages"], { key: "Save_address_details" })
-      if (refObj && refObj.type === "success") {
+      if (refObj && refObj.type === "error") {
         dispatch({
           type: CHANGE_STATUS,
           payload: {
@@ -120,43 +124,49 @@ export default function AddressDetails() {
             <Typography variant={"h6"} style={{ marginBottom: "7%" }}> Please submit the details below to get started with E-KYC</Typography>
             <Box>
               <TextField
+                className={overrideClasses.root+" "+overrideClasses.root2}
                 style={{ marginBottom: "5%" }}
                 fullWidth
                 variant={"outlined"}
                 id={"houseNumber"}
                 name={"houseNumber"}
-                label={"House Number/Name "}
+                label={"House Number/Name"}
                 value={formik.values.houseNumber}
                 onChange={formik.handleChange}
                 error={formik.touched.houseNumber && Boolean(formik.errors.houseNumber)}
                 helperText={formik.touched.houseNumber && formik.errors.houseNumber}
+                required
               />
               <TextField
+              className={overrideClasses.root+" "+overrideClasses.root2}
                 style={{ marginBottom: "5%" }}
                 fullWidth
                 variant={"outlined"}
                 id={"addressLine1"}
                 name={"addressLine1"}
-                label={"Address Line 1"}
+                label={"Address Line 1 "}
                 value={formik.values.addressLine1}
                 onChange={formik.handleChange}
                 error={formik.touched.addressLine1 && Boolean(formik.errors.addressLine1)}
                 helperText={formik.touched.addressLine1 && formik.errors.addressLine1}
+                required
               />
               <TextField
+              className={overrideClasses.root+" "+overrideClasses.root2}
                 style={{ marginBottom: "5%" }}
                 fullWidth
                 variant={"outlined"}
                 id={"addressLine2"}
                 name={"addressLine2"}
-                label={"Address Line 2"}
+                label={"Address Line 2 "}
                 value={formik.values.addressLine2}
                 onChange={formik.handleChange}
                 error={formik.touched.addressLine2 && Boolean(formik.errors.addressLine2)}
                 helperText={formik.touched.addressLine2 && formik.errors.addressLine2}
+                required
               />
               <Dropdown
-                label="Select City/State"
+                label="Select City/State * "
                 data={data || []}
                 objKey={"city"}
                 onChangeListner={(selectedData) => {
@@ -168,16 +178,18 @@ export default function AddressDetails() {
                 error={formik.touched.city && Boolean(formik.errors.city)}
                 helperText={formik.touched.city && formik.errors.city} />
               <TextField
+              className={overrideClasses.root+" "+overrideClasses.root2}
                 style={{ marginBottom: "5%" }}
                 fullWidth
                 variant={"outlined"}
                 id={"landmark"}
                 name={"landmark"}
-                label={"Landmark"}
+                label={"Landmark "}
                 value={formik.values.landmark}
                 onChange={formik.handleChange}
                 error={formik.touched.landmark && Boolean(formik.errors.landmark)}
                 helperText={formik.touched.landmark && formik.errors.landmark}
+                required
               />
             </Box>
             {/* <FormControlLabel
@@ -199,6 +211,7 @@ export default function AddressDetails() {
       <Grid item xs={12} sm={6}
         className={classes.contentGrid}
       >
+        <Content />
       </Grid>
     </Grid>
   );

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Grid, Typography, Button, Box, TextField, Paper, Checkbox } from '@material-ui/core';
 import { useFormik } from "formik"
 import { useStyles } from "./styles"
+import overrideSettings from '../../theme/overrides';
 import * as yup from 'yup';
 import Content from "./content"
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,6 +14,7 @@ import Storage from '../../utils/Storage';
 
 export default function BasicDetails() {
   const classes = useStyles();
+  const overrideClasses=overrideSettings();
   const dispatch = useDispatch();
   const navigation = useNavigate()
   const uiData = useSelector((data) => data.ui)
@@ -53,7 +55,7 @@ export default function BasicDetails() {
         // })
       }
       let mobileRefObj = findLast(uiData["messages"], { key: "validate_mobile" })
-      if (mobileRefObj && mobileRefObj.type === "success") {
+      if (mobileRefObj && mobileRefObj.type === "error") {
         // dispatch({
         //   type: SHOW_MESSAGE,
         //   payload: {
@@ -86,7 +88,7 @@ export default function BasicDetails() {
   Storage.storeUserData(user)
       }
       let saveRefObj = findLast(uiData["messages"], { key: "save_basic_details" })
-      if (saveRefObj && saveRefObj.type === "success") {
+      if (saveRefObj && saveRefObj.type === "error") {
         dispatch({
           type: CHANGE_STATUS,
           payload: {
@@ -142,19 +144,26 @@ export default function BasicDetails() {
             <Typography variant={"h6"} style={{ marginBottom: "7%" }}> Please submit the details below to get started with E-KYC</Typography>
             <Box>
               <TextField
+                key="panNumber"
+                className={overrideClasses.root+" "+overrideClasses.root2}
                 style={{ marginBottom: "5%" }}
                 fullWidth
-                variant={"outlined"}
+                variant="outlined"
                 id={"pan"}
                 name={"pan"}
-                label={"Enter your Pan number "}
+                label={"Enter your Pan number"}
                 value={formik.values.pan}
                 onChange={formik.handleChange}
+                //error
                 error={formik.touched.pan && Boolean(formik.errors.pan)}
                 helperText={formik.touched.pan && formik.errors.pan}
+                required
+                
               />
+              
               <TextField
-                style={{ marginBottom: "5%" }}
+              className={overrideClasses.root+" "+overrideClasses.root2}
+                style={{ marginBottom: "5%",marginTop:"1%" }}
                 fullWidth
                 variant={"outlined"}
                 id={"adhar"}
@@ -178,20 +187,26 @@ export default function BasicDetails() {
 
                   formik.setFieldValue("adhar", spacedNumber);
                 }}
+                //error
                 error={formik.touched.adhar && Boolean(formik.errors.adhar)}
                 helperText={formik.touched.adhar && formik.errors.adhar}
-                label={"Enter your Adhar number"}
+                label={"Enter your Adhar number "}
+                required
               />
-              <TextField variant={"outlined"}
+              <TextField
+              className={overrideClasses.root+" "+overrideClasses.root2}
+              variant={"outlined"}
                 style={{ marginBottom: "5%" }}
                 id={"contactNumber"}
                 fullWidth
                 name={"contactNumber"}
                 value={formik.values.contactNumber}
                 onChange={formik.handleChange}
+                //error
                 error={formik.touched.contactNumber && Boolean(formik.errors.contactNumber)}
                 helperText={formik.touched.contactNumber && formik.errors.contactNumber}
-                label={"Enter Mobile number"}
+                label={"Enter Mobile number "}
+                required
               />
             </Box>
             <Typography display="inline" style={{ marginBottom: "3%", marginTop: "5%" }}>

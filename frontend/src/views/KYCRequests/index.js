@@ -9,6 +9,7 @@ import UserDetailsDialog from './KYCDetailsDialog';
 import RejectKYCReason from './RejectKYCDialog';
 import DataTable from '../../components/DataTable';
 import { Link } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 
 let handleStateFunc, setSelectedUserFunc, setApproveKYCFunc;
 const columns = [
@@ -80,11 +81,62 @@ const columns = [
   }
 ];
 
-function createData(reqId, name, panNumber, adharNumber, mobile, email) {
-  return { reqId, status: "Pending", registeredBy: name, registeredOn: new Date().toLocaleString(), accountNumber: 1001000001, crnNumber: "123456789A", mobileNumber: mobile, adharNumber, registeredMobile: mobile, panNumber, house_no: "Harsh Sagar", address_line_1: "Bhusari Colony", address_line_2: "Kothrud", city: "Pune", landmark: "Right Bhusari Colony", adharPhotoUrl: "blob:http://localhost:3000/b44aff41-8b90-48a3-ae87-b7e2804ee62d", userPicUrl: "blob:http://localhost:3000/afa44fea-632a-4ff7-9726-2f38878829c3" };
+function createData(reqId, name, panNumber, adharNumber, mobile, email, houseNo, address_line_1, address_line_2, city, landmark) {
+  return { reqId, status: "Pending", registeredBy: name, registeredOn: new Date().toLocaleString(), accountNumber: 1001000001, crnNumber: panNumber, mobileNumber: mobile, adharNumber, registeredMobile: mobile, panNumber, house_no: houseNo, address_line_1: address_line_1, address_line_2: address_line_2, city: city, landmark: landmark, adharPhotoUrl: "blob:http://localhost:3000/b44aff41-8b90-48a3-ae87-b7e2804ee62d", userPicUrl: "blob:http://localhost:3000/afa44fea-632a-4ff7-9726-2f38878829c3" };
 }
+var dataRows = []
+//let userList = localStorage.getItem('userList');
+function UpdateUserList() {
+  dataRows = []
+  const userList = useSelector((state) => state.auth && state.auth.userlist || [])
+  console.log(userList)
+  //let userArray=JSON.parse(userList);
 
-const dataRows = [
+  for (let i = 0; i < userList.length; i++) {
+    dataRows.push(
+      createData(
+        userList[i]["accountNumber"],
+        userList[i]["registeredMobile"],
+        userList[i]["panNumber"],
+        userList[i]["adharNumber"],
+        userList[i]["mobileNumber"],
+        "dummy mail",
+        userList[i]["house_no"],
+        userList[i]["address_line_1"],
+        userList[i]["address_line_2"],
+        userList[i]["city"],
+        userList[i]["landmark"]
+      )
+    )
+  }
+}
+//console.log(userArray[0])
+/*
+let data1=userArray.map((i)=>createData(
+  userArray[i]["accountNumber"],
+  userArray[i]["registeredMobile"],
+  userArray[i]["panNumber"],
+  userArray[i]["adharNumber"],
+  userArray[i]["mobileNumber"],
+  "dummy mail"  
+  ))
+ */
+/*
+  var dataRows=[]
+for(let i=0;i<userArray.length;i++){
+  dataRows.push(
+    createData(
+      userArray[i]["accountNumber"],
+      userArray[i]["registeredMobile"],
+      userArray[i]["panNumber"],
+      userArray[i]["adharNumber"],
+      userArray[i]["mobileNumber"],
+      "dummy mail"  
+      )
+  )
+}*/
+// console.log(data1)
+/*const dataRows = [
   createData(1, 'John Doe', 'INQPI3427M', '132417133454', '7305606399', 'john.doe@gmail.com'),
   createData(2, 'John Doe', 'CNQPI3427M', '140350033465', '7305606399', 'john.doe@gmail.com'),
   createData(3, 'John Doe', 'ITQPI3427M', '604839733445', '7305606399', 'john.doe@gmail.com'),
@@ -100,14 +152,21 @@ const dataRows = [
   createData(13, 'John Doe', 'RUQPI3427M', '146793743344', '7305606399', 'john.doe@gmail.com'),
   createData(14, 'John Doe', 'NGQPI3427M', '200962441347', '7305606399', 'john.doe@gmail.com'),
   createData(15, 'John Doe', 'BRQPI3427M', '210147212345', '7305606399', 'john.doe@gmail.com'),
+  createData(
+  userArray[0]["accountNumber"],
+  userArray[0]["registeredMobile"],
+  userArray[0]["panNumber"],
+  userArray[0]["adharNumber"],
+  userArray[0]["mobileNumber"],
+  "dummy mail"  
+  )
 ];
-
+*/
 const useStyles = makeStyles({
   root: {
     // width: '60%',
   }
 });
-
 export default function KYCRequests() {
   const classes = useStyles();
   const [rows, setRows] = useState(dataRows)
@@ -123,7 +182,7 @@ export default function KYCRequests() {
     handleStateFunc = handleState;
     setSelectedUserFunc = setSelectedUser;
     setApproveKYCFunc = setApproveKYC;
-
+    { }
     return () => {
       handleStateFunc = setSelectedUserFunc = setApproveKYCFunc = null;
     }
@@ -131,7 +190,7 @@ export default function KYCRequests() {
 
   //Handle approve KYC
   useEffect(() => {
-    if(approveKYC) {
+    if (approveKYC) {
       handleApproveKYC();
     }
   }, [approveKYC])
@@ -168,14 +227,15 @@ export default function KYCRequests() {
   const changeKYCStatus = status => {
     const index = rows.findIndex(item => item.reqId === selectedUser.reqId);
     setRows([
-      ...rows.slice(0,index),
-      Object.assign({}, rows[index], {status: status}),
-      ...rows.slice(index+1)
-   ]);
+      ...rows.slice(0, index),
+      Object.assign({}, rows[index], { status: status }),
+      ...rows.slice(index + 1)
+    ]);
   }
 
   return (
     <Paper className={classes.root}>
+      {UpdateUserList()}
       <DataTable
         columns={columns}
         data={rows}

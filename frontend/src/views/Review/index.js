@@ -4,7 +4,7 @@ import { useStyles } from "./styles"
 import { find } from "lodash"
 import Storage from "../../utils/Storage"
 import { useSelector,useDispatch } from 'react-redux';
-import {SHOW_MESSAGE} from '../../redux/constants/index'
+import {SHOW_MESSAGE, USER_LIST} from '../../redux/constants/index'
 export default function Review(props) {
   const dispatch = useDispatch()
   const userSpecificData = useSelector(state => state.auth.user)
@@ -49,6 +49,10 @@ export default function Review(props) {
            
             userArray.push(userSpecificData)
              localStorage.setItem("userList", JSON.stringify(userArray))
+             dispatch({
+               type:USER_LIST,
+               payload: JSON.stringify(userArray)
+             })
              Storage.storeUserData(userArray)
              dispatch({
               type: SHOW_MESSAGE,

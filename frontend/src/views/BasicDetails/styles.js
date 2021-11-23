@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme)=>({
+
     grid: {
         height: "80%",
         marginTop: "7%",
@@ -36,8 +37,10 @@ nextButton:{
     contentText: {
         marginBottom: "1%",
         marginRight:"10%",
+        width:"29vw"
     },
-  
+    
+      
 }));
 
 export { useStyles };

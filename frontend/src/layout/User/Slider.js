@@ -20,6 +20,7 @@ function Slider(props) {
   const { classes } = props;
   const theme = useTheme()
   const length = props.data && props.data.length
+  console.log(props.data);
   return (
     <div className={classes.root}>
       <List>

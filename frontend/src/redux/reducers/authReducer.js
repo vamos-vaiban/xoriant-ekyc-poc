@@ -1,7 +1,8 @@
-import {AUTH_LOGIN, IS_USER,AUTH_USER_SIGNIN_SUCCESS,SET_LOGIN_AS_BANK_PERSONNEL,LOGGED_IN_AS_BANK_PERSONNEL,SAVE_USER_DETAILS} from "../constants/index"
+import {AUTH_LOGIN, IS_USER,AUTH_USER_SIGNIN_SUCCESS,SET_LOGIN_AS_BANK_PERSONNEL,LOGGED_IN_AS_BANK_PERSONNEL,SAVE_USER_DETAILS, USER_LIST} from "../constants/index"
 import {cloneDeep} from "lodash"
 const user =localStorage.getItem("user")
 const userData =localStorage.getItem("userData")
+const userList=localStorage.getItem("userList")
 const emptyData ={
     mode_Of_Authentication:"",
     email_id:"",
@@ -14,11 +15,17 @@ const initialState={
     isBankPersonnelLoggedIn:false,
     isUser:false,
     userData : (userData&&JSON.parse(userData) || {...emptyData}),
+    userlist : (userList&&JSON.parse(userList) || {...emptyData}),
     user : (user&&JSON.parse(user) || {})
 }
 export default function AuthReducer(state = initialState,actions){
     let newState=cloneDeep(state)
     switch(actions.type){
+        case USER_LIST:{
+            newState.userlist=actions.payload
+            console.log(actions.payload)
+            return {...newState};
+        }
         case AUTH_LOGIN:{
             newState.isLoggedIn=actions.payload
             return {...newState};

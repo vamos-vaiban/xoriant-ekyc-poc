@@ -54,6 +54,7 @@ export default function KYCDetailsDialog(props) {
                   row.columns.map(column => (
                     <Grid item md={6} key={column.key}>
                       <TextField
+                      className={classes.root}
                       fullWidth
                         id={`textfield_${column.key}`}
                         label={column.title}
@@ -61,6 +62,7 @@ export default function KYCDetailsDialog(props) {
                         defaultValue={userData[column.key]}
                         InputProps={{
                           readOnly: true,
+                          //disableUnderline: false
                         }} />
                     </Grid>
                   ))
