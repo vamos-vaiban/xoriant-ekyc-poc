@@ -55,7 +55,7 @@ export default function BasicDetails() {
         // })
       }
       let mobileRefObj = findLast(uiData["messages"], { key: "validate_mobile" })
-      if (mobileRefObj && mobileRefObj.type === "error") {
+      if (mobileRefObj && mobileRefObj.type === "success") {
         // dispatch({
         //   type: SHOW_MESSAGE,
         //   payload: {
@@ -88,7 +88,7 @@ export default function BasicDetails() {
   Storage.storeUserData(user)
       }
       let saveRefObj = findLast(uiData["messages"], { key: "save_basic_details" })
-      if (saveRefObj && saveRefObj.type === "error") {
+      if (saveRefObj && saveRefObj.type === "success") {
         dispatch({
           type: CHANGE_STATUS,
           payload: {
@@ -99,7 +99,7 @@ export default function BasicDetails() {
         dispatch({
           type: SHOW_MESSAGE,
           payload: {
-            type: "error",
+            type: "success",
             message: "Step 1: Basic details completed"
           }
         })
@@ -152,7 +152,7 @@ export default function BasicDetails() {
                 id={"pan"}
                 name={"pan"}
                 label={"Enter your Pan number"}
-                value={formik.values.pan}
+                value={formik.values.pan && formik.values.pan.toUpperCase()}
                 onChange={formik.handleChange}
                 //error
                 error={formik.touched.pan && Boolean(formik.errors.pan)}

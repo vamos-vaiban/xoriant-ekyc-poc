@@ -27,15 +27,17 @@ export default function Signup(props) {
     if (ui["messages"]) {
       let refObj = findLast(ui["messages"], { key: "user_sign_in" });
       //change error to success once server is attached
-      if (refObj && refObj.type === "error") {
+      if (refObj && refObj.type === "success") {
         //things to save after login
-       
+        let userList = localStorage.getItem("userList")
+        userList = JSON.parse(userList)
           let user = {
-            reqId: 1,
-            accountNumber: 1001000001,
+            reqId: userList ? userList.length  + 1 : 1,
+            accountNumber: userList ? userList.length + 1001000001 :1001000001,
             crnNumber: "123456789A",
             mobileNumber: mobileNumber,
           }
+          debugger
           localStorage.setItem("user", JSON.stringify(user))
           Storage.storeUserData(user)
           dispatch({
@@ -56,7 +58,7 @@ export default function Signup(props) {
     if (ui["messages"]) {
       let refObj = findLast(ui["messages"], { key: "generate_otp" });
       //change error to success once server is attached
-      if (refObj && refObj.type === "error") {
+      if (refObj && refObj.type === "success") {
         setGenerateOTP(true)
       }
     }
@@ -133,8 +135,8 @@ export default function Signup(props) {
             <Box>
               <form onSubmit={otpFormik.handleSubmit}>
                 <Box className={classes.addMarginTwo}>
-                  <Typography className={classes.alignLabel} variant={"h5"} >{"Verify email"}</Typography>
-                  <Typography>{"We have sent you an OTP on email"}
+                  <Typography className={classes.alignLabel} variant={"h5"} >{"Verify Mobile"}</Typography>
+                  <Typography>{"We have sent you an OTP on Mobile"}
                     <Typography variant="h6" style={{ marginTop: "4%" }} gutterBottom>{formik.values.email}</Typography>
                   </Typography>
 

@@ -66,7 +66,6 @@ function MobileVerification(props) {
                     <Typography>Please enter mobile number registered with bank account</Typography> */}
                     <div style={{marginBottom:"1%"}}>
                             <Button variant={"outlined"} style={{float:"right",marginLeft:"1%",textTransform:"none"}} onClick={()=>{
-                                debugger
                                 dispatch({
                                     type:SET_LOGIN_AS_BANK_PERSONNEL,
                                     payload: !isBankPersonnel

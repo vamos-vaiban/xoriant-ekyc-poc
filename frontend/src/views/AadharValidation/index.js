@@ -35,8 +35,7 @@ export default function AadharValidation() {
   useEffect(() => {
     if (uiData["messages"]) {
       let refObj = findLast(uiData["messages"], { key: "adhar_upload" })
-      debugger
-      if (refObj && refObj.type === "error") {
+      if (refObj && refObj.type === "success") {
         dispatch({
           type: CHANGE_STATUS,
           payload: {
@@ -115,7 +114,7 @@ export default function AadharValidation() {
             }
 
           </form>
-          <Button style={{ marginLeft: "40%", backgroundColor: "grey", marginTop: "10%" }} onClick={saveImageHandler}>Next</Button>
+          <Button style={{ marginLeft: "40%", backgroundColor: "grey", marginTop: "10%" }} onClick={saveImageHandler}>Submit</Button>
         </Paper>
       </Grid>
       <Grid item xs={12} sm={6}

@@ -14,12 +14,13 @@ const userMetadataRows = [
   { columns: [{ title: "Request ID", key: "reqId" }, { title: "CRN Number", key: "crnNumber" }, { title: "Account Number", key: "accountNumber" }] },
   { columns: [{ title: "PAN Number", key: "panNumber" }, { title: "Mobile Number", key: "mobileNumber" }, { title: "Registered Mobile Number", key: "registeredMobile" }] },
   { columns: [{ title: "AADHAR Number", key: "adharNumber" }, { title: "House Number", key: "house_no" }, { title: "Address Line 1", key: "address_line_1" }] },
-  { columns: [, { title: "Address Line 2", key: "address_line_2" }, { title: "City", key: "city" }, { title: "Landmark", key: "landmark" }] },
+  { columns: [{ title: "Address Line 2", key: "address_line_2" }, { title: "City", key: "city" }, { title: "Landmark", key: "landmark" }] },
+  { columns: [{ title: "Similarity", key: "similarity" }] }
 ]
 export default function KYCDetailsDialog(props) {
   const classes = useStyles();
   const { open, userData, closeDialog } = props;
-
+debugger
   const handleClose = (event, reason) => {
     if (reason !== 'backdropClick') {
       closeDialog();
@@ -60,11 +61,13 @@ export default function KYCDetailsDialog(props) {
                         label={column.title}
                         variant="standard"
                         defaultValue={userData[column.key]}
+                        
                         InputProps={{
                           readOnly: true,
                           //disableUnderline: false
                         }} />
                     </Grid>
+                    
                   ))
                 }
               </Grid>

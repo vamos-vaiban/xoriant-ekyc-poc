@@ -81,8 +81,8 @@ const columns = [
   }
 ];
 
-function createData(reqId, name, panNumber, adharNumber, mobile, email, houseNo, address_line_1, address_line_2, city, landmark) {
-  return { reqId, status: "Pending", registeredBy: name, registeredOn: new Date().toLocaleString(), accountNumber: 1001000001, crnNumber: panNumber, mobileNumber: mobile, adharNumber, registeredMobile: mobile, panNumber, house_no: houseNo, address_line_1: address_line_1, address_line_2: address_line_2, city: city, landmark: landmark, adharPhotoUrl: "blob:http://localhost:3000/b44aff41-8b90-48a3-ae87-b7e2804ee62d", userPicUrl: "blob:http://localhost:3000/afa44fea-632a-4ff7-9726-2f38878829c3" };
+function createData(reqId, name, accountNumber, panNumber, adharNumber, mobile, email, houseNo, address_line_1, address_line_2, city, landmark,similarity) {
+  return { reqId, status: "Pending", registeredBy: name, registeredOn: new Date().toLocaleString(), accountNumber: accountNumber, crnNumber: panNumber, mobileNumber: mobile, adharNumber, registeredMobile: mobile, panNumber, house_no: houseNo, address_line_1: address_line_1, address_line_2: address_line_2, city: city, landmark: landmark, adharPhotoUrl: "blob:http://localhost:3000/b44aff41-8b90-48a3-ae87-b7e2804ee62d", userPicUrl: "blob:http://localhost:3000/afa44fea-632a-4ff7-9726-2f38878829c3",similarity:similarity };
 }
 var dataRows = []
 //let userList = localStorage.getItem('userList');
@@ -95,8 +95,10 @@ function UpdateUserList() {
   for (let i = 0; i < userList.length; i++) {
     dataRows.push(
       createData(
-        userList[i]["accountNumber"],
+        userList[i]["reqId"],
         userList[i]["registeredMobile"],
+        userList[i]["accountNumber"],
+  
         userList[i]["panNumber"],
         userList[i]["adharNumber"],
         userList[i]["mobileNumber"],
@@ -105,7 +107,8 @@ function UpdateUserList() {
         userList[i]["address_line_1"],
         userList[i]["address_line_2"],
         userList[i]["city"],
-        userList[i]["landmark"]
+        userList[i]["landmark"],
+        userList[i]["similarity"]
       )
     )
   }
@@ -226,6 +229,11 @@ export default function KYCRequests() {
 
   const changeKYCStatus = status => {
     const index = rows.findIndex(item => item.reqId === selectedUser.reqId);
+    let consoleDData = [
+      ...rows.slice(0, index),
+      Object.assign({}, rows[index], { status: status }),
+      ...rows.slice(index + 1)
+    ]
     setRows([
       ...rows.slice(0, index),
       Object.assign({}, rows[index], { status: status }),
