@@ -7,6 +7,7 @@ export const HIDE_MESSAGE = "hide_message"
 export const ERROR = "error"
 export const UI_LOADING="ui_loading"
 //Auth Constants
+export const SAVE_USER_INFO = "save_user_info"
 export const AUTH_LOGIN = "auth_login"
 export const IS_USER = "is_user"
 export const AUTH_USER_SIGNIN_SUCCESS = "auth_user_signin_success"

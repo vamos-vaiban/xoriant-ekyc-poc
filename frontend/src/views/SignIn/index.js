@@ -11,7 +11,7 @@ import MobileVerification from './MobileVerification';
 import { DoUserSignInAction, DoGenerateOTPAction } from '../../redux/actions/AuthActions';
 import { findLast } from "lodash"
 import Storage from '../../utils/Storage';
-import {IS_USER,SAVE_USER_DETAILS} from '../../redux/constants/index'
+import { IS_USER, SAVE_USER_DETAILS } from '../../redux/constants/index'
 
 export default function Signup(props) {
   const classes = useStyles(props);
@@ -29,9 +29,12 @@ export default function Signup(props) {
       //change error to success once server is attached
       if (refObj && refObj.type === "success") {
         //things to save after login
-        let userList = localStorage.getItem("userList")
-        userList = JSON.parse(userList)
+        //  Storing Data into Local Storage 
+          let userList = localStorage.getItem("userList")
+          userList = JSON.parse(userList)
+          let userSpecificData = Storage.getUserData()
           let user = {
+            ...userSpecificData,
             reqId: userList ? userList.length  + 1 : 1,
             accountNumber: userList ? userList.length + 1001000001 :1001000001,
             crnNumber: "123456789A",
@@ -40,14 +43,14 @@ export default function Signup(props) {
           debugger
           localStorage.setItem("user", JSON.stringify(user))
           Storage.storeUserData(user)
-          dispatch({
-            type:SAVE_USER_DETAILS,
-            payload : user
-          })
-          dispatch({
-            type:IS_USER,
-            payload:true
-          })
+        dispatch({
+          type: SAVE_USER_DETAILS,
+          payload: user
+        })
+        dispatch({
+          type: IS_USER,
+          payload: true
+        })
 
         navigation("/home")
       }

@@ -1,5 +1,5 @@
 import API from "../../api"
-import {AUTH_USER_SIGNIN_SUCCESS, SHOW_MESSAGE} from "../constants/index"
+import {AUTH_USER_SIGNIN_SUCCESS, SHOW_MESSAGE,SAVE_USER_INFO} from "../constants/index"
 import Storage from "../../utils/Storage"
 
 export const DoUserSignInAction =(action)=>{
@@ -10,6 +10,15 @@ export const DoUserSignInAction =(action)=>{
             if(response){
                 localStorage.setItem("userData",JSON.stringify(response))
                 Storage.storeUserData(response)
+                // Storage.storeUserData({"request_Id": 65})
+                dispatch({
+                    type: SAVE_USER_INFO,
+                    payload:response
+                })
+                // dispatch({
+                //     type: SAVE_USER_INFO,
+                //     payload:response
+                // })
                 dispatch({
                     type:AUTH_USER_SIGNIN_SUCCESS,
                     payload:response,
@@ -34,6 +43,12 @@ export const DoUserSignInAction =(action)=>{
             }
         })
         .catch(err=>{
+            debugger
+            Storage.storeUserData({"request_Id": 65})
+            dispatch({
+                type: SAVE_USER_INFO,
+                payload:{"request_Id": 65}
+            })
             dispatch({
                 type:SHOW_MESSAGE,
                 payload:{

@@ -14,7 +14,7 @@ import Storage from '../../utils/Storage';
 
 export default function BasicDetails() {
   const classes = useStyles();
-  const overrideClasses=overrideSettings();
+  const overrideClasses = overrideSettings();
   const dispatch = useDispatch();
   const navigation = useNavigate()
   const uiData = useSelector((data) => data.ui)
@@ -24,10 +24,10 @@ export default function BasicDetails() {
       let refObj = findLast(uiData["messages"], { key: "validate_pan" });
       //change error to success once server is attached
       if (refObj && refObj.type === "error") {
-        let adharNumber =formik.values.adhar
-        let number = adharNumber.split( " ") 
+        let adharNumber = formik.values.adhar
+        let number = adharNumber.split(" ")
         let final = number.join()
-       final =  final.replace(/,/g,"")
+        final = final.replace(/,/g, "")
         let userData = {
           aadhar_number: final
         }
@@ -71,21 +71,21 @@ export default function BasicDetails() {
         }
         dispatch(DoSaveBasicDetailsAction({ userData, key: "save_basic_details" }))
         let user = localStorage.getItem('user');
-  debugger
-  //save details in Local Storage
-  let userInfo = JSON.parse(user)
-  let newUserInfo = {
-    ...userInfo,
-    adharNumber : formik.values.adhar,
-    registeredMobile : formik.values.contactNumber,
-    panNumber : formik.values.pan
-  }
-  dispatch({
-    type:SAVE_USER_DETAILS,
-    payload:newUserInfo
-  })
-  localStorage.setItem("user", JSON.stringify(newUserInfo))
-  Storage.storeUserData(user)
+        debugger
+        //save details in Local Storage
+        let userInfo = JSON.parse(user)
+        let newUserInfo = {
+          ...userInfo,
+          adharNumber: formik.values.adhar,
+          registeredMobile: formik.values.contactNumber,
+          panNumber: formik.values.pan
+        }
+        dispatch({
+          type: SAVE_USER_DETAILS,
+          payload: newUserInfo
+        })
+        localStorage.setItem("user", JSON.stringify(newUserInfo))
+        Storage.storeUserData(user)
       }
       let saveRefObj = findLast(uiData["messages"], { key: "save_basic_details" })
       if (saveRefObj && saveRefObj.type === "success") {
@@ -106,7 +106,7 @@ export default function BasicDetails() {
         navigation('/home/addressDetails');
       }
     }
-  }, [uiData,navigation,dispatch])
+  }, [uiData, navigation, dispatch])
   const validationSchema = yup.object({
     pan: yup
       .string()
@@ -128,7 +128,7 @@ export default function BasicDetails() {
     },
     validationSchema: validationSchema,
     onSubmit: (event) => {
-      
+
       let userData = {
         pan_number: formik.values.pan
       }
@@ -145,7 +145,7 @@ export default function BasicDetails() {
             <Box>
               <TextField
                 key="panNumber"
-                className={overrideClasses.root+" "+overrideClasses.root2}
+                className={overrideClasses.root + " " + overrideClasses.root2}
                 style={{ marginBottom: "5%" }}
                 fullWidth
                 variant="outlined"
@@ -158,12 +158,12 @@ export default function BasicDetails() {
                 error={formik.touched.pan && Boolean(formik.errors.pan)}
                 helperText={formik.touched.pan && formik.errors.pan}
                 required
-                
+
               />
-              
+
               <TextField
-              className={overrideClasses.root+" "+overrideClasses.root2}
-                style={{ marginBottom: "5%",marginTop:"1%" }}
+                className={overrideClasses.root + " " + overrideClasses.root2}
+                style={{ marginBottom: "5%", marginTop: "1%" }}
                 fullWidth
                 variant={"outlined"}
                 id={"adhar"}
@@ -194,8 +194,8 @@ export default function BasicDetails() {
                 required
               />
               <TextField
-              className={overrideClasses.root+" "+overrideClasses.root2}
-              variant={"outlined"}
+                className={overrideClasses.root + " " + overrideClasses.root2}
+                variant={"outlined"}
                 style={{ marginBottom: "5%" }}
                 id={"contactNumber"}
                 fullWidth
@@ -215,7 +215,7 @@ export default function BasicDetails() {
                 value={formik.values.acceptTerms}
                 onChange={formik.handleChange}
                 required /><Typography variant={"h8"}>I understand and accept the
-                 <Button color={"secondary"} style={{ textTransform: "none", fontSize: "0.9em", fontWeight: 'bold' }}>{"Terms and conditions"}</Button></Typography></Typography>
+                <Button color={"secondary"} style={{ textTransform: "none", fontSize: "0.9em", fontWeight: 'bold' }}>{"Terms and conditions"}</Button></Typography></Typography>
             <Box style={{ marginLeft: "40%", marginRight: "40%", marginTop: "5%" }}>
               <Button color="secondary"
                 variant="contained"
