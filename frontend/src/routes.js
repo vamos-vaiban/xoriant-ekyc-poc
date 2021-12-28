@@ -9,6 +9,7 @@ import AadharValidation from "./views/AadharValidation";
 import Review from "./views/Review"
 import AdminLayout from "./layout/Admin";
 import KYCRequests from "./views/KYCRequests";
+import BankPersonnel from "../src/views/BankPersonnel/index"
 const appRoutes = (data)=>{
     const routes =[
         data && data === true?
@@ -61,8 +62,8 @@ const appRoutes = (data)=>{
                 element: <AdminLayout />,
                 children: [
                     {
-                        path: "/kycRequests",
-                        element: <KYCRequests />
+                        path: "/",
+                        element: <BankPersonnel />
                     }
                 ]
             }
