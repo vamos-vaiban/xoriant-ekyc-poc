@@ -1,6 +1,8 @@
-com\code\repository\SignRepository.class
-com\code\controller\SingleSignOnController.class
-com\code\service\SignService.class
-com\code\controller\DataNotFoundExceptions.class
-com\code\controller\MainSpringBootApp.class
-com\code\model\SingleSign.class
+com\kotak\ekyc\serviceImpl\SignInServiceImpl.class
+com\kotak\ekyc\controller\SingleSignOnController.class
+com\kotak\ekyc\controller\MainSpringBootApp.class
+com\kotak\ekyc\controller\AppConfig.class
+com\kotak\ekyc\service\SignInService.class
+com\kotak\ekyc\dao\SignInRepository.class
+com\kotak\ekyc\controller\DataNotFoundExceptions.class
+com\kotak\ekyc\controller\ServletInitializer.class
