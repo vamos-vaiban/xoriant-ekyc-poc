@@ -43,7 +43,6 @@ export const DoUserSignInAction =(action)=>{
             }
         })
         .catch(err=>{
-            debugger
             Storage.storeUserData({"request_Id": 65})
             dispatch({
                 type: SAVE_USER_INFO,

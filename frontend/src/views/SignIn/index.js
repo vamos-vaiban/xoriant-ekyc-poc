@@ -40,7 +40,6 @@ export default function Signup(props) {
             crnNumber: "123456789A",
             mobileNumber: mobileNumber,
           }
-          debugger
           localStorage.setItem("user", JSON.stringify(user))
           Storage.storeUserData(user)
         dispatch({

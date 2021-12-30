@@ -12,9 +12,6 @@ export default function Review(props) {
   const [submitted, setSubmitted] = React.useState(false)
   const userSpecificData = useSelector(state => state.auth.user)
   const userSpecificDataString = localStorage.getItem('user');
-  debugger
-  // const userSpecificData = JSON.parse(userSpecificDataString)
-  //   const theme = useTheme();
   const classes = useStyles(props);
   return (
     <Grid className={classes.grid}>
