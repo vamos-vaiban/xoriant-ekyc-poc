@@ -20,7 +20,7 @@ public class AadharPanModel {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue
 	private Integer id;
 
 	@Column(name = "pan_number")

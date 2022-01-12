@@ -9,8 +9,8 @@ import javax.persistence.Id;
 public class ekycStatusModel {
 
 @Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-private long id;
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private int id;
 private int RequestId;
 private String Status;
 private String RejectionReason;
@@ -19,7 +19,7 @@ private String RejectionReason;
 public ekycStatusModel() {
 }
 
-public ekycStatusModel(long id, int requestId, String status, String rejectionReason) {
+public ekycStatusModel(int id, int requestId, String status, String rejectionReason) {
 	this.id = id;
 	RequestId = requestId;
 	Status = status;
@@ -31,7 +31,7 @@ public long getId() {
 	return id;
 }
 
-public void setId(long id) {
+public void setId(int id) {
 	this.id = id;
 }
 

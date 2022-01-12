@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class AddressModel {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue
 	private int id;
 	private String house_no;
 	private String address_line_1;
