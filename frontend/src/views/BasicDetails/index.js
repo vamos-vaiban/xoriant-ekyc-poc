@@ -71,7 +71,6 @@ export default function BasicDetails() {
         }
         dispatch(DoSaveBasicDetailsAction({ userData, key: "save_basic_details" }))
         let user = localStorage.getItem('user');
-        debugger
         //save details in Local Storage
         let userInfo = JSON.parse(user)
         let newUserInfo = {

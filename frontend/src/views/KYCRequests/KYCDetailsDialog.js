@@ -20,7 +20,6 @@ const userMetadataRows = [
 export default function KYCDetailsDialog(props) {
   const classes = useStyles();
   const { open, userData, closeDialog } = props;
-debugger
   const handleClose = (event, reason) => {
     if (reason !== 'backdropClick') {
       closeDialog();

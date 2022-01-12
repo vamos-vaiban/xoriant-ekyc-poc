@@ -66,7 +66,6 @@ export default function AuthReducer(state = initialState,actions){
         }
         
         case SAVE_USER_DETAILS:{
-            debugger
             let user = newState.user
             let newInfo = actions.payload
             let newUserData = {
