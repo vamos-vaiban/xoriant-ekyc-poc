@@ -62,7 +62,10 @@ export default function RequestTable({ filter, onShowInfo, onSettings }) {
             sorting: false,
             render: data => {
                 return (
-                    <Box>
+                    <Box sx={{
+                        display:"flex",
+                        flexDirection:"column"
+                    }}>
                       <IconButton onClick={() =>{}}>
                             <DoneIcon />
                         </IconButton>

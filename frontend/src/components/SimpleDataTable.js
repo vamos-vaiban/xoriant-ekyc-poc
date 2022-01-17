@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import MaterialTable from 'material-table';
 import { useSelector } from "react-redux";
+import { fontWeight } from "@mui/system";
 
 export default function EMSimpleDatatable({
   columns,
@@ -54,11 +55,16 @@ export default function EMSimpleDatatable({
           sorting : true,
          
           headerStyle: {
-            backgroundColor: "#43455A",
+            backgroundColor: "#ff3300",
             color: "white",
             padding : '7px 14px',
             width:100,
-            
+            fontSize:"0.7rem",
+            fontWeight:"500",
+            '&:hover': {
+              backgroundColor: 'white',
+              opacity: [0.9, 0.8, 0.7],
+            },
           },
         }}
         localization={{

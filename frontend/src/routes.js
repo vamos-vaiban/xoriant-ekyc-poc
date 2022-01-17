@@ -62,7 +62,7 @@ const appRoutes = (data)=>{
                 element: <AdminLayout />,
                 children: [
                     {
-                        path: "/",
+                        path: "",
                         element: <BankPersonnel />
                     }
                 ]

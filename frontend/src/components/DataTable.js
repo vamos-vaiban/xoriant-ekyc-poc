@@ -53,7 +53,9 @@ function DataTable(props) {
         <div>
             <TableContainer>
                 <Table stickyHeader>
-                    <TableHead>
+                    <TableHead sx={{
+                        backgroundColor:"#ff3300"
+                    }}>
                         <TableRow>
                             {columns.map((column) => (
                                 <TableCell
