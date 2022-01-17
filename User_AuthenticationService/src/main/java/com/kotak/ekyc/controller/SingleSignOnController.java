@@ -10,15 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.kotak.ekyc.model.SingleSignInModel;
 import com.kotak.ekyc.model.ekycStatusModel;
@@ -114,8 +106,8 @@ public class SingleSignOnController {
 		return new ResponseEntity<SingleSignInModel>(single, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/validateOTP/{request_Id}/{mobile_number_otp}", method = RequestMethod.GET)
-	public boolean validateOTP(@PathVariable("request_Id")int request_Id,@PathVariable("mobile_number_otp")String mobile_number_otp) throws DataNotFoundExceptions {
+	@RequestMapping(value = "/validateOTP", method = RequestMethod.GET)
+	public boolean validateOTP(@RequestHeader(value = "request_Id") int request_Id,@RequestParam(value= "mobile_number_otp")String mobile_number_otp) throws DataNotFoundExceptions {
 		boolean isDataExist = signInService.isDataExist(request_Id);
 		System.out.println("isDataExist: " + isDataExist);
 		if(isDataExist) {
