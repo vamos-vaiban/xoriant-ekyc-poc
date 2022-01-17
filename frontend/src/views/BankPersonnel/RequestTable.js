@@ -17,7 +17,7 @@ export default function RequestTable({ filter, onShowInfo, onSettings }) {
     const columns = [
         {
             title: "Request Id",
-            field: "reqId",
+            field: "request_id",
             align: "center"
         },
         {
@@ -34,7 +34,7 @@ export default function RequestTable({ filter, onShowInfo, onSettings }) {
         {
             title: "Registered By",
             align: "center",
-            field: "mobileNumber",
+            field: "mobile_number",
             // sorting: true
         },
         {
