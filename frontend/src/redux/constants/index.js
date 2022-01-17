@@ -17,3 +17,6 @@ export const SAVE_USER_DETAILS = "save_user_details"
 //navigarion Constants
 export const CHANGE_STATUS = "change_status"
 export const USER_LIST = "user_list"
+//Bank Personnel Login
+
+export const FETCH_CUSTOMER_DETAILS = "fetch_customer_details"

@@ -2,6 +2,7 @@ import authAPI from "./auth";
 import basicDetailsAPI from "./basicDetails"
 import addressDetailsAPI from "./addressDetails"
 import AadharValidation from "./aadharValidation";
+import BankPersonnel from './BankPersonnel' 
 import axios from "axios";
 import Storage from '../utils/Storage'
 // axios.defaults.baseURL = process.env.REACT_APP_BACKEND
@@ -23,7 +24,8 @@ const API = {
   ...authAPI,
   ...basicDetailsAPI,
   ...addressDetailsAPI,
-  ...AadharValidation
+  ...AadharValidation,
+  ...BankPersonnel,
 
 }
 export default API

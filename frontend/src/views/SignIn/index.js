@@ -27,21 +27,21 @@ export default function Signup(props) {
     if (ui["messages"]) {
       let refObj = findLast(ui["messages"], { key: "user_sign_in" });
       //change error to success once server is attached
-      if (refObj && refObj.type === "success") {
+      if (refObj && refObj.type === "error") {
         //things to save after login
         //  Storing Data into Local Storage 
-          let userList = localStorage.getItem("userList")
-          userList = JSON.parse(userList)
-          let userSpecificData = Storage.getUserData()
-          let user = {
-            ...userSpecificData,
-            reqId: userList ? userList.length  + 1 : 1,
-            accountNumber: userList ? userList.length + 1001000001 :1001000001,
-            crnNumber: "123456789A",
-            mobileNumber: mobileNumber,
-          }
-          localStorage.setItem("user", JSON.stringify(user))
-          Storage.storeUserData(user)
+        let userList = localStorage.getItem("userList")
+        userList = JSON.parse(userList)
+        let userSpecificData = Storage.getUserData()
+        let user = {
+          ...userSpecificData,
+          reqId: userList ? userList.length + 1 : 1,
+          accountNumber: userList ? userList.length + 1001000001 : 1001000001,
+          crnNumber: "123456789A",
+          mobileNumber: mobileNumber,
+        }
+        localStorage.setItem("user", JSON.stringify(user))
+        Storage.storeUserData(user)
         dispatch({
           type: SAVE_USER_DETAILS,
           payload: user
@@ -60,18 +60,13 @@ export default function Signup(props) {
     if (ui["messages"]) {
       let refObj = findLast(ui["messages"], { key: "generate_otp" });
       //change error to success once server is attached
-      if (refObj && refObj.type === "success") {
+      if (refObj && refObj.type === "error") {
         setGenerateOTP(true)
       }
     }
   }, [ui])
 
-  //   const otpValidationSchema = yup.object({
-  // otp: yup
-  //       .number()
-  //       .min(6, 'OTP should be of minimum 6 numbers length')
-  //       .required('OTP is required'),
-  //   })
+ 
   const validationSchema = yup.object({
     email: yup
       .string('Enter your email')
@@ -84,22 +79,8 @@ export default function Signup(props) {
     initialValues: {
       otp: "",
     },
-    //  validationSchema:otpValidationSchema,
     onSubmit: (value) => {
-      let values = {
-        "mode_Of_Authentication": emailVerification ? "via-email" : "via-mobile",
-        "email_id": formik.values.email,
-        "email_id_otp": emailVerification ? otp : "",
-        "mobile_number": emailVerification ? "" : mobileNumber,
-        "mobile_number_otp": emailVerification ? "" : otp
-      }
-      // dispatch({
-      //   type: IS_USER,
-      //   payload: true
-      // })
-      dispatch(DoUserSignInAction({ userData: values, key: "user_sign_in" }))
-      // alert(JSON.stringify(values, null, 2));
-      // navigation("/home")
+      dispatch(DoUserSignInAction({ otp: otp, key: "user_sign_in" }))
     }
   })
   const formik = useFormik({
@@ -119,11 +100,7 @@ export default function Signup(props) {
     },
   });
 
-  // const submitMobileNumber = () => {
-  //   setGenerateOTP(true);
-  // }
-  // console.log("generatOTP ", generateOTP)
-
+ 
   return (
     <Grid container alignItems="center" justifyContent={"center"}>
       <Grid item xs={12} sm={6}

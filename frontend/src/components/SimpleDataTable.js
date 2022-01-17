@@ -22,7 +22,6 @@ export default function EMSimpleDatatable({
   useEffect(() => { 
     updatePageAndPageSizeAndOrder(page, pageSize, order);
   }, [page, pageSize, order]);
-  console.log("pagesize", data)
   return (
     <div style = {{maxHeight : window.screen.height /1.5, maxWidth:"100%",overflow : "auto"}}>
       

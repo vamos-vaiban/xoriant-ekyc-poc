@@ -4,7 +4,7 @@ import Storage from "../../utils/Storage"
 
 export const DoUserSignInAction =(action)=>{
     return (dispatch)=>{
-        API.DoSignInApi(action.userData)
+        API.DoValidateOTP(action)
         .then(data=>data.data)
         .then(response =>{
             if(response){
@@ -66,10 +66,12 @@ export const DoGenerateOTPAction =(action)=>{
         .then(data=>data.data)
         .then(response =>{
             if(response){
-                // dispatch({
-                //     type:AUTH_USER_SIGNIN_SUCCESS,
-                //     payload:response,
-                // })
+                localStorage.setItem("userData",JSON.stringify(response))
+                Storage.storeUserData(response)
+                dispatch({
+                    type: SAVE_USER_INFO,
+                    payload:response
+                })
                 dispatch({
                     type:SHOW_MESSAGE,
                     payload:{
@@ -90,6 +92,7 @@ export const DoGenerateOTPAction =(action)=>{
             }
         })
         .catch(err=>{
+            Storage.storeUserData({"request_Id": 65})
             dispatch({
                 type:SHOW_MESSAGE,
                 payload:{
