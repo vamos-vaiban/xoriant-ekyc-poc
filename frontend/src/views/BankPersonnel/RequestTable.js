@@ -8,7 +8,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import { useEffect, useState } from "react";
 import Switch from "../../components/common/Switch";
 
-export default function RequestTable({ filter, onShowInfo, onSettings }) {
+export default function RequestTable({ onReject, onShowInfo, onApprove }) {
     const theme = useTheme();
     const dispatch = useDispatch();
     const [remark,setRemark] = useState()
@@ -60,10 +60,10 @@ export default function RequestTable({ filter, onShowInfo, onSettings }) {
                         display:"flex",
                         
                     }}>
-                      <IconButton onClick={() =>{}}>
+                      <IconButton onClick={() =>onApprove(data)}>
                             <DoneIcon />
                         </IconButton>
-                        <IconButton onClick={() =>{}}>
+                        <IconButton onClick={() =>onReject(data)}>
                             <ClearIcon />
                         </IconButton>
                         <IconButton onClick={() => onShowInfo(data)}>
