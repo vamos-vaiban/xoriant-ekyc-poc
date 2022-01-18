@@ -4,12 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.kotak.ekyc.dao.BankPersoneRepo;
 import com.kotak.ekyc.dao.BankPersones;
@@ -36,16 +31,18 @@ public class BankPersoneController {
 
     }
     @CrossOrigin
-    @PutMapping("/ekyStatus/{id}")
-    public String updateEkycStatus(@PathVariable("id") long id, @RequestBody ekycStatusModel eStatus) {
-        Optional<ekycStatusModel> statusData = bankRepo.findById(id);
+    @PutMapping("/ekyStatus")
+    public String updateEkycStatus(@RequestHeader(value="request_Id") int requestId, @RequestBody ekycStatusModel eStatus) {
+        Optional<ekycStatusModel> statusData = bankRepo.findByRequestId(requestId);
+        //Optional<ekycStatusModel> statusData = bankRepo.findById(id);
         System.out.println(statusData);
         System.out.println(eStatus);
         if (statusData.isPresent()) {
             ekycStatusModel _status = statusData.get();
-            _status.setRequestId(eStatus.getRequestId());
+            _status.setId(_status.getId());
+            _status.setRequestId(requestId);
             _status.setStatus(eStatus.getStatus());
-            _status.setRejectionReason("Approve");
+            _status.setRejectionReason(eStatus.getRejectionReason());
 
             ekycStatusModel s = bankRepo.save(_status);
 
