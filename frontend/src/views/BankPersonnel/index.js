@@ -4,17 +4,17 @@ import Paper from '@material-ui/core/Paper';
 import RequestTable from './RequestTable';
 import MoreInfo from './MoreInfo';
 import { useDispatch } from 'react-redux';
-import {DoGetCustomerDataAction} from '../../redux/actions/bankPersonnelAction'
+import { DoGetCustomerDataAction, DoUpdateKYCStatusAction } from '../../redux/actions/bankPersonnelAction'
 export default function BankPersonnel() {
   const [showInfo, setShowInfo] = useState(false)
   const [editData, setEditData] = useState()
-const dispatch= useDispatch()
+  const dispatch = useDispatch()
   const handleCloseMoreInfo = () => {
     setShowInfo(false)
   }
-  useEffect(()=>{
-    dispatch(DoGetCustomerDataAction({key:"fetch_customer_data"}))
-  },[])
+  useEffect(() => {
+    dispatch(DoGetCustomerDataAction({ key: "fetch_customer_data" }))
+  }, [])
   return (
     <Paper >
       <MoreInfo open={showInfo} handleClose={handleCloseMoreInfo} userSpecificData={editData} />
@@ -23,6 +23,22 @@ const dispatch= useDispatch()
           console.log(row)
           setEditData(row)
           setShowInfo(true)
+        }}
+        onApprove={(row) => {
+          let data = {
+            rejectionReason: "NA",
+            status: "Approve",
+            request_id: row.request_id
+          }
+          dispatch(DoUpdateKYCStatusAction({ userData: data, key: "user_request_approve" }))
+        }}
+        onReject={(row) => {
+          // let data = {
+          //   rejectionReason: "NA",
+          //   status: "Reject",
+          //   request_id: row.request_id
+          // }
+          // dispatch(DoUpdateKYCStatusAction({ userData: data, key: "user_request_approve" }))
         }} />
     </Paper>
   );
