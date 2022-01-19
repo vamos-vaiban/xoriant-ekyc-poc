@@ -32,15 +32,14 @@ public class BankPersoneController {
     }
     @CrossOrigin
     @PutMapping("/ekyStatus")
-    public String updateEkycStatus(@RequestHeader(value="request_Id") int requestId, @RequestBody ekycStatusModel eStatus) {
-        Optional<ekycStatusModel> statusData = bankRepo.findByRequestId(requestId);
-        //Optional<ekycStatusModel> statusData = bankRepo.findById(id);
+    public String updateEkycStatus(@RequestBody ekycStatusModel eStatus) {
+        Optional<ekycStatusModel> statusData = bankRepo.findByRequestId(eStatus.getRequestId());
         System.out.println(statusData);
         System.out.println(eStatus);
         if (statusData.isPresent()) {
             ekycStatusModel _status = statusData.get();
             _status.setId(_status.getId());
-            _status.setRequestId(requestId);
+            _status.setRequestId(eStatus.getRequestId());
             _status.setStatus(eStatus.getStatus());
             _status.setRejectionReason(eStatus.getRejectionReason());
 
