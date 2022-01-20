@@ -28,16 +28,17 @@ export default function DialogBox({shouldOpen,onSelect,onClickHandler, dialogTex
     <div>
       <Dialog
         // fullScreen={fullScreen}
-        style={{width:"80%"}}
+        style={{width:"50%",marginLeft:"20%",marginRight:"20%"}}
         open={open}
         onClose={handleClose}
         disableBackdropClick={true}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogContent>
+        <DialogContent style={{padding:"5%",margin:"3%"}}>
           <DialogContentText>
             {dialogText}
             <TextField
+            style={{marginLeft:"2%",width:"85%"}}
             label="Remark"
             fullWidth
             multiline
@@ -46,7 +47,7 @@ export default function DialogBox({shouldOpen,onSelect,onClickHandler, dialogTex
           />
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <DialogActions style={{marginRight:"15%",marginBottom:"2%"}}>
           <Button autoFocus onClick={onClickHandler} color="red">
             Yes, I'm sure
           </Button>
