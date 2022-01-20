@@ -7,7 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 
-export default function DialogBox({shouldOpen,onSelect, dialogText,onChangeRemark}) {
+export default function DialogBox({shouldOpen,onSelect,onClickHandler, dialogText,onChangeRemark}) {
   const [open, setOpen] = React.useState(shouldOpen);
   const theme = useTheme();
 //   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -47,9 +47,7 @@ export default function DialogBox({shouldOpen,onSelect, dialogText,onChangeRemar
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={() => {
-              onSelect(true)
-          }} color="red">
+          <Button autoFocus onClick={onClickHandler} color="red">
             Yes, I'm sure
           </Button>
           <Button onClick={() => {

@@ -32,13 +32,14 @@ export default function BankPersonnel() {
           }
           dispatch(DoUpdateKYCStatusAction({ userData: data, key: "user_request_approve" }))
         }}
-        onReject={(row) => {
-          // let data = {
-          //   rejectionReason: "NA",
-          //   status: "Reject",
-          //   request_id: row.request_id
-          // }
-          // dispatch(DoUpdateKYCStatusAction({ userData: data, key: "user_request_approve" }))
+        onReject={(remark, row) => {
+          debugger
+          let data = {
+            rejectionReason: remark,
+            status: "Reject",
+            request_id: row.request_id
+          }
+          dispatch(DoUpdateKYCStatusAction({ userData: data, key: "user_request_approve" }))
         }} />
     </Paper>
   );

@@ -7,11 +7,13 @@ import InfoIcon from '@mui/icons-material/Info';
 import DoneIcon from '@mui/icons-material/Done';
 import { useEffect, useState } from "react";
 import Switch from "../../components/common/Switch";
-
+import DialogBox from "../../components/common/DialogBox";
 export default function RequestTable({ onReject, onShowInfo, onApprove }) {
     const theme = useTheme();
     const dispatch = useDispatch();
     const [remark,setRemark] = useState()
+    const [open,setOpen]=useState(false)
+    const [selectedData,setSelectedData]=useState()
     const data =useSelector(state=>state.bankPersonnel.customers)
 
     const columns = [
@@ -63,7 +65,8 @@ export default function RequestTable({ onReject, onShowInfo, onApprove }) {
                       <IconButton onClick={() =>onApprove(data)}>
                             <DoneIcon />
                         </IconButton>
-                        <IconButton onClick={() =>onReject(data)}>
+                        <IconButton onClick={() =>{setOpen(true)
+                        setSelectedData(data)}}>
                             <ClearIcon />
                         </IconButton>
                         <IconButton onClick={() => onShowInfo(data)}>
@@ -93,7 +96,14 @@ export default function RequestTable({ onReject, onShowInfo, onApprove }) {
                     }
                 }}
             />
-
+<DialogBox 
+shouldOpen={open}
+dialogText={"You are about to reject this application, Please specify remark for the same."}
+onSelect={setOpen}
+onChangeRemark = {(event)=>{setRemark(event.target.value)}}
+onClickHandler = {()=>{
+    onReject(remark,selectedData)
+}}/>
         </Box>
     );
 }
