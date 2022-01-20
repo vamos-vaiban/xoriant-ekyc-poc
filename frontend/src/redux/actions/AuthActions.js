@@ -43,11 +43,11 @@ export const DoUserSignInAction =(action)=>{
             }
         })
         .catch(err=>{
-            Storage.storeUserData({"request_Id": 65})
-            dispatch({
-                type: SAVE_USER_INFO,
-                payload:{"request_Id": 65}
-            })
+            // Storage.storeUserData({"request_Id": 65})
+            // dispatch({
+            //     type: SAVE_USER_INFO,
+            //     payload:{"request_Id": 65}
+            // })
             dispatch({
                 type:SHOW_MESSAGE,
                 payload:{
@@ -92,7 +92,7 @@ export const DoGenerateOTPAction =(action)=>{
             }
         })
         .catch(err=>{
-            Storage.storeUserData({"request_Id": 65})
+            // Storage.storeUserData({"request_Id": 65})
             dispatch({
                 type:SHOW_MESSAGE,
                 payload:{
