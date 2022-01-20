@@ -10,6 +10,7 @@ public class PanPhotoPath {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String photopath;
+    private double similarity;
 
     @OneToOne
     @JoinColumn(name = "request_id")
@@ -39,10 +40,19 @@ public class PanPhotoPath {
         this.singleSignInModel = singleSignInModel;
     }
 
-    public PanPhotoPath(Integer id, String photopath, SingleSignInModel singleSignInModel) {
+    public double getSimilarity() {
+        return similarity;
+    }
+
+    public void setSimilarity(double similarity) {
+        this.similarity = similarity;
+    }
+
+    public PanPhotoPath(Integer id, String photopath, SingleSignInModel singleSignInModel ,double similarity) {
         this.id = id;
         this.photopath = photopath;
         this.singleSignInModel = singleSignInModel;
+        this.similarity = similarity;
     }
 
     public PanPhotoPath(){

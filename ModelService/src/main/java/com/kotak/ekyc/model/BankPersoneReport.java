@@ -27,6 +27,10 @@ public class BankPersoneReport{
     private int Pincode;
     private String photopath;
     private String status;
+    private Long accountNumber;
+    private String crn;
+    private double similarity;
+
 
     public String getPhotopath() {
         return photopath;
@@ -128,7 +132,28 @@ public class BankPersoneReport{
     public void setPincode(int pincode) {
         Pincode = pincode;
     }
+    public Long getAccountNumber() {
+        return accountNumber;
+    }
 
+    public void setAccountNumber(Long accountNumber) {
+        this.accountNumber = accountNumber;
+    }
 
+    public String getCrn() {
+        return crn;
+    }
+
+    public void setCrn(String crn) {
+        this.crn = crn;
+    }
+
+    public double getSimilarity() {
+        return similarity;
+    }
+
+    public void setSimilarity(double similarity) {
+        this.similarity = similarity;
+    }
 
 }

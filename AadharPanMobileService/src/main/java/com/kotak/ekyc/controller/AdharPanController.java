@@ -58,6 +58,8 @@ public class AdharPanController {
 		aadharPanModel.setInserted_date(new Date(new java.util.Date().getTime()));
 		aadharPanModel.setSingleSignInModel(singleSignInModel);
 		System.out.println(aadharPanModel);
+		aadharPanModel.setAccountNumber(service.getAccountNumber(request_id));
+		aadharPanModel.setCRN(service.getCRN());
 		AadharPanModel aadharPan = service.saveDetails(aadharPanModel);
 		System.out.println(aadharPan.getAadhar_number());
 		System.out.println(aadharPan);

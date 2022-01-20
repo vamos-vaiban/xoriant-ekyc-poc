@@ -28,7 +28,11 @@ public class AadharPanModel {
 	@Column(name = "Aadhar_Linked_Mobile_no")
 	private String Aadhar_Linked_Mobile_no;
 
+	@Column(name = "account_number")
+	private long accountNumber;
 
+	@Column(name = "crn_number")
+	private String CRN;
 
 	@Column(name = "Inserted_date")
 	private Date Inserted_date;
@@ -121,5 +125,21 @@ public class AadharPanModel {
 	 * 
 	 * public void setSSM(SingleSignInModel sSM) { SSM = sSM; }
 	 */
+
+	public long getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(long accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public String getCRN() {
+		return CRN;
+	}
+
+	public void setCRN(String CRN) {
+		this.CRN = CRN;
+	}
 
 }

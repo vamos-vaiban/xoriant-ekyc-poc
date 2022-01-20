@@ -21,6 +21,8 @@ public interface PanAadharService {
 	
 	public AadharPanModel selectSaveRequestId(Integer request_id);
 
-	
+	public Long getAccountNumber(int id);
+
+	public String getCRN();
 
 }

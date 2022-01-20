@@ -1,6 +1,7 @@
 package com.kotak.ekyc.serviceImpl;
 
 import java.util.List;
+import java.util.Random;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,5 +79,30 @@ public class PanAadharServiceImpl implements PanAadharService {
 		return aadharPan;
 	}
 
+	public Long getAccountNumber(int id){
+		String prefix = "100100";
+		int count = 0;
+		int requestId=id;
+		while (id != 0) {
+			// num = num/10
+			id /= 10;
+			++count;
+		}
+		if(count==1){
+			prefix+="000";
+		}else if(count==2){
+			prefix+="00";
+		}else if(count==3){
+			prefix+="0";
+		}
+		prefix = prefix+requestId;
+		return Long.parseLong(prefix);
+	}
+
+	public String getCRN(){
+		Random random = new Random();
+		char randomizedCharacter = (char) (random.nextInt(26) + 'A');
+		return (Long.toString((long)(Math.random() * 1000000000L))+randomizedCharacter);
+	}
 	
 }
