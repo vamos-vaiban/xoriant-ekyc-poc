@@ -29,7 +29,7 @@ export default function RequestTable({ onReject, onShowInfo, onApprove }) {
         },
         {
             title: "CRN Number",
-            field: "crnNumber",
+            field: "crn",
             align: "center",
             sorting: false,
         },

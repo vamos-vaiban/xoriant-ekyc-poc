@@ -37,7 +37,7 @@ export default function BankPersonnel() {
           let data = {
             rejectionReason: remark,
             status: "Reject",
-            request_id: row.request_id
+            requestId: row.request_id
           }
           dispatch(DoUpdateKYCStatusAction({ userData: data, key: "user_request_approve" }))
         }} />

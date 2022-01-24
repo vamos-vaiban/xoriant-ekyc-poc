@@ -8,21 +8,21 @@ export const DoUserSignInAction =(action)=>{
         .then(data=>data.data)
         .then(response =>{
             if(response){
-                localStorage.setItem("userData",JSON.stringify(response))
-                Storage.storeUserData(response)
-                // Storage.storeUserData({"request_Id": 65})
-                dispatch({
-                    type: SAVE_USER_INFO,
-                    payload:response
-                })
+                // localStorage.setItem("userData",JSON.stringify(response))
+                // Storage.storeUserData(response)
+                // // Storage.storeUserData({"request_Id": 65})
                 // dispatch({
                 //     type: SAVE_USER_INFO,
                 //     payload:response
                 // })
-                dispatch({
-                    type:AUTH_USER_SIGNIN_SUCCESS,
-                    payload:response,
-                })
+                // dispatch({
+                //     type: SAVE_USER_INFO,
+                //     payload:response
+                // })
+                // dispatch({
+                //     type:AUTH_USER_SIGNIN_SUCCESS,
+                //     payload:response,
+                // })
                 dispatch({
                     type:SHOW_MESSAGE,
                     payload:{
@@ -92,9 +92,9 @@ export const DoGenerateOTPAction =(action)=>{
             }
         })
         .catch(err=>{
-            let response = { request_Id: 2}
-            localStorage.setItem("userData",JSON.stringify(response))
-            Storage.storeUserData(response)
+            // let response = { request_Id: 2}
+            // localStorage.setItem("userData",JSON.stringify(response))
+            // Storage.storeUserData(response)
             dispatch({
                 type:SHOW_MESSAGE,
                 payload:{
