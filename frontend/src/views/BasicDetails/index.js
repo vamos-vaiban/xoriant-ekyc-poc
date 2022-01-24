@@ -70,21 +70,21 @@ export default function BasicDetails() {
           aadhar_Linked_Mobile_no: formik.values.contactNumber
         }
         dispatch(DoSaveBasicDetailsAction({ userData, key: "save_basic_details" }))
-        let user = localStorage.getItem('user');
+        // let user = localStorage.getItem('user');
         //save details in Local Storage
-        let userInfo = JSON.parse(user)
-        let newUserInfo = {
-          ...userInfo,
-          adharNumber: formik.values.adhar,
-          registeredMobile: formik.values.contactNumber,
-          panNumber: formik.values.pan
-        }
-        dispatch({
-          type: SAVE_USER_DETAILS,
-          payload: newUserInfo
-        })
-        localStorage.setItem("user", JSON.stringify(newUserInfo))
-        Storage.storeUserData(user)
+        // let userInfo = JSON.parse(user)
+        // let newUserInfo = {
+        //   ...userInfo,
+        //   adharNumber: formik.values.adhar,
+        //   registeredMobile: formik.values.contactNumber,
+        //   panNumber: formik.values.pan
+        // }
+        // dispatch({
+        //   type: SAVE_USER_DETAILS,
+        //   payload: newUserInfo
+        // })
+        // localStorage.setItem("user", JSON.stringify(newUserInfo))
+        // Storage.storeUserData(user)
       }
       let saveRefObj = findLast(uiData["messages"], { key: "save_basic_details" })
       if (saveRefObj && saveRefObj.type === "success") {

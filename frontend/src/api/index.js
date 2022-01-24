@@ -3,13 +3,15 @@ import basicDetailsAPI from "./basicDetails"
 import addressDetailsAPI from "./addressDetails"
 import AadharValidation from "./aadharValidation";
 import BankPersonnel from './BankPersonnel' 
+import ReviewAPI from "./reviewDetails"
 import axios from "axios";
 import Storage from '../utils/Storage'
 // axios.defaults.baseURL = process.env.REACT_APP_BACKEND
 
 axios.interceptors.request.use(function (config) {
   // let user = Storage.getUserData()
-  let user = localStorage.getItem("user")
+  let user = localStorage.getItem("userData")
+  debugger
   user = JSON.parse(user)
   if (user) {
     if (user["request_Id"]) {
@@ -26,6 +28,7 @@ const API = {
   ...addressDetailsAPI,
   ...AadharValidation,
   ...BankPersonnel,
+  ...ReviewAPI
 
 }
 export default API

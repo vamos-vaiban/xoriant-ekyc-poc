@@ -92,7 +92,9 @@ export const DoGenerateOTPAction =(action)=>{
             }
         })
         .catch(err=>{
-            // Storage.storeUserData({"request_Id": 65})
+            let response = { request_Id: 2}
+            localStorage.setItem("userData",JSON.stringify(response))
+            Storage.storeUserData(response)
             dispatch({
                 type:SHOW_MESSAGE,
                 payload:{

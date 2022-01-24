@@ -48,23 +48,23 @@ export default function AddressDetails() {
         })
   
         //save details to local Storage
-        let user = localStorage.getItem('user');
-        let userInfo = JSON.parse(user)
-        let newUserInfo ={
-          ...userInfo,
-          "house_no":formik.values.houseNumber,
-          "address_line_1":formik.values.addressLine1,
-          "address_line_2":formik.values.addressLine2,
-          "city":formik.values.city,
-          "landmark":formik.values.landmark,     
-       }
+      //   let user = localStorage.getItem('user');
+      //   let userInfo = JSON.parse(user)
+      //   let newUserInfo ={
+      //     ...userInfo,
+      //     "house_no":formik.values.houseNumber,
+      //     "address_line_1":formik.values.addressLine1,
+      //     "address_line_2":formik.values.addressLine2,
+      //     "city":formik.values.city,
+      //     "landmark":formik.values.landmark,     
+      //  }
         
-        localStorage.setItem("user", JSON.stringify(newUserInfo))
-        Storage.storeUserData(user)
-        dispatch({
-          type:SAVE_USER_DETAILS,
-          payload:newUserInfo
-        })
+      //   localStorage.setItem("user", JSON.stringify(newUserInfo))
+      //   Storage.storeUserData(user)
+      //   dispatch({
+      //     type:SAVE_USER_DETAILS,
+      //     payload:newUserInfo
+      //   })
         dispatch({
           type: CHANGE_STATUS,
           payload: {

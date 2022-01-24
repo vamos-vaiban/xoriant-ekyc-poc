@@ -27,25 +27,25 @@ export default function Signup(props) {
     if (ui["messages"]) {
       let refObj = findLast(ui["messages"], { key: "user_sign_in" });
       //change error to success once server is attached
-      if (refObj && refObj.type === "success") {
+      if (refObj && refObj.type === "error") {
         //things to save after login
         //  Storing Data into Local Storage 
-        let userList = localStorage.getItem("userList")
-        userList = JSON.parse(userList)
-        let userSpecificData = Storage.getUserData()
-        let user = {
-          ...userSpecificData,
-          reqId: userList ? userList.length + 1 : 1,
-          accountNumber: userList ? userList.length + 1001000001 : 1001000001,
-          crnNumber: "123456789A",
-          mobileNumber: mobileNumber,
-        }
-        localStorage.setItem("user", JSON.stringify(user))
-        Storage.storeUserData(user)
-        dispatch({
-          type: SAVE_USER_DETAILS,
-          payload: user
-        })
+        // let userList = localStorage.getItem("userList")
+        // userList = JSON.parse(userList)
+        // let userSpecificData = Storage.getUserData()
+        // let user = {
+        //   ...userSpecificData,
+        //   reqId: userList ? userList.length + 1 : 1,
+        //   accountNumber: userList ? userList.length + 1001000001 : 1001000001,
+        //   crnNumber: "123456789A",
+        //   mobileNumber: mobileNumber,
+        // }
+        // localStorage.setItem("user", JSON.stringify(user))
+        // Storage.storeUserData(user)
+        // dispatch({
+        //   type: SAVE_USER_DETAILS,
+        //   payload: user
+        // })
         dispatch({
           type: IS_USER,
           payload: true
@@ -60,7 +60,7 @@ export default function Signup(props) {
     if (ui["messages"]) {
       let refObj = findLast(ui["messages"], { key: "generate_otp" });
       //change error to success once server is attached
-      if (refObj && refObj.type === "success") {
+      if (refObj && refObj.type === "error") {
         setGenerateOTP(true)
       }
     }

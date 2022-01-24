@@ -14,6 +14,8 @@ export const AUTH_USER_SIGNIN_SUCCESS = "auth_user_signin_success"
 export const SET_LOGIN_AS_BANK_PERSONNEL ="set_login_as_bank_personnel"
 export const LOGGED_IN_AS_BANK_PERSONNEL = "logged_in_as_bank_personnel"
 export const SAVE_USER_DETAILS = "save_user_details"
+//review Details
+export const SAVE_REVIEW_DETAILS = "save_review_details"
 //navigarion Constants
 export const CHANGE_STATUS = "change_status"
 export const USER_LIST = "user_list"
