@@ -3,6 +3,7 @@ package com.kotak.ekyc.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Date;
 
 
 @Entity
@@ -30,6 +31,7 @@ public class BankPersoneReport{
     private Long accountNumber;
     private String crn;
     private double similarity;
+    private Date insertedDate;
 
 
     public String getPhotopath() {
@@ -154,6 +156,14 @@ public class BankPersoneReport{
 
     public void setSimilarity(double similarity) {
         this.similarity = similarity;
+    }
+
+    public Date getInsertedDate() {
+        return insertedDate;
+    }
+
+    public void setInsertedDate(Date insertedDate) {
+        this.insertedDate = insertedDate;
     }
 
 }
