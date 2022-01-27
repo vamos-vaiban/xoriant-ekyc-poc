@@ -1,13 +1,25 @@
+import datetime
 import json
 import os.path
 import boto3
 import jsonify
+import requests
 from flask import Flask, request, render_template
 from os import getcwd
 from flask_cors import CORS, cross_origin
+#from flask_mysqldb import MySQL
+#import yaml
 
 
+'''db = yaml.load(open('db.yaml'))
+
+app.config['MYSQL_HOST'] = db['mysql_host']
+app.config['MYSQL_USER'] = db['mysql_user']
+app.config['MYSQL_PASSWORD'] = db['mysql_password']
+app.config['MYSQL_DB'] = db['mysql_DB']'''
 app = Flask('face_rekognition')
+
+mysql = MySQL(app)
 CORS(app, support_credentials=True)
 
 s3 = boto3.client('s3',
@@ -60,21 +72,48 @@ def login():
         photo = request.files['User_Photo']
         user_path = os.path.join(getcwd() + "/media/" + photo.filename)
         photo.save(user_path)
-        upload_to_aws(doc_path, "image-match02", document.filename)
+        upload_to_aws(doc_path,"image-match02", document.filename)
         upload_to_aws(user_path, "image-match02", photo.filename)
         print(document,photo)
         result=face_comparision(document.filename,photo.filename)
         print("result")
+        x = result.get("Similarity")
+        print(x)
+
+        photo_save(doc_path,x)
+
+        # print(json.dumps(result))
+        # json_result = json.dumps(result)
+
+    return render_template("index.html", result=result)
 
 
-        #print(json.dumps(result))
-        #json_result = json.dumps(result)
+def photo_save(doc_path,x):
+    url = "http://localhost:7070/savePancardPhotoPath"
+    tp = str(datetime.datetime.now().timestamp())
+    print(tp)
 
+    payload = json.dumps({
+        "path": doc_path,
+        "Similarity": x,
+    })
+    headers = {
+        'request_id': tp
+    }
 
-
-    return render_template("index.html",result=result)
+    response = requests.post(url,headers=headers,data=payload)
+    print(response.text)
+    if response.status_code == 200:
+        print("[success] saved")
+    else:
+        print("[ERROR] failed to save")
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+   app.run(debug=True)
+#    doc_path='https://image-match02.s3.ap-south-1.amazonaws.com/target_Image.jpg'
+#    x= 70.55
+#    photo_save(doc_path, x)
+
+
 
