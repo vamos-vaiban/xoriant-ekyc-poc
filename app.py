@@ -9,14 +9,14 @@ from os import getcwd
 from flask_cors import CORS, cross_origin
 #from flask_mysqldb import MySQL
 #import yaml
-
-
 '''db = yaml.load(open('db.yaml'))
 
 app.config['MYSQL_HOST'] = db['mysql_host']
 app.config['MYSQL_USER'] = db['mysql_user']
 app.config['MYSQL_PASSWORD'] = db['mysql_password']
 app.config['MYSQL_DB'] = db['mysql_DB']'''
+
+ALLOWED_EXTENSIONS = {'pdf','png','jpeg','jpg'}
 app = Flask('face_rekognition')
 
 #mysql = MySQL(app)
@@ -66,6 +66,9 @@ def upload_to_aws(local_file, bucket, s3_file):
 def login():
     result = ""
     if request.method == "POST":
+        #rqid = request.args.get('request_Id')
+        #rqid = request.headers
+        #print(rqid)
         document = request.files['Document_Photo']
         doc_path = os.path.join(getcwd() + "/media/" + document.filename)
         document.save(doc_path)
@@ -75,16 +78,20 @@ def login():
         upload_to_aws(doc_path,"image-match02", document.filename)
         upload_to_aws(user_path, "image-match02", photo.filename)
         print(document,photo)
-        result=face_comparision(document.filename,photo.filename)
-        print("result")
-        if result[0]== True:
-            print('[info] result')
-        else:
-            print('result="data not captured"')
-        x = result[0].get('Similarity')
-        print(x)
-
-        photo_save(doc_path,x)
+        try:
+            result=face_comparision(document.filename,photo.filename)
+            print(result)
+            if 'Similarity' in result[0].keys():
+                data = result[0]
+                sim = data['Similarity']
+                sv=photo_save(doc_path, sim,rqid)
+                if sv:
+                    result[0]['photo_message']='photo path successfully saved'
+            else:
+                result=[{'message':'please provide valid parameters'}]
+                print("Please provide valid parameter")
+        except Exception as e:
+            result = [{'message':'Please provide valid parameter' }]
 
         # print(json.dumps(result))
         # json_result = json.dumps(result)
@@ -92,25 +99,22 @@ def login():
     return render_template("index.html", result=result)
 
 
-def photo_save(doc_path,x):
+
+def photo_save(doc_path,x,tp):
     url = "http://localhost:7070/savePancardPhotoPath"
-    tp = str(datetime.datetime.now().timestamp())
-    print(tp)
 
     payload = json.dumps({
         "path": doc_path,
         "Similarity": x,
     })
     headers = {
-        'request_id': tp
+        'request_Id': tp
     }
 
     response = requests.post(url,headers=headers,data=payload)
     print(response.text)
     if response.status_code == 200:
-        print("[success] saved")
-    else:
-        print("[ERROR] failed to save")
+        return "[success] url path saved"
 
 
 if __name__ == '__main__':
