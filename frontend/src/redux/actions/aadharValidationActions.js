@@ -8,19 +8,19 @@ export const DoCompareTheDocumentAction = (action) => {
             .then(data => data.data)
             .then(response => {
                 if (response) {
-                    let similarity = response[0].Similarity
-                    let user = localStorage.getItem('user');
-                    let userInfo = JSON.parse(user)
-                    let userSpecificData = {
-                        ...userInfo,
-                        similarity: similarity,
-                    }
-                    localStorage.setItem("user", JSON.stringify(userSpecificData))
-                    Storage.storeUserData(user)
-                    dispatch({
-                        type: SAVE_USER_DETAILS,
-                        payload: userSpecificData
-                    })
+                    // let similarity = response[0].Similarity
+                    // let user = localStorage.getItem('user');
+                    // let userInfo = JSON.parse(user)
+                    // let userSpecificData = {
+                    //     ...userInfo,
+                    //     similarity: similarity,
+                    // }
+                    // localStorage.setItem("user", JSON.stringify(userSpecificData))
+                    // Storage.storeUserData(user)
+                    // dispatch({
+                    //     type: SAVE_USER_DETAILS,
+                    //     payload: userSpecificData
+                    // })
                     dispatch({
                         type: SHOW_MESSAGE,
                         payload: {
@@ -45,7 +45,7 @@ export const DoCompareTheDocumentAction = (action) => {
                     type: SHOW_MESSAGE,
                     payload: {
                         type: "error",
-                        message: err && err.response && err.response.data && err.response.data.details,
+                        message: err && err.response && err.response.message,
                         key: action.key
 
                     }
