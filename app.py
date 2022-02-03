@@ -2,7 +2,7 @@ import datetime
 import json
 import os.path
 import boto3
-import jsonify
+#import jsonify
 import requests
 from flask import Flask, request, render_template
 from os import getcwd
@@ -66,9 +66,8 @@ def upload_to_aws(local_file, bucket, s3_file):
 def login():
     result = ""
     if request.method == "POST":
-        #rqid = request.args.get('request_Id')
-        #rqid = request.headers
-        #print(rqid)
+        rqid = request.headers.get('Request-Id')
+        print(rqid)
         document = request.files['Document_Photo']
         doc_path = os.path.join(getcwd() + "/media/" + document.filename)
         document.save(doc_path)
@@ -83,15 +82,16 @@ def login():
             print(result)
             if 'Similarity' in result[0].keys():
                 data = result[0]
+        except Exception as e:
+            result = [{'message':'Please provide valid input' }]
+            if 'Similarity' in result[0].keys():
+                data = result[0]
                 sim = data['Similarity']
-                sv=photo_save(doc_path, sim,rqid)
+                sv =photo_save(doc_path,sim,rqid)
                 if sv:
                     result[0]['photo_message']='photo path successfully saved'
-            else:
-                result=[{'message':'please provide valid parameters'}]
-                print("Please provide valid parameter")
-        except Exception as e:
-            result = [{'message':'Please provide valid parameter' }]
+
+
 
         # print(json.dumps(result))
         # json_result = json.dumps(result)
@@ -114,7 +114,9 @@ def photo_save(doc_path,x,tp):
     response = requests.post(url,headers=headers,data=payload)
     print(response.text)
     if response.status_code == 200:
-        return "[success] url path saved"
+        print("[success] url path saved")
+    else:
+        print("path not saved")
 
 
 if __name__ == '__main__':
