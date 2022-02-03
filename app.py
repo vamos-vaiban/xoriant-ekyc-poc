@@ -19,7 +19,7 @@ app.config['MYSQL_PASSWORD'] = db['mysql_password']
 app.config['MYSQL_DB'] = db['mysql_DB']'''
 app = Flask('face_rekognition')
 
-mysql = MySQL(app)
+#mysql = MySQL(app)
 CORS(app, support_credentials=True)
 
 s3 = boto3.client('s3',
@@ -77,7 +77,11 @@ def login():
         print(document,photo)
         result=face_comparision(document.filename,photo.filename)
         print("result")
-        x = result.get("Similarity")
+        if result[0]== True:
+            print('[info] result')
+        else:
+            print('result="data not captured"')
+        x = result[0].get('Similarity')
         print(x)
 
         photo_save(doc_path,x)
