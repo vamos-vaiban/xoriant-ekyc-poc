@@ -23,7 +23,7 @@ export default function AdminLayout() {
         <div>
             <TopBar />
             <div>
-                <Grid container alignItems={"center"} justifyContent={"center"}>
+                <Grid container>
                     <Grid item className={classes.grid}>
                         <Outlet />
                     </Grid>

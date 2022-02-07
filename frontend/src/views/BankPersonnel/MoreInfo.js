@@ -4,26 +4,122 @@ import { Modal, Grid, Paper, Box } from '@mui/material';
 import { Button, Typography } from '@material-ui/core';
 import { useStyles } from "./styles"
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import close from '../../assets/close.png';
 export default function MoreInfo({ open, handleClose, userSpecificData }, props) {
     const classes = useStyles(props);
     return (
-        <div>
+        <div style={{
+            display:"flex",
+            justifyContent:"center",
+            alignItems:"center",
+           
+            
+        }}>
             <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-                style={{height:"60%",width:"60%",marginLeft:"20%",marginRight:"20%",marginTop:"5%",marginBottom:"5%"}}
             >
-                <Paper>
-                    <Box style={{ padding: "5%" }}>
-                        <Typography variant={"h4"}>{"Requested Information"}</Typography>
-                        <Button style={{ float: "right" }} onClick={handleClose}>{"X"}</Button>
-                        <Grid container spacing={2} style={{ padding: "5%" }}>
+                <Paper sx={{
+                    paddingTop:"5vh",
+                        width:"56vw",
+                        height:"65vh",
+                        marginLeft:"23vw",
+                        marginTop:"15vh"
+                }}>
+                    <Box sx={{
+                        display:"flex",
+                        flexDirection:"column",
+                    }}>
+                        <Box sx={{
+                            display:"flex",
+                            justifyContent:"space-between",
+                            alignItems:"center",
+                            paddingLeft:"1.57vw",
+                            paddingRight:"1.57vw"
+                            }}> 
+                            <Box sx={{          
+                                    fontFamily: "Hind Vadodara",
+                                    fontStyle: "normal",
+                                    fontWeight: "bold",
+                                    fontSize: "3.24vh",
+                                }}>
+                                    
+                                    Requested Information
+                                
+                            </Box>
+                            <Button style={{ float: "right" }} onClick={handleClose}>
+                                <img style={{
+                                    height:"4.1vh"
+                                }} src={close}></img>
+                            </Button>
+                        </Box>
+                        <Box sx={{
+                            display:"flex",
+                            justifyContent:"flex-start",
+                            paddingTop:"3.79vh",
+                            paddingLeft:"1.7vw"
+                            
+                        }}>
+                            <Box sx={{
+                                display:"flex",
+                                justifyContent:"space-around",
+                                flexDirection:"column",
+                                alignItems:"center",
+                                paddingRight:"1.7vw",
+                                height:"44.2vh"
+                            }}>
+                                <Box sx={{
+                                    
+                                }}> 
+                                    {userSpecificData && userSpecificData.photopath ?
+                                        <img style={{ borderRadius: '50%', height: "22.4vh" }} src={userSpecificData && userSpecificData.photopath} />
+                                        : <><AccountBoxIcon sx={{ fontSize: 150 }} /></>}
+                                </Box>
+                                <Box>
+                                        Document Uploaded
+                                </Box>
+
+                                <Button variant='outlined' >{"Accept"}</Button>
+                                <Button variant='outlined' >{"Reject"}</Button>
+                            </Box>
+                            <Box sx={{
+                                fontFamily: "Hind Vadodara",
+                                fontStyle: "normal",
+                                fontWeight: "600",
+                                fontSize: "2.4vh",
+                                lineHeight: "36px",
+                                display:"flex",
+                                flexDirection:"column",
+                                height:"44vh",
+                                justifyContent:"space-between"
+                            }}>
+                                <Box>
+                                {"Address : "}{userSpecificData && userSpecificData.house_no} {userSpecificData && userSpecificData.address_line_1} {userSpecificData && userSpecificData.address_line_2} {userSpecificData && userSpecificData.landmark}, {userSpecificData && userSpecificData.city}
+                                </Box>
+                                <Box>
+                                {"Mob No : "}{userSpecificData && userSpecificData.mobile_number}
+                                </Box>
+                                <Box>
+                                {"Account Number : "}{userSpecificData && userSpecificData.accountNumber}
+                                </Box>
+                                <Box>
+                                {"CRN number : "}{userSpecificData && userSpecificData.crnNumber}
+                                </Box>
+                                <Box>
+                                {"Request Id : "}{userSpecificData && userSpecificData.request_id}
+                                </Box>
+                                <Box>{"Validated Adhar Number : "}{userSpecificData && userSpecificData.aadhar_number}</Box>
+                                <Box>{"Validated Pan Number : "}{userSpecificData && userSpecificData.pan_number}</Box>
+                                <Box>{"Similarity Percentage : "}{userSpecificData && userSpecificData.similarity}</Box>
+                            </Box>
+                        </Box>
+                        {/* <Grid container spacing={2} style={{ padding: "5%" }}>
                             <Grid item xs={4}>
                                 <Box>
                                     {userSpecificData && userSpecificData.photopath ?
-                                        <img style={{ borderRadius: '50%' }}  src={userSpecificData && userSpecificData.photopath} />
+                                        <img style={{ borderRadius: '50%',height:"22.4vh" }}  src={userSpecificData && userSpecificData.photopath} />
                                         : <><AccountBoxIcon sx={{ fontSize: 150 }} /></>}
                                 </Box>
                             </Grid>
@@ -54,7 +150,7 @@ export default function MoreInfo({ open, handleClose, userSpecificData }, props)
                                     <Button variant='outlined'>{"Reject"}</Button>
                                 </Box>
                             </Grid>
-                        </Grid>
+                        </Grid> */}
                     </Box>
                 </Paper>
             </Modal>

@@ -23,7 +23,14 @@ export default function EMSimpleDatatable({
     updatePageAndPageSizeAndOrder(page, pageSize, order);
   }, [page, pageSize, order]);
   return (
-    <div style = {{maxHeight : window.screen.height /1.5, maxWidth:"100%",overflow : "auto"}}>
+    <div style={{
+      fontFamily: "Hind Vadodara",
+fontStyle: "normal",
+fontWeight: "500",
+fontSize: "2.1vh",
+background:"rgba(235, 235, 235, 0.3)",
+borderRadius:"22px 22px 0 0"
+    }}>
       
      <MaterialTable 
         // icons={EMIcons}
@@ -58,8 +65,12 @@ export default function EMSimpleDatatable({
             color: "white",
             padding : '7px 14px',
             width:100,
-            fontSize:"0.7rem",
+            height:"7.5vh",
             fontWeight:"500",
+            fontFamily: "Hind Vadodara",
+            fontStyle: "normal",
+            fontWeight: 500,
+            fontSize: "2.6vh",
             '&:hover': {
               backgroundColor: 'white',
               opacity: [0.9, 0.8, 0.7],
@@ -95,6 +106,7 @@ export default function EMSimpleDatatable({
         data={data}
     />
     </div>
+
   );
 }
 

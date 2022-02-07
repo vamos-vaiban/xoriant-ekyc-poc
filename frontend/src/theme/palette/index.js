@@ -17,12 +17,12 @@ const paletteSettings =  {
     //     dark:"",
     //     contrastText:""
     // },
-    // error:{
-    //     light: "",
-    //     main:"",
-    //     dark:"",
-    //     contrastText:""
-    // },
+    error:{
+        // light: "",
+        main:"#ED2024",
+        // dark:"",
+        // contrastText:""
+    },
     // warning:{
     //     light: "",
     //     main:"",
@@ -35,11 +35,11 @@ const paletteSettings =  {
     //     dark:"",
     //     contrastText:""
     // },
-    // success:{
-    //     light: "",
-    //     main:"",
-    //     dark:"",
-    //     contrastText:""
-    // }
+    success:{
+        // light: "",
+        main:"#67BE65",
+        // dark:"",
+        // contrastText:""
+    }
 }
 export default paletteSettings;

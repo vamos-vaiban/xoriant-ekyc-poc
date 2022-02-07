@@ -1,11 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, CssBaseline, Toolbar, Grid, Typography, Avatar,MenuItem,Menu,Button } from '@material-ui/core';
+import { AppBar, CssBaseline, Toolbar, Grid, Typography, Avatar,MenuItem,Menu,Button,Box } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useSelector,useDispatch } from "react-redux"
 import { useNavigate } from 'react-router';
 import { IS_USER } from '../../redux/constants';
-
+import Logo from '../../assets/Logo.png'
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -44,44 +44,47 @@ export default function TopBar() {
     // }
    
     return (
-        <div className={classes.root}>
-            <CssBaseline />
-            <AppBar position="fixed" className={classes.appBar}>
-                <Toolbar>
-                <div style={{ float: "left", }} >
-                    <Typography variant="h6" noWrap>
-                        Logo
-                    </Typography>
-                    </div>
-                    {
-                        isUser ?
-                            <div style={{ float: "right", marginLeft: "85%", }} >
-                                {/* <span><Avatar >JD</Avatar></span> */}
-                            </div>
-                            : null
-                    }
-                   {isUser? <Grid container direction={"row"} spacing={1} justify="flex-end">
-                        {/* <Grid item><Typography>John Doe</Typography></Grid> */}
-                        <MenuItem onClick={handleClose}>Logout</MenuItem>
-                        <Grid item>
-                            {/* <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                                <ExpandMoreIcon />
-                            </Button>
-                            <Menu
-                                id="simple-menu"
-                                anchorEl={anchorEl}
-                                keepMounted
-                                open={Boolean(anchorEl)}
-                                onClose={handleClose}
-                            >
-                                <MenuItem onClick={handleClose}>Logout</MenuItem>
-                            </Menu> */}
-                        </Grid>
-                    </Grid>:null}
-                </Toolbar>
-            </AppBar>
-        </div>
-    );
+        <Box sx={{
+            display:'flex',
+            marginTop:"2.4vh",
+            marginLeft:"1.1vw",
+            width:"100%",
+        }}
+        className="Navigation"
+        >
+            <Box sx={{
+                display:'flex',
+                justifyContent:'space-between',
+                alignItems:'center',
+                width:"39vw"
+            }}
+            className='Navigation_LeftFlex'
+            >    
+                     <img className='Navigation__Logo' sx={{
+                     display:'flex',
+                     width:"12vw",
+                     }} src={Logo}></img>           
+                 <Box sx={{
+                     display:'flex',
+                     backgroundColor:"#ED2024",
+                     width:"2px",
+                     height:"4vh"
+                     }} className='Navigation__Divider1'>        
+                 </Box>
+                 <Box sx={{
+                     display:'flex',
+                     fontFamily: 'Hind Vadodara',
+                     fontStyle: 'normal',
+                     fontWeight: 'bold',
+                     fontSize: '1.8vw',
+                     color: '#000000'
+                     }} className='Navigation__Title'>        
+                 KYC Request Dashboard
+                 </Box>
+                 
+             </Box>
+        </Box>
+     );
 }
 
 

@@ -8,6 +8,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import { useEffect, useState } from "react";
 import Switch from "../../components/common/Switch";
 import DialogBox from "../../components/common/DialogBox";
+import { makeStyles } from '@material-ui/core/styles';
 export default function RequestTable({ onReject, onShowInfo, onApprove }) {
     const theme = useTheme();
     const dispatch = useDispatch();
@@ -78,9 +79,24 @@ export default function RequestTable({ onReject, onShowInfo, onApprove }) {
         }
     ];
 
+    const BankPersonnelTableStyle=makeStyles({
+        table:{
+            width:"90vw",
+            maxHeight:"none"
+        },
+        tableContainer:{
+            width:"100vw",
+            display:"flex",
+            justifyContent:"space-around",
+            paddingTop:"5.85vh"
+        }
+    })
+    const classes=BankPersonnelTableStyle()
   return (
         <Box p={2} >
 
+<Box className={classes.tableContainer}>
+        <Box className={classes.table}>
             <SimpleDataTable
                 columns={columns}
                 data={data}
@@ -96,6 +112,10 @@ export default function RequestTable({ onReject, onShowInfo, onApprove }) {
                     }
                 }}
             />
+
+        </Box>
+        </Box>       
+
 <DialogBox 
 shouldOpen={open}
 dialogText={"You are about to reject this application, Please specify remark for the same."}
