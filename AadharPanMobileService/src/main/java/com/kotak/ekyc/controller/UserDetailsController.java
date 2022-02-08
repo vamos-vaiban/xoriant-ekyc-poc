@@ -16,16 +16,15 @@ public class UserDetailsController {
     private UserDetailsService userDetailsService;
 
     @GetMapping("/getUserData")
-    public ResponseEntity<?> getUserData(@RequestHeader(value = "request_Id") Integer request_id)  {
-        UserDetails userDetails = userDetailsService.getUserDetails(request_id);
-        if(userDetails==null){
-            return new ResponseEntity<>("Requested User Data with Request ID " + request_id + " not Found", HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity<>(userDetails, HttpStatus.OK);
-        }
+	public UserDetails getUserData(@RequestHeader(value = "request_Id") Integer request_id) {
+		UserDetails userDetails = userDetailsService.getUserDetails(request_id);
+		if (userDetails == null) {
+			return userDetails;
+		} else {
+			return userDetails;
+		}
 
-    }
+	}
 
 
 }

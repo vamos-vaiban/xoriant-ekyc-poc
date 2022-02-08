@@ -3,6 +3,9 @@ com\kotak\ekyc\controller\SingleSignOnController.class
 com\kotak\ekyc\controller\MainSpringBootApp.class
 com\kotak\ekyc\controller\AppConfig.class
 com\kotak\ekyc\service\SignInService.class
+com\kotak\ekyc\serviceImpl\ekycStatusImpl.class
 com\kotak\ekyc\dao\SignInRepository.class
+com\kotak\ekyc\service\ekycStatus.class
 com\kotak\ekyc\controller\DataNotFoundExceptions.class
 com\kotak\ekyc\controller\ServletInitializer.class
+com\kotak\ekyc\dao\ekycStatusRepo.class

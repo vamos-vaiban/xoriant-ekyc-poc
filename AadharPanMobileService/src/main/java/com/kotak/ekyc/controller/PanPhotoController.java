@@ -16,7 +16,7 @@ public class PanPhotoController {
     private PanPhotoService panPhotoService;
 
     @PostMapping("savePancardPhotoPath")
-    public ResponseEntity<String> savePancardPhotoLocation(@RequestHeader(value = "request_Id") Integer requestId, @RequestParam(value = "path") String path, @RequestParam(value = "similarity") double similarity){
+    public String savePancardPhotoLocation(@RequestHeader(value = "request_Id") Integer requestId, @RequestParam(value = "path") String path, @RequestParam(value = "similarity") double similarity){
         PanPhotoPath panPhotoPath  = new PanPhotoPath();
         panPhotoPath.setPhotopath(path);
         panPhotoPath.setSimilarity(similarity);
@@ -24,6 +24,6 @@ public class PanPhotoController {
         singleSignInModel.setRequest_Id(requestId);
         panPhotoPath.setSingleSignInModel(singleSignInModel);
         panPhotoService.savePanPhotoDetails(panPhotoPath);
-        return new ResponseEntity<>("Success", HttpStatus.OK);
+        return "Success";
     }
 }
