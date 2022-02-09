@@ -60,6 +60,7 @@ export const DoUpdateKYCStatusAction = (action) => {
                             key: action.key
                         }
                     })
+                    dispatch(DoGetCustomerDataAction())
                 } else {
                     dispatch({
                         type: SHOW_MESSAGE,
