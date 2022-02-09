@@ -70,7 +70,7 @@ def login():
         doc_path = os.path.join(getcwd() + "/media/" + document.filename)
         document.save(doc_path)
         photo = request.files['User_Photo']
-        doc_path_aws='https://image-match02.s3.ap-south-1.amazonaws.com/'+ str(document.filename)
+        photoPath='https://image-match02.s3.ap-south-1.amazonaws.com/'+ str(document.filename)
         user_path = os.path.join(getcwd() + "/media/" + photo.filename)
         photo.save(user_path)
         upload_to_aws(doc_path,"image-match02", document.filename)
@@ -81,9 +81,9 @@ def login():
             print(result)
             if 'Similarity' in result[0].keys():
                 final_data['Similarity']=result[0].get('Similarity')
-                final_data['doc_path_aws']=doc_path_aws
+                final_data['photoPath']=photoPath
         except Exception as e:
-            final_data = {'message': 'Please provide valid input','doc_path_aws':doc_path_aws}
+            final_data = {'message': 'Please provide valid input','photoPath':photoPath}
 
         # print(json.dumps(result))
         # json_result = json.dumps(result)
