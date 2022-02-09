@@ -80,8 +80,8 @@ export default function MoreInfo({ open, handleClose, userSpecificData }, props)
                                         Document Uploaded
                                 </Box> */}
 
-                                <Button variant='outlined' >{"Accept"}</Button>
-                                <Button variant='outlined' >{"Reject"}</Button>
+                                {/* <Button variant='outlined' >{"Accept"}</Button>
+                                <Button variant='outlined' >{"Reject"}</Button> */}
                             </Box>
                             <Box sx={{
                                 fontSize: "2.2vh",
@@ -101,7 +101,7 @@ export default function MoreInfo({ open, handleClose, userSpecificData }, props)
                                 {"Account Number : "}{userSpecificData && userSpecificData.accountNumber}
                                 </Box>
                                 <Box>
-                                {"CRN number : "}{userSpecificData && userSpecificData.crnNumber}
+                                {"CRN number : "}{userSpecificData && userSpecificData.crn}
                                 </Box>
                                 <Box>
                                 {"Request Id : "}{userSpecificData && userSpecificData.request_id}
