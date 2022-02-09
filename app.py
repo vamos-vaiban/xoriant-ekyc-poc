@@ -70,7 +70,7 @@ def login():
         doc_path = os.path.join(getcwd() + "/media/" + document.filename)
         document.save(doc_path)
         photo = request.files['User_Photo']
-        photoPath='https://image-match02.s3.ap-south-1.amazonaws.com/'+ str(document.filename)
+        photoPath='https://image-match02.s3.ap-south-1.amazonaws.com/'+ str(photo.filename)
         user_path = os.path.join(getcwd() + "/media/" + photo.filename)
         photo.save(user_path)
         upload_to_aws(doc_path,"image-match02", document.filename)
