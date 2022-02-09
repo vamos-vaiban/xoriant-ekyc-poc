@@ -43,7 +43,7 @@ export default function RequestTable({ onReject, onShowInfo, onApprove }) {
         {
             title: "Registered On",
             align: "center",
-            field: "registeredOn",
+            field: "insertedDate",
         },
 
         {

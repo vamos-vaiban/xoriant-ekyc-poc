@@ -73,13 +73,13 @@ export default function MoreInfo({ open, handleClose, userSpecificData }, props)
                                 <Box sx={{
                                     
                                 }}> 
-                                    {userSpecificData && userSpecificData.photopath ?
+                                    {userSpecificData && userSpecificData.photopath && userSpecificData.photopath.indexOf('/users/documents') < -1 ?
                                         <img style={{ borderRadius: '50%', height: "22.4vh" }} src={userSpecificData && userSpecificData.photopath} />
                                         : <><AccountBoxIcon sx={{ fontSize: 150 }} /></>}
                                 </Box>
-                                <Box>
+                                {/* <Box>
                                         Document Uploaded
-                                </Box>
+                                </Box> */}
 
                                 <Button variant='outlined' >{"Accept"}</Button>
                                 <Button variant='outlined' >{"Reject"}</Button>

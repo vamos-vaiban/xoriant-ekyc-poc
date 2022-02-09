@@ -5,7 +5,7 @@ import RequestTable from './RequestTable';
 import MoreInfo from './MoreInfo';
 import { useDispatch } from 'react-redux';
 import { DoGetCustomerDataAction, DoUpdateKYCStatusAction } from '../../redux/actions/bankPersonnelAction'
-import { Box} from '@material-ui/core';
+import { Box } from '@material-ui/core';
 export default function BankPersonnel() {
   const [showInfo, setShowInfo] = useState(false)
   const [editData, setEditData] = useState()
@@ -16,100 +16,100 @@ export default function BankPersonnel() {
   useEffect(() => {
     dispatch(DoGetCustomerDataAction({ key: "fetch_customer_data" }))
   }, [])
-  const BankPersonnelStyles=makeStyles({
-    statCard:{
-      width:"22.9vw",
-      height:"9.9vh",
-      backgroundColor:"#F5F5F5",
-      borderRadius:"13px",
-      display:"flex",
-      justifyContent:"space-around",
-      alignItems:"center",
+  const BankPersonnelStyles = makeStyles({
+    statCard: {
+      width: "22.9vw",
+      height: "9.9vh",
+      backgroundColor: "#F5F5F5",
+      borderRadius: "13px",
+      display: "flex",
+      justifyContent: "space-around",
+      alignItems: "center",
       fontFamily: "Hind Vadodara",
-fontWeight: "bold",
-fontSize: "1.8vw",
-lineHeight: "52px",
+      fontWeight: "bold",
+      fontSize: "1.8vw",
+      lineHeight: "52px",
     },
-    stats:{
-      display:"flex",
-      justifyContent:"space-around",
-      width:"98vw",
+    stats: {
+      display: "flex",
+      justifyContent: "space-around",
+      width: "98vw",
     }
   })
-  const classes=BankPersonnelStyles()
+  const classes = BankPersonnelStyles()
   const current = new Date();
-  const months={
-    1:"January",
-    2:"February",
-    3:"March",
-    4:"April",
-    5:"May",
-    6:"June",
-    7:"July",
-    8:"August",
-    9:"September",
-    10:"October",
-    11:"November",
-    12:"December"
+  const months = {
+    1: "January",
+    2: "February",
+    3: "March",
+    4: "April",
+    5: "May",
+    6: "June",
+    7: "July",
+    8: "August",
+    9: "September",
+    10: "October",
+    11: "November",
+    12: "December"
   }
-  const date = `${current.getDate()}  ${months[current.getMonth()+1]} ${current.getFullYear()}`;
+  const date = `${current.getDate()}  ${months[current.getMonth() + 1]} ${current.getFullYear()}`;
 
   return (
     <Box className='BankPersonnelContent'>
       <MoreInfo open={showInfo} handleClose={handleCloseMoreInfo} userSpecificData={editData} />
       <Box className='BankPersonnelContent__Stats' className={classes.stats}>
-        <Box className={classes.statCard+" BankPersonnelContent__StatCard"} >
-          
+        <Box className={classes.statCard + " BankPersonnelContent__StatCard"} >
+
           Pending Requests
           <Box sx={{
-                    display:'flex',
-                    backgroundColor:"#ED2024",
-                    width:"2px",
-                    height:"4vh"
-                    }} className='Navigation__Divider1'>        
+            display: 'flex',
+            backgroundColor: "#ED2024",
+            width: "2px",
+            height: "4vh"
+          }} className='Navigation__Divider1'>
           </Box>
           <Box>
-          120
+            120
           </Box>
         </Box>
-        <Box className={classes.statCard+" BankPersonnelContent__StatCard"} >
+        <Box className={classes.statCard + " BankPersonnelContent__StatCard"} >
           Accepted Requests
           <Box sx={{
-                    display:'flex',
-                    backgroundColor:"#ED2024",
-                    width:"2px",
-                    height:"4vh"
-                    }} className='Navigation__Divider1'>        
-        </Box>
-        <Box>
-          120
+            display: 'flex',
+            backgroundColor: "#ED2024",
+            width: "2px",
+            height: "4vh"
+          }} className='Navigation__Divider1'>
+          </Box>
+          <Box>
+            120
           </Box>
         </Box>
-        <Box className={classes.statCard+" BankPersonnelContent__StatCard"} >
+        <Box className={classes.statCard + " BankPersonnelContent__StatCard"} >
           Rejected Requests
-          
+
           <Box sx={{
-                    display:'flex',
-                    backgroundColor:"#ED2024",
-                    width:"2px",
-                    height:"4vh"
-                    }} className='Navigation__Divider1'>        
-        </Box>
+            display: 'flex',
+            backgroundColor: "#ED2024",
+            width: "2px",
+            height: "4vh"
+          }} className='Navigation__Divider1'>
+          </Box>
           120
         </Box>
-        <Box className={classes.statCard+" BankPersonnelContent__StatCard"} >{date}
-        <Box sx={{
-                    display:'flex',
-                    backgroundColor:"#ED2024",
-                    width:"2px",
-                    height:"4vh"
-                    }} className='Navigation__Divider1'>        
+        <Box className={classes.statCard + " BankPersonnelContent__StatCard"} >{date}
+          <Box sx={{
+            display: 'flex',
+            backgroundColor: "#ED2024",
+            width: "2px",
+            height: "4vh"
+          }} className='Navigation__Divider1'>
+          </Box>
+          <Box>
+            {current.getHours()} : {current.getMinutes()}
+          </Box>
         </Box>
-        <Box>
-          {current.getHours()} : {current.getMinutes()}
-        </Box>
-        </Box>
-        
+
       </Box>
       <RequestTable
         onShowInfo={(row) => {
@@ -121,16 +121,15 @@ lineHeight: "52px",
           let data = {
             rejectionReason: "NA",
             status: "Approve",
-            request_id: row.request_id
+            RequestId: row.request_id
           }
           dispatch(DoUpdateKYCStatusAction({ userData: data, key: "user_request_approve" }))
         }}
         onReject={(remark, row) => {
-          debugger
           let data = {
             rejectionReason: remark,
             status: "Reject",
-            requestId: row.request_id
+            RequestId: row.request_id
           }
           dispatch(DoUpdateKYCStatusAction({ userData: data, key: "user_request_approve" }))
         }} />

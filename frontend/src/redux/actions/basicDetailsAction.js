@@ -29,15 +29,15 @@ export const DoValidatePanNumberAction =(action)=>{
             }
         })
         .catch(err=>{
-            dispatch({
-                type:SHOW_MESSAGE,
-                payload:{
-                    type:"error",
-                    message:err&& err.response && err.response.data && err.response.data.details,
-                    key:action.key
+            // dispatch({
+            //     type:SHOW_MESSAGE,
+            //     payload:{
+            //         type:"error",
+            //         message:err&& err.response && err.response.data && err.response.data.details,
+            //         key:action.key
 
-                }
-            })
+            //     }
+            // })
         })
     }
 }
@@ -69,15 +69,15 @@ export const DoValidateAadharNumberAction =(action)=>{
             }
         })
         .catch(err=>{
-            dispatch({
-                type:SHOW_MESSAGE,
-                payload:{
-                    type:"error",
-                    message:err&& err.response && err.response.data && err.response.data.details,
-                    key:action.key
+            // dispatch({
+            //     type:SHOW_MESSAGE,
+            //     payload:{
+            //         type:"error",
+            //         message:err&& err.response && err.response.data && err.response.data.details,
+            //         key:action.key
 
-                }
-            })
+            //     }
+            // })
         })
     }
 }
