@@ -79,9 +79,16 @@ export default function ClippedDrawer() {
 
  
   return (
+    <div>
+      <div style={{
+        
+        paddingLeft:"5vw",
+      }}>
+      <TopBar />
+      </div>
     <div className={classes.root}>
       <CssBaseline />
-      <TopBar />
+      
       <Drawer
         variant="permanent"
         className={clsx(classes.drawer, {
@@ -112,6 +119,7 @@ export default function ClippedDrawer() {
       <main className={classes.content}>
         <Outlet />
       </main>
+    </div>
     </div>
   );
 }
