@@ -83,7 +83,7 @@ def login():
                 final_data['Similarity']=result[0].get('Similarity')
                 final_data['photoPath']=photoPath
         except Exception as e:
-            final_data = {'message': 'Please provide valid input','photoPath':photoPath}
+            final_data = {'message': 'Please provide valid input'}
 
         # print(json.dumps(result))
         # json_result = json.dumps(result)
