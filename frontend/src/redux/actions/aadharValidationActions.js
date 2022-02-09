@@ -11,13 +11,13 @@ export const DoCompareTheDocumentAction = (action) => {
                     //Apoorv
                     // CHANGE IN FOLLOWING CODE - SIMILARITY AND PHOTOPATH VALUES 
                     // try using debugger and see the values
-                    let similarity = response[0].Similarity
-                    let photoPath = response[0].photoPath
+                    let similarity = response.Similarity
+                    let photoPath = response.photoPath
                     let data ={
                         similarity: similarity,
                         path:photoPath
                     }
-                   dispatch(DoSavePhotoAndSililarityAction(data))
+                   dispatch(DoSavePhotoAndSililarityAction({data:data,key:action.key}))
                     // dispatch({
                     //     type: SHOW_MESSAGE,
                     //     payload: {
@@ -62,7 +62,7 @@ export const DoCompareTheDocumentAction = (action) => {
 
 export const DoSavePhotoAndSililarityAction = (action) => {
     return (dispatch) => {
-        API.DoSavePhotoAndSililarityAPI(action)
+        API.DoSavePhotoAndSililarityAPI(action.data)
             .then(data => data.data)
             .then(response => {
                 if (response) {
@@ -93,7 +93,7 @@ export const DoSavePhotoAndSililarityAction = (action) => {
                         payload: {
                             type: "error",
                             message: "Error while uploading files",
-                            // key: action.key
+                            key: action.key
                         }
                     })
                 }
@@ -104,7 +104,7 @@ export const DoSavePhotoAndSililarityAction = (action) => {
                     payload: {
                         type: "error",
                         message: err && err.response && err.response.message,
-                        // key: action.key
+                        key: action.key
 
                     }
                 })
