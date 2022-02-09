@@ -64,14 +64,13 @@ def upload_to_aws(local_file, bucket, s3_file):
 @app.route('/compare_faces', methods=['GET','POST'])
 @cross_origin(origin='*')
 def login():
-    result = ""
+    final_data = {}
     if request.method == "POST":
-        rqid = request.headers.get('Request-Id')
-        print(rqid)
         document = request.files['Document_Photo']
         doc_path = os.path.join(getcwd() + "/media/" + document.filename)
         document.save(doc_path)
         photo = request.files['User_Photo']
+        doc_path_aws='https://image-match02.s3.ap-south-1.amazonaws.com/'+ str(document.filename)
         user_path = os.path.join(getcwd() + "/media/" + photo.filename)
         photo.save(user_path)
         upload_to_aws(doc_path,"image-match02", document.filename)
@@ -81,43 +80,15 @@ def login():
             result=face_comparision(document.filename,photo.filename)
             print(result)
             if 'Similarity' in result[0].keys():
-                data = result[0]
+                final_data['Similarity']=result[0].get('Similarity')
+                final_data['doc_path_aws']=doc_path_aws
         except Exception as e:
-            result = [{'message':'Please provide valid input' }]
-            if 'Similarity' in result[0].keys():
-                data = result[0]
-                sim = data['Similarity']
-                sv =photo_save(doc_path,sim,rqid)
-                if sv:
-                    result[0]['photo_message']='photo path successfully saved'
-
-
+            final_data = {'message': 'Please provide valid input','doc_path_aws':doc_path_aws}
 
         # print(json.dumps(result))
         # json_result = json.dumps(result)
 
-    return render_template("index.html", result=result)
-
-
-
-def photo_save(doc_path,x,tp):
-    url = "http://localhost:7070/savePancardPhotoPath"
-
-    payload = json.dumps({
-        "path": doc_path,
-        "Similarity": x,
-    })
-    headers = {
-        'request_Id': tp
-    }
-
-    response = requests.post(url,headers=headers,data=payload)
-    print(response.text)
-    if response.status_code == 200:
-        print("[success] url path saved")
-    else:
-        print("path not saved")
-
+    return render_template("index.html", result=final_data)
 
 if __name__ == '__main__':
    app.run(debug=True)
