@@ -62,7 +62,7 @@ export default function RequestTable({ onReject, onShowInfo, onApprove }) {
                         display:"flex",
                         
                     }}>
-                      <IconButton onClick={() =>onApprove(data)}>
+                      <IconButton onClick={() =>onApprove(data)} disabled={data.status === "Reject"}>
                             <DoneIcon />
                         </IconButton>
                         <IconButton onClick={() =>{setOpen(true)
@@ -103,6 +103,7 @@ onSelect={setOpen}
 onChangeRemark = {(event)=>{setRemark(event.target.value)}}
 onClickHandler = {()=>{
     onReject(remark,selectedData)
+    setOpen(false)
 }}/>
         </Box>
     );

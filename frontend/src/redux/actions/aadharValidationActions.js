@@ -8,6 +8,9 @@ export const DoCompareTheDocumentAction = (action) => {
             .then(data => data.data)
             .then(response => {
                 if (response) {
+                    //Apoorv
+                    // CHANGE IN FOLLOWING CODE - SIMILARITY AND PHOTOPATH VALUES 
+                    // try using debugger and see the values
                     let similarity = response[0].Similarity
                     let photoPath = response[0].photoPath
                     let data ={
@@ -35,6 +38,15 @@ export const DoCompareTheDocumentAction = (action) => {
                 }
             })
             .catch(err => {
+                // For EMERGENCY PURSPOSE ONLY
+                // let similarity = 77.56
+                //     let photoPath = "https://image-match02.s3.ap-south-1.amazonaws.com/melinda_Image.jpg"
+                //     let data ={
+                //         similarity: similarity,
+                //         path:photoPath
+                //     }
+                //    dispatch(DoSavePhotoAndSililarityAction(data))
+
                 dispatch({
                     type: SHOW_MESSAGE,
                     payload: {
