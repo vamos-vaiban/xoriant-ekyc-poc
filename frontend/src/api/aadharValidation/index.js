@@ -1,5 +1,6 @@
 import axios from "axios"
 const host = 'http://127.0.0.1:5000/'
+const coHost = 'http://localhost:7070/'
 
 const DoCompareTheDocument = ( jsonData) => {
     let url = host+`compare_faces`;
@@ -12,8 +13,14 @@ const DoCompareTheDocument = ( jsonData) => {
         }
     })
 }
+const DoSavePhotoAndSililarityAPI = ( jsonData) => {
+    let url = coHost+`savePancardPhotoPath`;
+    return axios.post(url, jsonData)
+}
+
 const API = {
     DoCompareTheDocument,
+    DoSavePhotoAndSililarityAPI
 }
 
 export default API;
