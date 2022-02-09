@@ -39,14 +39,14 @@ public class PanPhotoController {
             }
             if (panPhotoPath1 != null || updateValue != null) {
                 panPhotoPathResponse.setStatus(true);
-                panPhotoPathResponse.setMessage("Pan Photo Path saved");
+                panPhotoPathResponse.setMessage("Aadhar Photo Path saved");
             } else {
                 panPhotoPathResponse.setStatus(false);
-                panPhotoPathResponse.setMessage("Error Occurred while saving Pan Photo Path ");
+                panPhotoPathResponse.setMessage("Error Occurred while saving Aadhar Photo Path ");
             }
         }catch (Exception e){
             panPhotoPathResponse.setStatus(false);
-            panPhotoPathResponse.setMessage("Error Occurred while saving Pan Photo Path ");
+            panPhotoPathResponse.setMessage("Error Occurred while saving Aadhar Photo Path ");
         }
         return new ResponseEntity<>(panPhotoPathResponse, HttpStatus.OK);
     }
