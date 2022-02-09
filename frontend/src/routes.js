@@ -37,7 +37,7 @@ const appRoutes = (data)=>{
                     element:<BasicDetails />
                 },
                 {
-                    path :"/home",
+                    path :"/",
                     element:<BasicDetails />
                 },
                 {
