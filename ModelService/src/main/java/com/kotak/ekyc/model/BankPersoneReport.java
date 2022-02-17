@@ -25,7 +25,7 @@ public class BankPersoneReport{
     private String City;
     private String State;
     private String Landmark;
-    private int Pincode;
+    private Integer Pincode;
     private String photopath;
     private String status;
     private Long accountNumber;
@@ -128,7 +128,7 @@ public class BankPersoneReport{
     public void setRequest_id(int request_id) {
         Request_id = request_id;
     }
-    public int getPincode() {
+    public Integer getPincode() {
         return Pincode;
     }
     public void setPincode(int pincode) {

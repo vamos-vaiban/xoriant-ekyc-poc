@@ -20,7 +20,7 @@ public class UserDetails {
     private String City;
     private String State;
     private String Landmark;
-    private int Pincode;
+    private Integer Pincode;
     private String photopath;
     private String status;
     private Long accountNumber;
@@ -155,7 +155,7 @@ public class UserDetails {
         Landmark = landmark;
     }
 
-    public int getPincode() {
+    public Integer getPincode() {
         return Pincode;
     }
 

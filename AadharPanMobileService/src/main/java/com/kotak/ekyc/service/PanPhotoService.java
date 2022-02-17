@@ -10,5 +10,8 @@ public interface PanPhotoService {
 
     public PanPhotoPath savePanPhotoDetails(PanPhotoPath panPhotoPath);
     public List<PanPhotoPath> findByRequestId(Integer requestId);
+
+    //void updatePanPhotoDetails(PanPhotoPath panPhotoPath);
+
     Integer updatePanPhotoDetails(String photopath, double similarity, Integer requestId);
 }

@@ -5,7 +5,6 @@ import java.util.Random;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -28,22 +27,12 @@ public class PanAadharServiceImpl implements PanAadharService {
 	private RestTemplate restTemplate;
 	
 	HttpHeaders headers = new HttpHeaders();
-
-	@Value("${pan.url}")
-	private String panUrl;
-
-	@Value("${aadhar.url}")
-	private String aadharUrl;
     
-	//private String panUrl = "https://sandbox.surepass.io/api/v1/pan/pan";
-	//private String aadharUrl="https://sandbox.surepass.io/api/v1/aadhaar-v2/generate-otp";
+	private String panUrl = "https://sandbox.surepass.io/api/v1/pan/pan";
+	private String aadharUrl="https://sandbox.surepass.io/api/v1/aadhaar-v2/generate-otp";
     
 	HttpEntity<JSONObject> entity = null;
-
-	@Value("${access.token}")
-	private String accessToken;
-
-	//String accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTYzMTcwNzgwMSwianRpIjoiOGRjNzQ2MTgtZWNlZi00NmUxLTk3ZjUtMzMzMzY2ZGM3YjNlIiwidHlwZSI6ImFjY2VzcyIsImlkZW50aXR5IjoiZGV2LnhvcmlhbnRAYWFkaGFhcmFwaS5pbyIsIm5iZiI6MTYzMTcwNzgwMSwiZXhwIjoxNjM0Mjk5ODAxLCJ1c2VyX2NsYWltcyI6eyJzY29wZXMiOlsicmVhZCJdfX0.X4El5xjy2YqrUgUOWgMfvMbVmjVYrVtxqbNQgP6UgAg";
+	String accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTYzMTcwNzgwMSwianRpIjoiOGRjNzQ2MTgtZWNlZi00NmUxLTk3ZjUtMzMzMzY2ZGM3YjNlIiwidHlwZSI6ImFjY2VzcyIsImlkZW50aXR5IjoiZGV2LnhvcmlhbnRAYWFkaGFhcmFwaS5pbyIsIm5iZiI6MTYzMTcwNzgwMSwiZXhwIjoxNjM0Mjk5ODAxLCJ1c2VyX2NsYWltcyI6eyJzY29wZXMiOlsicmVhZCJdfX0.X4El5xjy2YqrUgUOWgMfvMbVmjVYrVtxqbNQgP6UgAg";
 	
 	public ResponseEntity<PanCard> consumePanApi() {
 		return restTemplate.getForEntity("https://sandbox.surepass.io/api/v1/pan/pan", PanCard.class);

@@ -74,5 +74,7 @@
   	<module>AadharPanMobileService</module>
   	<module>AddressService</module>
   	<module>ModelService</module>
+      <module>UserSecurity</module>
+      <module>OAuth2LoginService</module>
   </modules>
 </project>

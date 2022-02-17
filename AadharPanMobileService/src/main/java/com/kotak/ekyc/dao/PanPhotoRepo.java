@@ -12,9 +12,13 @@ import java.util.List;
 
 @Repository
 public interface PanPhotoRepo extends CrudRepository<PanPhotoPath,Integer> {
-
     @Query("select p from PanPhotoPath p where p.singleSignInModel.request_Id=:requestId")
     public List<PanPhotoPath> findByRequestId(@Param("requestId") Integer requestId);
+
+//    @Transactional
+//    @Modifying
+//    @Query(value="update PanPhotoPath p set p.photopath=:panPhotoPath.photopath , p.similarity=:panPhotoPath.similarity , p.singleSignInModel.request_Id=:panPhotoPath.singleSignInModel.request_Id where p.id=panPhotoPath.id", nativeQuery=true)
+//    public void updatePanPhotoDetails(@Param("panPhotoPath") PanPhotoPath panPhotoPath);
 
     @Transactional
     @Modifying

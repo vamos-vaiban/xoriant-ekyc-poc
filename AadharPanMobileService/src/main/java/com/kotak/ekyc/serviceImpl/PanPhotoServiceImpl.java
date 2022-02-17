@@ -29,4 +29,10 @@ public class PanPhotoServiceImpl implements PanPhotoService {
         return panPhotoRepo.updatePanPhotoDetails(photopath, similarity, requestId);
     }
 
+   // @Override
+    //public void updatePanPhotoDetails(PanPhotoPath panPhotoPath) {
+    //     panPhotoRepo.updatePanPhotoDetails(panPhotoPath);
+    //}
+
+
 }
