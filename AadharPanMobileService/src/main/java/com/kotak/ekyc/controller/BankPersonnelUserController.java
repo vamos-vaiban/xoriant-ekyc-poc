@@ -36,6 +36,7 @@ public class BankPersonnelUserController {
     public LoginResponse bankPersonnelLogin(@RequestParam(value = "emailId") String userName, @RequestParam(value = "password") String password) {
         Optional<BankPersonnelUser> bankPersonnelUser = bankPersonnelUserRepo.findByEmailId(userName);
         System.out.println("bankPersonnelUser:" + bankPersonnelUser);
+        System.out.println("bankPersonnelUserId:" + bankPersonnelUser.get().getId());
         LoginResponse loginResponse = new LoginResponse();
         if(bankPersonnelUser.isPresent())
         {
@@ -43,16 +44,19 @@ public class BankPersonnelUserController {
             System.out.println("passwordMatch:" + passwordMatch);
             if(passwordMatch)
             {
+                loginResponse.setBankPersonnelUserId(bankPersonnelUser.get().getId());
                 loginResponse.setStatus(true);
                 loginResponse.setMessage("Login Successfully");
             }
             else{
+                loginResponse.setBankPersonnelUserId(bankPersonnelUser.get().getId());
                 loginResponse.setStatus(false);
                 loginResponse.setMessage("Password not match");
             }
         }
         else
         {
+            loginResponse.setBankPersonnelUserId(bankPersonnelUser.get().getId());
             loginResponse.setStatus(false);
             loginResponse.setMessage("Username not found");
         }

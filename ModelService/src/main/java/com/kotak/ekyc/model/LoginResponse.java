@@ -4,10 +4,20 @@ public class LoginResponse {
 
     private boolean status;
     private String message;
+    private int bankPersonnelUserId;
 
-    public LoginResponse(boolean status, String message) {
+    public LoginResponse(boolean status, String message, int bankPersonnelUserId) {
         this.status = status;
         this.message = message;
+        this.bankPersonnelUserId = bankPersonnelUserId;
+    }
+
+    public int getBankPersonnelUserId() {
+        return bankPersonnelUserId;
+    }
+
+    public void setBankPersonnelUserId(int bankPersonnelUserId) {
+        this.bankPersonnelUserId = bankPersonnelUserId;
     }
 
     public boolean isStatus() {
