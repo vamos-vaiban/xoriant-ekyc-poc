@@ -24,6 +24,7 @@ import org.json.simple.JSONObject;
 
 
 @RestController
+@CrossOrigin
 public class LoginController {
 
     @Autowired
