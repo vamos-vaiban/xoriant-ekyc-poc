@@ -76,11 +76,11 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .anonymous().and()
                 .authorizeRequests()
-                //.antMatchers("/api/signin/**").permitAll()
+                .antMatchers("/api/signin/**").permitAll()
                 //.antMatchers("/api/glee/**").hasAnyAuthority("ADMIN", "USER")
                 //.antMatchers("/api/users/**").hasAuthority("ADMIN")
                 //.antMatchers("/api/**").authenticated()
-                //.anyRequest().authenticated()
+                .anyRequest().authenticated()
                 .and().exceptionHandling().
                 authenticationEntryPoint(customAuthenticationEntryPoint).
                 accessDeniedHandler(new CustomAccessDeniedHandler());

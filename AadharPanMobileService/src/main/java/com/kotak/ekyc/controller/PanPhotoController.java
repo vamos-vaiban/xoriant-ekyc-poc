@@ -20,7 +20,7 @@ public class PanPhotoController {
     private PanPhotoService panPhotoService;
 
     @PostMapping("savePancardPhotoPath")
-    public ResponseEntity<?> savePancardPhotoLocation(@RequestHeader(value = "request_Id") Integer requestId, @RequestBody PanPhotoPathRequest request){
+    public ResponseEntity<PanPhotoPathResponse> savePancardPhotoLocation(@RequestHeader(value = "request_Id") Integer requestId, @RequestBody PanPhotoPathRequest request){
         PanPhotoPathResponse panPhotoPathResponse = new PanPhotoPathResponse();
         PanPhotoPath panPhotoPath  = new PanPhotoPath();
         panPhotoPath.setPhotopath(request.getPath());

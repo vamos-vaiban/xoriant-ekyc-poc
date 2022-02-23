@@ -9,8 +9,8 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 
 import org.springframework.stereotype.Component;
 
-import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -23,18 +23,16 @@ public class OAuth2LoginSuccessHandler extends SavedRequestAwareAuthenticationSu
     private UserAuthenticationService userAuthenticationService;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
-
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         CustomOAuth2User customOAuth2User =(CustomOAuth2User) authentication.getPrincipal();
         String email = customOAuth2User.getEmail();
-        System.out.println("User Email:"+email);
         Optional<UserAuthentication> user = userAuthenticationService.getByEmailId(email);
         if(user.isPresent()){
             userAuthenticationService.updateUserAfterOAuthLoginSuccess(user, email, AuthenticationProvider.GOOGLE);
         }else{
 
-            userAuthenticationService.createNewUserAfterOAuthLoginSuceess("Via-Email", email, AuthenticationProvider.GOOGLE);
+            userAuthenticationService.createNewUserAfterOAuthLoginSuccess("Via-Email", email, AuthenticationProvider.GOOGLE);
         }
-        super.onAuthenticationSuccess(request, response, chain, authentication);
+        super.onAuthenticationSuccess(request, response, authentication);
     }
 }
