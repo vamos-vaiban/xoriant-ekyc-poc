@@ -1,15 +1,20 @@
 package com.kotak.ekyc.controller;
 
 import com.kotak.ekyc.model.*;
+import com.kotak.ekyc.repository.UserAuthenticationRepository;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -18,6 +23,9 @@ public class UserController {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private UserAuthenticationRepository userAuthenticationRepository;
 
     @GetMapping("/user")
     public String getUser() {
@@ -65,5 +73,21 @@ public class UserController {
         URI uri = new URI(baseUrl);
         ResponseEntity<PanPhotoPathResponse> result = restTemplate.postForEntity(uri, request, PanPhotoPathResponse.class);
         return result;
+    }
+
+    @PostMapping("/validateMobileOTP")
+    public ResponseEntity<JSONObject> validateOTP(@RequestHeader(value = "request_Id") Integer requestId,@RequestParam("mobileNumber") String mobileNumber,@RequestParam("otp") String mobileOtp) {
+        JSONObject jsonObject = new JSONObject();
+        Optional<UserAuthentication> user_not_registered = Optional.ofNullable(userAuthenticationRepository.findByRequestId(requestId).orElseThrow(() -> new UsernameNotFoundException("User Not Registered")));
+        UserAuthentication userAuthentication = user_not_registered.get();
+        if (userAuthentication.getMobileNumber().equalsIgnoreCase(mobileNumber) && userAuthentication.getMobileNumberOtp().equalsIgnoreCase(mobileOtp)) {
+            jsonObject.put("status", true);
+            jsonObject.put("message", "OTP Validated");
+            return new ResponseEntity<>(jsonObject, HttpStatus.OK);
+        } else {
+            jsonObject.put("status", false);
+            jsonObject.put("message", "Invalid OTP");
+            return new ResponseEntity<>(jsonObject, HttpStatus.BAD_REQUEST);
+        }
     }
 }

@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface UserAuthenticationRepository extends CrudRepository<UserAuthentication,Integer> {
     Optional<UserAuthentication> findByMobileNumber(String mobileNumber);
+    Optional<UserAuthentication> findByRequestId(Integer requestId);
 }
