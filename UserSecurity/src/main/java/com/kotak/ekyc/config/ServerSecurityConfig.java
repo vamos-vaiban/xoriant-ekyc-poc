@@ -70,23 +70,26 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        http
+               http
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .anonymous().and()
-                .authorizeRequests()
-                .antMatchers("/api/signin/**").permitAll()
-                //.antMatchers("/api/glee/**").hasAnyAuthority("ADMIN", "USER")
-                //.antMatchers("/api/users/**").hasAuthority("ADMIN")
-                //.antMatchers("/api/**").authenticated()
-                .anyRequest().authenticated()
-                .and().exceptionHandling().
+                    .anonymous().and()
+                       .authorizeRequests()
+                    .antMatchers("/signOnn/**")
+                    .permitAll()
+                    .and()
+                    .authorizeRequests()
+                    .anyRequest()
+                    .authenticated()
+                    .and()
+                    .exceptionHandling().
                 authenticationEntryPoint(customAuthenticationEntryPoint).
                 accessDeniedHandler(new CustomAccessDeniedHandler());
-                //super.configure(http);
     }
 
-
+    @Override
+    public void configure(WebSecurity webSecurity) throws Exception {
+        webSecurity.ignoring().antMatchers("/signOnn");
+    }
 
 }
