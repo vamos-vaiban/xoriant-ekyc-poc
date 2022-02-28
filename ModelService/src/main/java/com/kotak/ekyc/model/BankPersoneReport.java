@@ -32,6 +32,7 @@ public class BankPersoneReport{
     private String crn;
     private double similarity;
     private Date insertedDate;
+    private String s3url;
 
 
     public String getPhotopath() {
@@ -166,4 +167,11 @@ public class BankPersoneReport{
         this.insertedDate = insertedDate;
     }
 
+    public String getS3url() {
+        return s3url;
+    }
+
+    public void setS3url(String s3url) {
+        this.s3url = s3url;
+    }
 }

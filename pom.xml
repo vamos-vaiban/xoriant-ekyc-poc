@@ -76,5 +76,6 @@
   	<module>ModelService</module>
       <module>UserSecurity</module>
       <module>OAuth2LoginService</module>
+      <module>VideoStoreService</module>
   </modules>
 </project>

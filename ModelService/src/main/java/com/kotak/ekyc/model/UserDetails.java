@@ -26,6 +26,7 @@ public class UserDetails {
     private Long accountNumber;
     private String crn;
     private Double similarity;
+    private String s3url;
 
     public UserDetails(){}
 
@@ -201,5 +202,13 @@ public class UserDetails {
 
     public void setSimilarity(Double similarity) {
         this.similarity = similarity;
+    }
+
+    public String getS3url() {
+        return s3url;
+    }
+
+    public void setS3url(String s3url) {
+        this.s3url = s3url;
     }
 }

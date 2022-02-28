@@ -1,17 +1,19 @@
 package com.kotak.ekyc.controller;
 
+import com.kotak.ekyc.config.MultipartInputStreamFileResource;
 import com.kotak.ekyc.model.*;
 import com.kotak.ekyc.repository.UserAuthenticationRepository;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
@@ -89,5 +91,19 @@ public class UserController {
             jsonObject.put("message", "Invalid OTP");
             return new ResponseEntity<>(jsonObject, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping("/uploadFile")
+    public ResponseEntity<JSONResponse> uploadFile(@RequestPart(value = "file") MultipartFile file, @RequestHeader(value = "request_Id") Integer requestId) throws URISyntaxException, IOException {
+        final String baseUrl = "http://localhost:4040/uploadFile";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        headers.set("request_Id", String.valueOf(requestId));
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        body.add("file", new MultipartInputStreamFileResource(file.getInputStream(), file.getOriginalFilename()));
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+        URI uri = new URI(baseUrl);
+        ResponseEntity<JSONResponse> result = restTemplate.postForEntity(uri, requestEntity, JSONResponse.class);
+        return result;
     }
 }
