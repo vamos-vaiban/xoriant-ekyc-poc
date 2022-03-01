@@ -3,6 +3,7 @@ package com.kotak.ekyc.config;
 import com.kotak.ekyc.errors.CustomAccessDeniedHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -89,7 +90,7 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity webSecurity) throws Exception {
-        webSecurity.ignoring().antMatchers("/signOnn");
+        webSecurity.ignoring().antMatchers("/signOnn").antMatchers(HttpMethod.OPTIONS,"/**");
     }
 
 }

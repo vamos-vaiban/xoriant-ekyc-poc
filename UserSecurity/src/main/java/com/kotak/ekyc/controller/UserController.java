@@ -19,7 +19,7 @@ import java.net.URISyntaxException;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 //@RequestMapping("/api/")
 public class UserController {
 
