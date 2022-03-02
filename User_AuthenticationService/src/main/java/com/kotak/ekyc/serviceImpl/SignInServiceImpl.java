@@ -2,6 +2,7 @@ package com.kotak.ekyc.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +92,10 @@ public class SignInServiceImpl implements SignInService{
 	
 	private static JSONObject getObject() {
 		return null;
+	}
+
+	public Optional<SingleSignInModel> findByMobileNumber(String mobileNumber){
+		return signInRepository.findByMobileNumber(mobileNumber);
 	}
 
 }

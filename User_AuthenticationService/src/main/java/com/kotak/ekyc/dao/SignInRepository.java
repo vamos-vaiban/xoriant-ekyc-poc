@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kotak.ekyc.model.SingleSignInModel;
 
+import java.util.Optional;
+
 @Repository
 public interface SignInRepository extends CrudRepository<SingleSignInModel, Integer> {
 
@@ -12,4 +14,6 @@ public interface SignInRepository extends CrudRepository<SingleSignInModel, Inte
 	/* boolean existsById(String request_Id); */
 
 	/* public Optional<SingleSign> findByRequestId(int request_Id); */
+
+    public Optional<SingleSignInModel> findByMobileNumber(String mobileNumber);
 }

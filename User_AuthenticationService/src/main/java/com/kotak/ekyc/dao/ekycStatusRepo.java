@@ -5,8 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import com.kotak.ekyc.model.ekycStatusModel;
 
+import java.util.Optional;
+
 @Repository
 public interface ekycStatusRepo extends JpaRepository<ekycStatusModel, Integer> {
 
+    public Optional<ekycStatusModel> findByRequestId(Integer requestId);
 	
 }

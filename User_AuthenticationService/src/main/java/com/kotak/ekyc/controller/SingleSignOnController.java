@@ -89,19 +89,35 @@ public class SingleSignOnController {
 		singleSignInModel.setLogin_start_time(new Date(new java.util.Date().getTime()));
 		//singleSignInModel.setRequest_Id(request_id);
 		JSONObject jsonObject = new JSONObject();
+		SingleSignInModel single = null;
 		jsonObject.put("numbers", singleSignInModel.getMobile_number());
-		signInService.comsumeMobileOtpApi(jsonObject,singleSignInModel);
-		SingleSignInModel single = signInService.saveDetails(singleSignInModel);
-		System.out.println("SingleSignOnController.saveAllDetails1()" + single.getRequest_Id());
-		
+		Optional<SingleSignInModel> byMobileNumber = signInService.findByMobileNumber(singleSignInModel.getMobile_number());
+		if(byMobileNumber.isPresent()){
+			SingleSignInModel singleSignInModel1 = byMobileNumber.get();
+			signInService.comsumeMobileOtpApi(jsonObject,singleSignInModel1);
+			single=signInService.saveDetails(singleSignInModel1);
+			single.setMessage("Mobile Number Already registered, New OTP Sent to Mobile Number");
+
+		}else{
+			signInService.comsumeMobileOtpApi(jsonObject,singleSignInModel);
+			single = signInService.saveDetails(singleSignInModel);
+			System.out.println("SingleSignOnController.saveAllDetails1()" + single.getRequest_Id());
+
+		}
+
 		ekycStatusModel estatus = new ekycStatusModel();
-		
 		estatus.setRequestId(single.getRequest_Id());
-		estatus.setRejectionReason(" ");
+		//estatus.setRejectionReason(" ");
 		estatus.setStatus("Pending");
 		System.out.println("estatus: " + estatus);
-		
-		status.save(estatus);		
+		Optional<ekycStatusModel> byRequestId = status.findByRequestId(estatus.getRequestId());
+		if(byRequestId.isPresent()){
+			ekycStatusModel ekycStatusModel = byRequestId.get();
+			status.save(ekycStatusModel);
+		}else{
+			status.save(estatus);
+		}
+
 		
 		return new ResponseEntity<SingleSignInModel>(single, HttpStatus.OK);
 	}

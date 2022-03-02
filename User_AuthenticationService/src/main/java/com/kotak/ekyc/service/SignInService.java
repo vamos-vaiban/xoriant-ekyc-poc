@@ -1,6 +1,7 @@
 package com.kotak.ekyc.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.json.simple.JSONObject;
 
@@ -20,4 +21,5 @@ public interface SignInService {
 	
 	public boolean isDataExist(int id);
 
+	public Optional<SingleSignInModel> findByMobileNumber(String mobileNumber);
 }

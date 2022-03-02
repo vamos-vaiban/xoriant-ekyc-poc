@@ -7,6 +7,8 @@ import com.kotak.ekyc.dao.ekycStatusRepo;
 import com.kotak.ekyc.model.ekycStatusModel;
 import com.kotak.ekyc.service.ekycStatus;
 
+import java.util.Optional;
+
 @Service
 public class ekycStatusImpl implements ekycStatus {
 	
@@ -17,6 +19,9 @@ public class ekycStatusImpl implements ekycStatus {
 		
 		System.out.println("Add data in ekycStatus Table ");
 		kycstatus.save(ekyc);
+	}
+	public Optional<ekycStatusModel> findByRequestId(Integer requestId){
+		return kycstatus.findByRequestId(requestId);
 	}
 
 
