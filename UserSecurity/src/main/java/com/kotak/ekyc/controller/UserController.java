@@ -20,7 +20,6 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-//@RequestMapping("/api/")
 public class UserController {
 
     @Autowired
@@ -104,6 +103,17 @@ public class UserController {
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
         URI uri = new URI(baseUrl);
         ResponseEntity<JSONResponse> result = restTemplate.postForEntity(uri, requestEntity, JSONResponse.class);
+        return result;
+    }
+
+    @GetMapping("/getFullNameAndDOB")
+    public ResponseEntity<?> getFullNameAndDOB(@RequestHeader(value = "request_Id") Integer request_id) throws URISyntaxException {
+        final String baseUrl = "http://localhost:7070/getFullNameAndDOB";
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("request_Id", String.valueOf(request_id));
+        URI uri = new URI(baseUrl);
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+        ResponseEntity<?> result = restTemplate.exchange(uri, HttpMethod.GET, requestEntity,Object.class);
         return result;
     }
 }

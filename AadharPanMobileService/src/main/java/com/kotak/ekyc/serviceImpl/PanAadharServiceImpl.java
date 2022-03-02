@@ -3,6 +3,7 @@ package com.kotak.ekyc.serviceImpl;
 import java.util.List;
 import java.util.Random;
 
+import com.kotak.ekyc.dao.DOBModelDao;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -114,5 +115,10 @@ public class PanAadharServiceImpl implements PanAadharService {
 		char randomizedCharacter = (char) (random.nextInt(26) + 'A');
 		return (Long.toString((long)(Math.random() * 1000000000L))+randomizedCharacter);
 	}
-	
+
+	@Override
+	public DOBModelDao getFullNameAndDOB(Integer requestId) {
+		return aadharPanRepo.getFullNameAndDOB(requestId);
+	}
+
 }

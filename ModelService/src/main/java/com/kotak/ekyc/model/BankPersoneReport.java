@@ -1,6 +1,8 @@
 package com.kotak.ekyc.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
@@ -33,6 +35,9 @@ public class BankPersoneReport{
     private double similarity;
     private Date insertedDate;
     private String s3url;
+    private String fullName;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd/MM/yyyy")
+    private Date dateOfBirth;
 
 
     public String getPhotopath() {
@@ -173,5 +178,21 @@ public class BankPersoneReport{
 
     public void setS3url(String s3url) {
         this.s3url = s3url;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

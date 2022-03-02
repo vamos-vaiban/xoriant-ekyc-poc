@@ -1,5 +1,7 @@
 package com.kotak.ekyc.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -40,6 +42,14 @@ public class AadharPanModel {
 	@OneToOne
 	@JoinColumn(name = "user_Request_id")
 	private SingleSignInModel singleSignInModel;
+
+	@Column(name= "full_name")
+	private String fullName;
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
+	@Column(name = "date_of_birth")
+	private Date dateOfBirth;
 
 	public SingleSignInModel getSingleSignInModel() {
 		return singleSignInModel;
@@ -142,4 +152,19 @@ public class AadharPanModel {
 		this.CRN = CRN;
 	}
 
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
 }

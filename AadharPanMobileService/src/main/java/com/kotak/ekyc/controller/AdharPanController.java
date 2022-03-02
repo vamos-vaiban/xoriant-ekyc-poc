@@ -4,17 +4,13 @@ import java.util.Date;
 
 import javax.validation.Valid;
 
+import com.kotak.ekyc.dao.DOBModelDao;
 import com.kotak.ekyc.model.SingleSignInModel;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.kotak.ekyc.model.AadharPanModel;
 import com.kotak.ekyc.model.MobileNumber;
@@ -65,6 +61,17 @@ public class AdharPanController {
 		System.out.println(aadharPan);
 		return new ResponseEntity<AadharPanModel>(aadharPan, HttpStatus.OK);
 	}
-	
+
+	@GetMapping("/getFullNameAndDOB")
+	public ResponseEntity<?> getFullNameAndDOB(@RequestHeader(value = "request_Id") Integer request_id)  {
+		DOBModelDao dobModelDao= service.getFullNameAndDOB(request_id);
+		if(dobModelDao==null){
+			return new ResponseEntity<>("Requested DOB and Full Name Data with Request ID " + request_id + " not Found", HttpStatus.OK);
+		}
+		else{
+			return new ResponseEntity<>(dobModelDao, HttpStatus.OK);
+		}
+
+	}
 
 }

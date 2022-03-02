@@ -11,7 +11,7 @@ import com.kotak.ekyc.model.BankPersoneReport;
 public interface BankPersones extends CrudRepository<BankPersoneReport, Integer> {
 
     @Query(nativeQuery = true, value = "Select UA.Request_id, UA.Mode_Of_Authentication,UA.login_start_time as inserted_date, UI.Aadhar_number, UI.mobile_number, UI.pan_number, UI.Aadhar_Linked_Mobile_no, UC.House_no, UC.Address_line_1, UC.Address_line_2, UC.Address_line_3, UC.City, UC.State, UC.Landmark, UC.Pincode, pp.photopath, pp.similarity, em.status,UI.account_number,UI.crn_number AS crn" +
-            ",v.s3url  from user_authentication UA"
+            ",v.s3url,UI.full_name as fullName,UI.date_of_birth as dateOfBirth  from user_authentication UA"
             + " join user_identification_values UI on UI.user_Request_id = UA.Request_id"
             + " join user_communication_address UC on UC.user_Request_id = UA.Request_id"
             + " join pan_photo_path pp on pp.request_id=UA.Request_id"

@@ -2,6 +2,7 @@ package com.kotak.ekyc.service;
 
 import java.util.List;
 
+import com.kotak.ekyc.dao.DOBModelDao;
 import org.json.simple.JSONObject;
 import org.springframework.data.jpa.repository.Query;
 
@@ -24,5 +25,7 @@ public interface PanAadharService {
 	public Long getAccountNumber(int id);
 
 	public String getCRN();
+
+	public DOBModelDao getFullNameAndDOB(Integer requestId);
 
 }
