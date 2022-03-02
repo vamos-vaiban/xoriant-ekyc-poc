@@ -36,7 +36,7 @@ public class BankPersoneReport{
     private Date insertedDate;
     private String s3url;
     private String fullName;
-    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd/MM/yyyy",timezone="IST")
     private Date dateOfBirth;
 
 

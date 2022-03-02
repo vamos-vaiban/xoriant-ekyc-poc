@@ -46,7 +46,7 @@ public class AadharPanModel {
 	@Column(name= "full_name")
 	private String fullName;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd/MM/yyyy")
+	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd/MM/yyyy",timezone="IST")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "date_of_birth")
 	private Date dateOfBirth;

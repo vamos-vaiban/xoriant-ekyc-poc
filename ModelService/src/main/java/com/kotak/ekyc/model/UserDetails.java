@@ -32,7 +32,7 @@ public class UserDetails {
     private Double similarity;
     private String s3url;
     private String fullName;
-    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd/MM/yyyy",timezone="IST")
     private Date dateOfBirth;
 
     public UserDetails(){}
