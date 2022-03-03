@@ -47,9 +47,6 @@ def face_comparision(document,photo):
     #pprint.pprint(response)
     return (response['FaceMatches'])
 
-@app.route('/')
-def index():
-    return render_template("index.html")
 
 def upload_to_aws(local_file, bucket, s3_file):
     s3 = boto3.client('s3')
@@ -61,13 +58,32 @@ def upload_to_aws(local_file, bucket, s3_file):
         print("The file was not found")
         return False
 
-@app.route('/compare_faces', methods=['GET','POST'])
+def compare_name(document,user_name):
+    bucket = 'image-match02'
+    client = boto3.client('rekognition')
+    response = client.detect_text(Image={'S3Object': {'Bucket': bucket, 'Name': document}})
+
+    textDetections = response['TextDetections']
+    #print(textDetections)
+    ans = next(filter(lambda x: x['DetectedText'].lower() == user_name.lower(), textDetections), None)
+    if ans:
+        return ans.get('DetectedText')
+
+
+@app.route('/')
+def home():
+    return "Welcome....."
+
+@app.route('/compare_faces', methods=['GET','POST']) #http://127.0.0.1:5000/compare_faces
 @cross_origin(origin='*')
 def login():
     final_data = {}
     if request.method == "POST":
+        #user_name = request.form.get('name')
+        user_name = 'geety paihwan'
         document = request.files['Document_Photo']
         doc_path = os.path.join(getcwd() + "/media/" + document.filename)
+        dcs_path= document.filename
         document.save(doc_path)
         photo = request.files['User_Photo']
         photoPath='https://image-match02.s3.ap-south-1.amazonaws.com/'+ str(photo.filename)
@@ -75,20 +91,26 @@ def login():
         photo.save(user_path)
         upload_to_aws(doc_path,"image-match02", document.filename)
         upload_to_aws(user_path, "image-match02", photo.filename)
-        print(document,photo)
+        #print(type(document))
         try:
             result=face_comparision(document.filename,photo.filename)
-            print(result)
+            #print(result)
             if 'Similarity' in result[0].keys():
                 final_data['Similarity']=result[0].get('Similarity')
                 final_data['photoPath']=photoPath
         except Exception as e:
             final_data = {'message': 'Please provide valid input'}
 
-        # print(json.dumps(result))
-        # json_result = json.dumps(result)
+        msg_data = compare_name(dcs_path,user_name)
+        if msg_data :
+            msg = msg_data
+        else:
+            msg = 'user name is not matched'
+        final_data ['msg'] = msg
+
 
     return render_template("index.html", result=final_data)
+
 
 if __name__ == '__main__':
    app.run(debug=True)
