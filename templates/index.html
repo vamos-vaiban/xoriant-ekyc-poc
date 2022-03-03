@@ -4,15 +4,12 @@
 
 
       <form action = "/compare_faces" enctype="multipart/form-data" method = "post">
-          <table>
-        <tr><td>Document Photo</td>
-        <td><input type ="file" name ="Document_Photo"></td></tr>
-        <tr><td>User photo</td>
-        <td><input type ="file" name ="User_Photo"></td></tr>
-        <tr><td><input type = "Submit"></td></tr>
+          Document Photo: <input type="file" name="Document_Photo"><br><br>
+          User Photo: <input type="file" name="User_Photo"><br><br>
 
-    </table>
+          <input type="submit">
       </form>
-       {{result}}
+       {{result}}<br><br>
+       {{msg}}
    </body>
 </html>
