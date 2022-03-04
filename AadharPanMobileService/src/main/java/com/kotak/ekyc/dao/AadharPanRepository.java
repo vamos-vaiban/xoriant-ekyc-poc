@@ -18,5 +18,7 @@ public interface AadharPanRepository extends CrudRepository<AadharPanModel, Inte
 
     @Query(nativeQuery = true, value = "select a.full_name as fullName ,a.date_of_birth as dateOfBirth from user_identification_values a where user_request_id = :requestId")
     DOBModelDao getFullNameAndDOB(@Param("requestId") Integer requestId);
-	
+
+    @Query("select a from AadharPanModel a where user_request_id = :requestId")
+    public AadharPanModel findByRequestId(@Param("requestId") int request_id);
 }

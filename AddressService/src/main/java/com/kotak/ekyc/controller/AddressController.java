@@ -1,5 +1,6 @@
 package com.kotak.ekyc.controller;
 
+import com.kotak.ekyc.ddao.AddressRepository;
 import com.kotak.ekyc.model.SingleSignInModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,15 +21,26 @@ public class AddressController {
 	
 	@Autowired
 	private AddressService addressService;
-	
-	
+
+	@Autowired
+	private AddressRepository addressRepository;
+
 	@PostMapping("/Address")
-	public ResponseEntity<AddressModel> saveAddressDetails(@RequestBody AddressModel addressModel,@RequestHeader(value="request_Id") int request_id){
+	public AddressModel saveAddressDetails(@RequestBody AddressModel addressModel,@RequestHeader(value="request_Id") int request_id){
 		SingleSignInModel singleSignInModel= new SingleSignInModel();
 		singleSignInModel.setRequest_Id(request_id);
 		addressModel.setSingleSignInModel(singleSignInModel);
-		AddressModel addressModel1=addressService.addressDetails(addressModel);
-		return new ResponseEntity<AddressModel>(addressModel1,HttpStatus.OK);
+		AddressModel addressModel2=addressRepository.findByRequestId(request_id);
+		System.out.println(addressModel2.toString());
+		if(addressModel2!=null)
+		{
+			return addressModel2;
+		}
+		else
+		{
+			AddressModel addressModel1=addressService.addressDetails(addressModel);
+			return addressModel1;
+		}
 	}
 	
 	public String viewAllDetails() {
