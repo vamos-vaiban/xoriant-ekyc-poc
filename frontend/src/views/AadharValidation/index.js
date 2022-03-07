@@ -88,7 +88,7 @@ export default function AadharValidation() {
                 id={"Aadhar"}
                 changeHandler={aadharChangeHandler}
                 fileName={aadharFile && aadharFile.fileName}
-                accept={".jpeg", ".jpg"}
+                accept={".jpeg"|| ".jpg"}
                 fileSize={4024000}
                 supportedFormats={["image/jpeg", "image/jpg", "image/png"]}
                 maxFileSize={"4024kb"}
@@ -100,7 +100,7 @@ export default function AadharValidation() {
                 id={"profile"}
                 changeHandler={userPicChangeHandler}
                 fileName={userPic && userPic.fileName}
-                accept={".jpeg", ".jpg"}
+                accept={".jpeg"|| ".jpg"}
                 fileSize={4024000}
                 supportedFormats={["image/jpeg", "image/jpg", "image/png"]}
                 maxFileSize={"4024kb"}

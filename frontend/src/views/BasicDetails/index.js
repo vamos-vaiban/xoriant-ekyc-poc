@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Typography, Button, Box, TextField, Paper, Checkbox } from '@material-ui/core';
 import { useFormik } from "formik"
 import { useStyles } from "./styles"
@@ -6,18 +6,22 @@ import overrideSettings from '../../theme/overrides';
 import * as yup from 'yup';
 import Content from "./content"
 import { useDispatch, useSelector } from 'react-redux';
-import { CHANGE_STATUS, SHOW_MESSAGE,SAVE_USER_DETAILS } from '../../redux/constants';
+import { CHANGE_STATUS, SHOW_MESSAGE, SAVE_USER_DETAILS } from '../../redux/constants';
 import { useNavigate } from 'react-router';
 import { DoValidatePanNumberAction, DoValidateAadharNumberAction, DoValidateMobileNumberAction, DoSaveBasicDetailsAction } from '../../redux/actions/basicDetailsAction';
 import { findLast } from "lodash"
 import Storage from '../../utils/Storage';
-
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+import moment from 'moment'
 export default function BasicDetails() {
   const classes = useStyles();
   const overrideClasses = overrideSettings();
   const dispatch = useDispatch();
   const navigation = useNavigate()
   const uiData = useSelector((data) => data.ui)
+  const [value, setValue] = useState()
   useEffect(() => {
     //check the response for the pan Number if success, dispatch action for adhar 
     if (uiData["messages"]) {
@@ -49,12 +53,14 @@ export default function BasicDetails() {
         dispatch(DoValidateMobileNumberAction({ userData, key: "validate_mobile" }))**/
         /* Added for save info */
         let userData = {
-            pan_number: formik.values.pan,
-            aadhar_number: formik.values.adhar,
-            // mobile_number: formik.values.contactNumber,
-            // aadhar_Linked_Mobile_no: formik.values.contactNumber
-          }
-          dispatch(DoSaveBasicDetailsAction({ userData, key: "save_basic_details" }))
+          pan_number: formik.values.pan,
+          aadhar_number: formik.values.adhar,
+          // mobile_number: formik.values.contactNumber,
+          // aadhar_Linked_Mobile_no: formik.values.contactNumber
+          fullName:formik.values.name,
+          dateOfBirth:value,
+        }
+        dispatch(DoSaveBasicDetailsAction({ userData, key: "save_basic_details" }))
         // dispatch({
         //   type: SHOW_MESSAGE,
         //   payload: {
@@ -116,6 +122,7 @@ export default function BasicDetails() {
     }
   }, [uiData, navigation, dispatch])
   const validationSchema = yup.object({
+    name: yup.string().matches('^[a-zA-Z\\s]*$',"Please Enter Valid Name ").required("Please Enter Your Full Name"),
     pan: yup
       .string()
       .matches('[A-Z]{5}[0-9]{4}[A-Z]{1}', "Please Enter a Valid Pan Number consist of first 5 are alphabets,followed with 4 numbers and a 1 alphabet.")
@@ -130,6 +137,7 @@ export default function BasicDetails() {
   })
   const formik = useFormik({
     initialValues: {
+      name: "",
       pan: "",
       adhar: "",
       contactNumber: ""
@@ -152,6 +160,24 @@ export default function BasicDetails() {
             <Typography variant={"h6"} style={{ marginBottom: "7%" }}> Please submit the details below to get started with E-KYC</Typography>
             <Box>
               <TextField
+                key="name"
+                className={overrideClasses.root + " " + overrideClasses.root2}
+                style={{ marginBottom: "5%" }}
+                fullWidth
+                variant="outlined"
+                id={"name"}
+                name={"name"}
+                label={"Enter your Full Name"}
+                value={formik.values.name}
+                onChange={formik.handleChange}
+                //error
+                error={formik.touched.name && Boolean(formik.errors.name)}
+                helperText={formik.touched.name && formik.errors.name}
+              // required
+
+              />
+            
+              <TextField
                 key="panNumber"
                 className={overrideClasses.root + " " + overrideClasses.root2}
                 style={{ marginBottom: "5%" }}
@@ -165,7 +191,7 @@ export default function BasicDetails() {
                 //error
                 error={formik.touched.pan && Boolean(formik.errors.pan)}
                 helperText={formik.touched.pan && formik.errors.pan}
-                required
+              // required
 
               />
 
@@ -199,7 +225,7 @@ export default function BasicDetails() {
                 error={formik.touched.adhar && Boolean(formik.errors.adhar)}
                 helperText={formik.touched.adhar && formik.errors.adhar}
                 label={"Enter your Adhar number "}
-                required
+              // required
               />
               {/* <TextField
                 className={overrideClasses.root + " " + overrideClasses.root2}
@@ -217,12 +243,28 @@ export default function BasicDetails() {
                 required
               /> */}
             </Box>
+            <Box className={overrideClasses.root + " " + overrideClasses.root2}
+                style={{ marginBottom: "5%", width: '100%',marginLeft:"1%" }}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+
+                    label="Enter your Date of Birth"
+                    value={value}
+                    onChange={(newValue) => {
+                      setValue(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+                    formatDate={(date) => moment(new Date()).format('MM-DD-YYYY')}
+                  />
+                </LocalizationProvider>
+              </Box>
             <Typography display="inline" style={{ marginBottom: "3%", marginTop: "5%" }}>
               <Checkbox
                 name={"acceptTerms"}
                 value={formik.values.acceptTerms}
                 onChange={formik.handleChange}
-                required /><Typography variant={"h8"}>I understand and accept the
+              // required
+              /><Typography variant={"h8"}>I understand and accept the
                 <Button color={"secondary"} style={{ textTransform: "none", fontSize: "0.9em", fontWeight: 'bold' }}>{"Terms and conditions"}</Button></Typography></Typography>
             <Box style={{ marginLeft: "40%", marginRight: "40%", marginTop: "5%" }}>
               <Button color="secondary"
