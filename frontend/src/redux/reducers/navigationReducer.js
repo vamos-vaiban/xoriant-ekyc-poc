@@ -20,6 +20,10 @@ const initialState={
         //   label:"Concent",
         //   status: "pending",
         // },
+           {
+          label:"Video KYC",
+          status: "pending",
+        },
         {
           label:"Review",
           status: "pending",
