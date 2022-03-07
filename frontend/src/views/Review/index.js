@@ -32,15 +32,20 @@ dispatch(DoGetDetailsForReviewApiAction())
                   <Typography variant={"h4"}>{"Review Application"}</Typography>
                 </Box>
                 <Box >
+                <Typography>{"Name : "}{userSpecificData && userSpecificData.fullName}</Typography>
+                <Typography>{"Date of Birth : "}{userSpecificData && userSpecificData.dateOfBirth}</Typography>
                   <Typography>{"Address : "}{userSpecificData && userSpecificData.house_no} {userSpecificData && userSpecificData.address_line_1} {userSpecificData && userSpecificData.address_line_2} {userSpecificData && userSpecificData.landmark}, {userSpecificData && userSpecificData.city}</Typography>
                   <Typography>{"Mob No : "}{userSpecificData && userSpecificData.mobile_number}</Typography>
                   <Typography>{"Validated Adhar Number : "}{userSpecificData && userSpecificData.aadhar_number}</Typography>
                   <Typography>{"Validated Pan Number : "}{userSpecificData && userSpecificData.pan_number}</Typography>
+                  <Typography>{"Uploaded Video : "}{userSpecificData && userSpecificData.s3url}</Typography>
+                  <Typography>{"Uploaded Document : "}{userSpecificData && userSpecificData.aadhaarpath}</Typography>
                   {/* <Typography>{"Similarity Percentage : "}{userSpecificData && userSpecificData.similarity}</Typography>             */}
                   <Typography variant={"h5"} style={{ marginTop: "2%" }}>{"Please note down these numbers "}</Typography>
                   <Typography>{"Account Number : "}{userSpecificData && userSpecificData.accountNumber}</Typography>
                   <Typography>{"CRN number : "}{userSpecificData && userSpecificData.crn}</Typography>
                   <Typography>{"Request Id : "}{userSpecificData && userSpecificData.request_id}</Typography>
+            
                 </Box>
               </Grid>
           <Grid xs={12} style={{ padding: "7%", marginLeft: "10%", marginRight: "10%" }}>
