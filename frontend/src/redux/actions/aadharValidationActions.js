@@ -116,8 +116,9 @@ export const DoSavePhotoAndSililarityAction = (action) => {
 }
 
 export const DoGetNameOfUserAction = (action) => {
+    debugger
     return (dispatch) => {
-        API.DoGetNameOfUserAPI(action.data)
+        API.DoGetNameOfUserAPI()
             .then(data => data.data)
             .then(response => {
                 if (response) {

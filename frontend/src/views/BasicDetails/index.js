@@ -52,13 +52,15 @@ export default function BasicDetails() {
         /**commented for registered mobile number field
         dispatch(DoValidateMobileNumberAction({ userData, key: "validate_mobile" }))**/
         /* Added for save info */
+        let date = moment(value).format('DD/MM/YYYY')
+        debugger
         let userData = {
           pan_number: formik.values.pan,
           aadhar_number: formik.values.adhar,
           // mobile_number: formik.values.contactNumber,
           // aadhar_Linked_Mobile_no: formik.values.contactNumber
           fullName:formik.values.name,
-          dateOfBirth:value,
+          dateOfBirth:date.toString(),
         }
         dispatch(DoSaveBasicDetailsAction({ userData, key: "save_basic_details" }))
         // dispatch({
@@ -254,7 +256,7 @@ export default function BasicDetails() {
                       setValue(newValue);
                     }}
                     renderInput={(params) => <TextField {...params} />}
-                    formatDate={(date) => moment(new Date()).format('MM-DD-YYYY')}
+                    // formatDate={(date) => moment(new Date()).format('MM-DD-YYYY')}
                   />
                 </LocalizationProvider>
               </Box>

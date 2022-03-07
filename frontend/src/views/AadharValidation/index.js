@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Grid, Typography, Paper, Button } from '@material-ui/core';
 import { useStyles } from "./styles"
 import FileUploader from "../../components/FileUploader"
-import { DoCompareTheDocumentAction, DoGetNameOfUserAction,DoGetNameOfUserAction } from "../../redux/actions/aadharValidationActions"
+import { DoCompareTheDocumentAction, DoGetNameOfUserAction } from "../../redux/actions/aadharValidationActions"
 import { CHANGE_STATUS,SAVE_USER_DETAILS,SAVE_USER_NAME } from '../../redux/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -35,6 +35,7 @@ export default function AadharValidation() {
     setErrorUser(error)
   }
   useEffect(()=>{
+    debugger
 dispatch(DoGetNameOfUserAction())
   },[])
   useEffect(() => {
