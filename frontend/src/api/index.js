@@ -11,7 +11,7 @@ import Storage from '../utils/Storage'
 axios.interceptors.request.use(function (config) {
   // let user = Storage.getUserData()
   let user = localStorage.getItem("userData")
-  debugger
+
   user = JSON.parse(user)
   if (user) {
     if (user["request_Id"]) {

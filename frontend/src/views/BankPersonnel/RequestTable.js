@@ -123,6 +123,7 @@ onSelect={setOpen}
 onChangeRemark = {(event)=>{setRemark(event.target.value)}}
 onClickHandler = {()=>{
     onReject(remark,selectedData)
+    setOpen(false)
 }}/>
         </Box>
     );

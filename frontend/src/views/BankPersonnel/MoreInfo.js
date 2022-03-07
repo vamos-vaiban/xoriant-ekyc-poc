@@ -87,8 +87,8 @@ export default function MoreInfo({ open, handleClose, userSpecificData }, props)
                                         Document Uploaded
                                 </Box> */}
 
-                                <Button variant='outlined' >{"Accept"}</Button>
-                                <Button variant='outlined' >{"Reject"}</Button>
+                                {/* <Button variant='outlined' >{"Accept"}</Button>
+                                <Button variant='outlined' >{"Reject"}</Button> */}
                                 {console.log(userSpecificData)}
                                 <a href={userSpecificData && userSpecificData.s3url} target="_blank">
                                 <Button variant='outlined'>{"View Uploaded Video"}</Button>

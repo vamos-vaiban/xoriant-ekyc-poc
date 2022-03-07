@@ -35,7 +35,7 @@ export default function AadharValidation() {
     setErrorUser(error)
   }
   useEffect(()=>{
-    debugger
+    
 dispatch(DoGetNameOfUserAction())
   },[])
   useEffect(() => {

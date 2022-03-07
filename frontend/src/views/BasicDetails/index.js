@@ -70,7 +70,7 @@ export default function BasicDetails() {
         dispatch(DoValidateMobileNumberAction({ userData, key: "validate_mobile" }))**/
         /* Added for save info */
         let date = moment(value).format('DD/MM/YYYY')
-        debugger
+        
         let userData = {
           pan_number: formik.values.pan,
           aadhar_number: formik.values.adhar,

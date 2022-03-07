@@ -133,7 +133,7 @@ export default function BankPersonnel() {
           let data = {
             rejectionReason: "NA",
             status: "Approve",
-            RequestId: row.request_id
+            requestId: row.request_id
           }
           dispatch(DoUpdateKYCStatusAction({ userData: data, key: "user_request_approve" }))
         }}
@@ -141,7 +141,7 @@ export default function BankPersonnel() {
           let data = {
             rejectionReason: remark,
             status: "Reject",
-            RequestId: row.request_id
+            requestId: row.request_id
           }
           dispatch(DoUpdateKYCStatusAction({ userData: data, key: "user_request_approve" }))
         }} />

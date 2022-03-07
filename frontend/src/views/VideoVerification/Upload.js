@@ -27,6 +27,8 @@ export default function Upload() {
     let custom_file_upload_url = `http://localhost:4040/uploadFile`;
     const [image_file,setImageFile]=useState(null)
     const [image_preview,setImagePreview]=useState('')
+    let user = localStorage.getItem("userData")
+    user = JSON.parse(user)
     let handleImagePreview = (e) => {
         let image_as_base64 = URL.createObjectURL(e.target.files[0])
         let image_as_files = e.target.files[0];
@@ -52,7 +54,7 @@ export default function Upload() {
                 formData,
                 {
                     headers: {
-                        "request_Id":"9",
+                        "request_Id":`${user && user["request_Id"]}`,
                         //"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiYXBpIl0sInVzZXJfbmFtZSI6Ijc1ODgwNjI5MjgiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjQ2NDEwOTg2LCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiOTQ0NjMzMWYtMDg2Ny00MTMwLWJmNDAtMmViMjZiNGE4YjI3IiwiY2xpZW50X2lkIjoiZWt5YyJ9.GzkJHeMD7Dwe432v0wo2ibi0Ege2v2F6fJ8gEtaDemU",
                         "Content-type": "multipart/form-data"
                     },                    

@@ -38,8 +38,8 @@ dispatch(DoGetDetailsForReviewApiAction())
                   <Typography>{"Mob No : "}{userSpecificData && userSpecificData.mobile_number}</Typography>
                   <Typography>{"Validated Adhar Number : "}{userSpecificData && userSpecificData.aadhar_number}</Typography>
                   <Typography>{"Validated Pan Number : "}{userSpecificData && userSpecificData.pan_number}</Typography>
-                  <Typography>{"Uploaded Video : "}{userSpecificData && userSpecificData.s3url}</Typography>
-                  <Typography>{"Uploaded Document : "}{userSpecificData && userSpecificData.aadhaarpath}</Typography>
+                  <Typography>{"Uploaded Video : "}<a href={userSpecificData && userSpecificData.s3url} target="_blank">{userSpecificData && userSpecificData.s3url}</a></Typography>
+                  <Typography>{"Uploaded Document : "}<a href={userSpecificData && userSpecificData.aadhaarpath} target="_blank">{userSpecificData && userSpecificData.aadhaarpath}</a></Typography>
                   {/* <Typography>{"Similarity Percentage : "}{userSpecificData && userSpecificData.similarity}</Typography>             */}
                   <Typography variant={"h5"} style={{ marginTop: "2%" }}>{"Please note down these numbers "}</Typography>
                   <Typography>{"Account Number : "}{userSpecificData && userSpecificData.accountNumber}</Typography>

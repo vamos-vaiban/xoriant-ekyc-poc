@@ -10,7 +10,7 @@ export const DoCompareTheDocumentAction = (action) => {
                 if (response) {
                     //Apoorv
                     // CHANGE IN FOLLOWING CODE - SIMILARITY AND PHOTOPATH VALUES 
-                    // try using debugger and see the values
+                    // try using  and see the values
                     let similarity = response.Similarity
                     let photoPath = response.photoPath
                     let name=response.Name
@@ -116,7 +116,7 @@ export const DoSavePhotoAndSililarityAction = (action) => {
 }
 
 export const DoGetNameOfUserAction = (action) => {
-    debugger
+    
     return (dispatch) => {
         API.DoGetNameOfUserAPI()
             .then(data => data.data)
