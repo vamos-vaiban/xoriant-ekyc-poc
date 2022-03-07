@@ -10,6 +10,7 @@ public class PanPhotoPath {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String photopath;
+    private String aadhaarpath;
     private double similarity;
 
     @OneToOne
@@ -30,6 +31,14 @@ public class PanPhotoPath {
 
     public void setPhotopath(String photopath) {
         this.photopath = photopath;
+    }
+
+    public String getAadhaarpath() {
+        return aadhaarpath;
+    }
+
+    public void setAadhaarpath(String aadhaarpath) {
+        this.aadhaarpath = aadhaarpath;
     }
 
     public SingleSignInModel getSingleSignInModel() {

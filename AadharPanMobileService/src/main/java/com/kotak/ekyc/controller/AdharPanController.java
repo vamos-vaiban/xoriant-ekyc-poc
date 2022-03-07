@@ -61,7 +61,6 @@ public class AdharPanController {
 		aadharPanModel.setAccountNumber(service.getAccountNumber(request_id));
 		aadharPanModel.setCRN(service.getCRN());
 		AadharPanModel aadharPanModel1= aadharPanRepository.findByRequestId(request_id);
-		System.out.println(aadharPanModel1.toString());
 		if(aadharPanModel1!=null)
 		{
 			return aadharPanModel1;

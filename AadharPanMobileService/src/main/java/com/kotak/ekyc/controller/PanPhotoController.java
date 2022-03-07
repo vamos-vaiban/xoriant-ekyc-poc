@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 @RestController
@@ -23,8 +24,9 @@ public class PanPhotoController {
     public ResponseEntity<PanPhotoPathResponse> savePancardPhotoLocation(@RequestHeader(value = "request_Id") Integer requestId, @RequestBody PanPhotoPathRequest request){
         PanPhotoPathResponse panPhotoPathResponse = new PanPhotoPathResponse();
         PanPhotoPath panPhotoPath  = new PanPhotoPath();
-        panPhotoPath.setPhotopath(request.getPath());
-        panPhotoPath.setSimilarity(request.getSimilarity());
+        panPhotoPath.setPhotopath(request.getPhotourl());
+        panPhotoPath.setAadhaarpath(request.getAadhaarurl());
+        panPhotoPath.setSimilarity(Double.parseDouble(new DecimalFormat("##.##").format(request.getSimilarity())));
         SingleSignInModel singleSignInModel = new SingleSignInModel();
         singleSignInModel.setRequest_Id(requestId);
         panPhotoPath.setSingleSignInModel(singleSignInModel);

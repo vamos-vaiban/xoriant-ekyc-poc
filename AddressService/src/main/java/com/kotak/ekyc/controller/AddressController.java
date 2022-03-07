@@ -31,7 +31,6 @@ public class AddressController {
 		singleSignInModel.setRequest_Id(request_id);
 		addressModel.setSingleSignInModel(singleSignInModel);
 		AddressModel addressModel2=addressRepository.findByRequestId(request_id);
-		System.out.println(addressModel2.toString());
 		if(addressModel2!=null)
 		{
 			return addressModel2;

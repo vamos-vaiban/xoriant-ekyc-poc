@@ -34,6 +34,7 @@ public class UserDetails {
     private String fullName;
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd/MM/yyyy",timezone="IST")
     private Date dateOfBirth;
+    private String aadhaarpath;
 
     public UserDetails(){}
 
@@ -233,5 +234,13 @@ public class UserDetails {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getAadhaarpath() {
+        return aadhaarpath;
+    }
+
+    public void setAadhaarpath(String aadhaarpath) {
+        this.aadhaarpath = aadhaarpath;
     }
 }

@@ -3,15 +3,24 @@ package com.kotak.ekyc.model;
 
 public class PanPhotoPathRequest {
 
-    private String path;
+    private String photourl;
+    private String aadhaarurl;
     private double similarity;
 
-    public String getPath() {
-        return path;
+    public String getPhotourl() {
+        return photourl;
     }
 
-    public void setPath(String path) {
-        this.path=path;
+    public void setPhotourl(String photourl) {
+        this.photourl = photourl;
+    }
+
+    public String getAadhaarurl() {
+        return aadhaarurl;
+    }
+
+    public void setAadhaarurl(String aadhaarurl) {
+        this.aadhaarurl = aadhaarurl;
     }
 
     public double getSimilarity() {

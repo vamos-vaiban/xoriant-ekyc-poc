@@ -133,7 +133,7 @@ public class SingleSignOnController {
 				return true;
 			}
 			else{
-				return true;
+				return false;
 			}
 		}
 		else {
