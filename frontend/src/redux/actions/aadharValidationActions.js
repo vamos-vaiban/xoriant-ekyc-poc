@@ -87,7 +87,7 @@ export const DoSavePhotoAndSililarityAction = (action) => {
                         payload: {
                             type: "success",
                             message: "Files are uploaded",
-                            // key: action.key
+                            key: action.key
                         }
                     })
                 } else {
