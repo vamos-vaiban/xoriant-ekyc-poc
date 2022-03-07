@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Grid, Typography, Paper, Button } from '@material-ui/core';
 import { useStyles } from "./styles"
 import FileUploader from "../../components/FileUploader"
-import { DoCompareTheDocumentAction } from "../../redux/actions/aadharValidationActions"
-import { CHANGE_STATUS,SAVE_USER_DETAILS } from '../../redux/constants';
+import { DoCompareTheDocumentAction, DoGetNameOfUserAction,DoGetNameOfUserAction } from "../../redux/actions/aadharValidationActions"
+import { CHANGE_STATUS,SAVE_USER_DETAILS,SAVE_USER_NAME } from '../../redux/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { findLast } from "lodash"
 import Storage from "../../utils/Storage"
 import Content from './content'; 
+
 export default function AadharValidation() {
   const classes = useStyles();
   const dispatch = useDispatch()
@@ -18,6 +19,7 @@ export default function AadharValidation() {
   const [errorAdhar, setErrorAdhar] = useState()
   const [errorUser, setErrorUser] = useState()
   const uiData = useSelector(data => data.ui)
+  const userData = useSelector(data => data.auth && data.auth.nameAndDOB)
   const aadharChangeHandler = (file, fileName, error) => {
     setAadharFile({
       file: file,
@@ -32,6 +34,9 @@ export default function AadharValidation() {
     })
     setErrorUser(error)
   }
+  useEffect(()=>{
+dispatch(DoGetNameOfUserAction())
+  },[])
   useEffect(() => {
     if (uiData["messages"]) {
       let refObj = findLast(uiData["messages"], { key: "adhar_upload" })
@@ -71,7 +76,8 @@ export default function AadharValidation() {
     let user = userPic && userPic.file
     let data = {
       "Document_Photo": document,
-      "User_Photo": user
+      "User_Photo": user,
+      "name":userData.fullName,
     }
     dispatch(DoCompareTheDocumentAction({ data: data, key: "adhar_upload" }))
 

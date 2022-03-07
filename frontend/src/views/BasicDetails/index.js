@@ -167,7 +167,7 @@ export default function BasicDetails() {
                 variant="outlined"
                 id={"name"}
                 name={"name"}
-                label={"Enter your Full Name"}
+                label={"Enter your Name (As per your Aadhar Card)"}
                 value={formik.values.name}
                 onChange={formik.handleChange}
                 //error
