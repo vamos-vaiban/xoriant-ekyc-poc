@@ -45,11 +45,11 @@ dispatch(DoGetNameOfUserAction())
         dispatch({
           type: CHANGE_STATUS,
           payload: {
-            label: "Review",
+            label: "Video KYC",
             status: "complete"
           }
         })
-        navigation('/home/review')
+        navigation('/home/videoVerification')
         let adharreader = new FileReader();
         let picreader = new FileReader();
        
