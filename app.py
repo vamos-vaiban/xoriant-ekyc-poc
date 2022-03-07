@@ -80,15 +80,17 @@ def login():
     final_data = {}
     if request.method == "POST":
         #user_name = request.form.get('name')
-        user_name = 'geety paihwan'
+        user_name = 'geeta ravindra pailvan'
         document = request.files['Document_Photo']
+        docs_Path = 'https://image-match02.s3.ap-south-1.amazonaws.com/' + str(document.filename)
         doc_path = os.path.join(getcwd() + "/media/" + document.filename)
+        #print(doc_path)
         dcs_path= document.filename
-        document.save(doc_path)
+        #document.save(doc_path)
         photo = request.files['User_Photo']
         photoPath='https://image-match02.s3.ap-south-1.amazonaws.com/'+ str(photo.filename)
         user_path = os.path.join(getcwd() + "/media/" + photo.filename)
-        photo.save(user_path)
+        #photo.save(user_path)
         upload_to_aws(doc_path,"image-match02", document.filename)
         upload_to_aws(user_path, "image-match02", photo.filename)
         #print(type(document))
@@ -98,15 +100,16 @@ def login():
             if 'Similarity' in result[0].keys():
                 final_data['Similarity']=result[0].get('Similarity')
                 final_data['photoPath']=photoPath
+                final_data['docs_path']=docs_Path
         except Exception as e:
             final_data = {'message': 'Please provide valid input'}
 
         msg_data = compare_name(dcs_path,user_name)
         if msg_data :
-            msg = msg_data
+            nme = msg_data
         else:
-            msg = 'user name is not matched'
-        final_data ['msg'] = msg
+            nme = 'user name is not matched..Please ensure spelled correctly'
+        final_data ['Name'] = nme
 
 
     return render_template("index.html", result=final_data)
