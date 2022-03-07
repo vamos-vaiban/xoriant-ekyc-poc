@@ -42,10 +42,19 @@ export default function BasicDetails() {
       }
       let adharRefObj = findLast(uiData["messages"], { key: "validate_adhar" })
       if (adharRefObj && adharRefObj.type === "error") {
+        // let userData = {
+        //   mobile_number: formik.values.contactNumber
+        // }
+        /**commented for registered mobile number field
+        dispatch(DoValidateMobileNumberAction({ userData, key: "validate_mobile" }))**/
+        /* Added for save info */
         let userData = {
-          mobile_number: formik.values.contactNumber
-        }
-        dispatch(DoValidateMobileNumberAction({ userData, key: "validate_mobile" }))
+            pan_number: formik.values.pan,
+            aadhar_number: formik.values.adhar,
+            // mobile_number: formik.values.contactNumber,
+            // aadhar_Linked_Mobile_no: formik.values.contactNumber
+          }
+          dispatch(DoSaveBasicDetailsAction({ userData, key: "save_basic_details" }))
         // dispatch({
         //   type: SHOW_MESSAGE,
         //   payload: {
@@ -55,7 +64,7 @@ export default function BasicDetails() {
         // })
       }
       let mobileRefObj = findLast(uiData["messages"], { key: "validate_mobile" })
-      if (mobileRefObj && mobileRefObj.type === "success") {
+      if (mobileRefObj && mobileRefObj.type === "error") {
         // dispatch({
         //   type: SHOW_MESSAGE,
         //   payload: {
@@ -63,13 +72,13 @@ export default function BasicDetails() {
         //     message: "Mobile number is valid",
         //   }
         // })
-        let userData = {
-          pan_number: formik.values.pan,
-          aadhar_number: formik.values.adhar,
-          mobile_number: formik.values.contactNumber,
-          aadhar_Linked_Mobile_no: formik.values.contactNumber
-        }
-        dispatch(DoSaveBasicDetailsAction({ userData, key: "save_basic_details" }))
+        // let userData = {
+        //   pan_number: formik.values.pan,
+        //   aadhar_number: formik.values.adhar,
+        //   mobile_number: formik.values.contactNumber,
+        //   aadhar_Linked_Mobile_no: formik.values.contactNumber
+        // }
+        // dispatch(DoSaveBasicDetailsAction({ userData, key: "save_basic_details" }))
         // let user = localStorage.getItem('user');
         //save details in Local Storage
         // let userInfo = JSON.parse(user)
@@ -192,7 +201,7 @@ export default function BasicDetails() {
                 label={"Enter your Adhar number "}
                 required
               />
-              <TextField
+              {/* <TextField
                 className={overrideClasses.root + " " + overrideClasses.root2}
                 variant={"outlined"}
                 style={{ marginBottom: "5%" }}
@@ -206,7 +215,7 @@ export default function BasicDetails() {
                 helperText={formik.touched.contactNumber && formik.errors.contactNumber}
                 label={"Enter Mobile number "}
                 required
-              />
+              /> */}
             </Box>
             <Typography display="inline" style={{ marginBottom: "3%", marginTop: "5%" }}>
               <Checkbox

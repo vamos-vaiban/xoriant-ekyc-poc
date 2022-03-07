@@ -65,11 +65,11 @@ export default function RequestTable({ onReject, onShowInfo, onApprove }) {
                       <IconButton onClick={() =>onApprove(data)} disabled={data.status === "Reject"}>
                             <DoneIcon />
                         </IconButton>
-                        <IconButton onClick={() =>{setOpen(true)
+                        <IconButton disabled={data.status === "Reject"} onClick={() =>{setOpen(true)
                         setSelectedData(data)}}>
                             <ClearIcon />
                         </IconButton>
-                        <IconButton onClick={() => onShowInfo(data)}>
+                        <IconButton disabled={data.status === "Reject"} onClick={() => onShowInfo(data)}>
                             <InfoIcon />
                         </IconButton>
                     </Box>

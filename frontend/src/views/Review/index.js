@@ -23,7 +23,7 @@ dispatch(DoGetDetailsForReviewApiAction())
         <Grid container spacing={2}>
           {submitted ? <>
             <Typography>{"Thank You For Submitting Application, Bank People will contact you soon"}</Typography><Button variant={'contained'} style={{ marginRight: "5%",marginTop:"5%" }} onClick={()=>{ setSubmitted(!submitted)
-            navigation('/')}}>{"Go To Home"}</Button></>
+            navigation('/')}}>{"Back To Home"}</Button></>
             : <><Grid item xs={3}>
               <div><img style={{ borderRadius: '50%' }} height={150} width={150} src={userSpecificData && userSpecificData.photopath} />  </div>
             </Grid>
@@ -75,7 +75,7 @@ dispatch(DoGetDetailsForReviewApiAction())
 
 
             }} >Submit Application</Button>
-            <Button variant={'contained'}>Cancel</Button>
+            {/* <Button variant={'contained'}>Cancel</Button> */}
           </Grid></>}
         </Grid>
       </Paper>
