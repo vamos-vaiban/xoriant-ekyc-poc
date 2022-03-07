@@ -21,6 +21,10 @@ const initialState={
         //   status: "pending",
         // },
         {
+          label:"Video KYC",
+          status: "pending",
+        },
+        {
           label:"Review",
           status: "pending",
         },
@@ -28,10 +32,7 @@ const initialState={
         //   label:"Account Preferrences",
         //   status: "pending",
         // },
-        // {
-        //   label:"Video KYC",
-        //   status: "pending",
-        // },
+
     
       ]
 }

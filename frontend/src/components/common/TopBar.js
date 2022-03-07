@@ -5,7 +5,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useSelector,useDispatch } from "react-redux"
 import { useNavigate } from 'react-router';
 import { IS_USER } from '../../redux/constants';
-
+import Logo from '../../assets/Logo.png'
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -49,9 +49,10 @@ export default function TopBar() {
             <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar>
                 <div style={{ float: "left", }} >
-                    <Typography variant="h6" noWrap>
-                        Logo
-                    </Typography>
+                <img className='Navigation__Logo' style={{
+                    width:"8vw",
+                    paddingRight:"1.8vw"
+                }} src={Logo}></img>
                     </div>
                     {
                         isUser ?

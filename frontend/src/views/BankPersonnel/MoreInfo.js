@@ -1,12 +1,18 @@
-import * as React from 'react';
+import React,{useState} from 'react';
 import { styled } from '@mui/material/styles';
 import { Modal, Grid, Paper, Box } from '@mui/material';
 import { Button, Typography } from '@material-ui/core';
 import { useStyles } from "./styles"
-import close from '../../assets/close.png';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import close from '../../assets/close.png';
+
 export default function MoreInfo({ open, handleClose, userSpecificData }, props) {
     const classes = useStyles(props);
+    const [isOpen, setIsOpen] = useState(false);
+ 
+    const togglePopup = () => {
+      setIsOpen(!isOpen);
+    }
     return (
         <div style={{
             display:"flex",
@@ -22,9 +28,8 @@ export default function MoreInfo({ open, handleClose, userSpecificData }, props)
                 aria-describedby="modal-modal-description"
             >
                 <Paper sx={{
-                    paddingTop:"3vh",
-                    paddingLeft:"1vw",
-                    width:"56vw",
+                    paddingTop:"5vh",
+                        width:"56vw",
                         height:"65vh",
                         marginLeft:"23vw",
                         marginTop:"15vh"
@@ -41,7 +46,9 @@ export default function MoreInfo({ open, handleClose, userSpecificData }, props)
                             paddingRight:"1.57vw"
                             }}> 
                             <Box sx={{          
+                                    fontFamily: "Hind Vadodara",
                                     fontStyle: "normal",
+                                    fontWeight: "bold",
                                     fontSize: "3.24vh",
                                 }}>
                                     
@@ -72,7 +79,7 @@ export default function MoreInfo({ open, handleClose, userSpecificData }, props)
                                 <Box sx={{
                                     
                                 }}> 
-                                    {userSpecificData && userSpecificData.photopath ?
+                                    {userSpecificData && userSpecificData.photopath && userSpecificData.photopath.indexOf('/users/documents') == -1 ?
                                         <img style={{ borderRadius: '50%', height: "22.4vh" }} src={userSpecificData && userSpecificData.photopath} />
                                         : <><AccountBoxIcon sx={{ fontSize: 150 }} /></>}
                                 </Box>
@@ -80,11 +87,18 @@ export default function MoreInfo({ open, handleClose, userSpecificData }, props)
                                         Document Uploaded
                                 </Box> */}
 
-                                {/* <Button variant='outlined' >{"Accept"}</Button>
-                                <Button variant='outlined' >{"Reject"}</Button> */}
+                                <Button variant='outlined' >{"Accept"}</Button>
+                                <Button variant='outlined' >{"Reject"}</Button>
+                                {console.log(userSpecificData)}
+                                <a href={userSpecificData && userSpecificData.s3url} target="_blank">
+                                <Button variant='outlined'>{"View Uploaded Video"}</Button>
+                                </a>
                             </Box>
                             <Box sx={{
-                                fontSize: "2.2vh",
+                                fontFamily: "Hind Vadodara",
+                                fontStyle: "normal",
+                                fontWeight: "600",
+                                fontSize: "2.4vh",
                                 lineHeight: "36px",
                                 display:"flex",
                                 flexDirection:"column",
@@ -101,7 +115,7 @@ export default function MoreInfo({ open, handleClose, userSpecificData }, props)
                                 {"Account Number : "}{userSpecificData && userSpecificData.accountNumber}
                                 </Box>
                                 <Box>
-                                {"CRN number : "}{userSpecificData && userSpecificData.crn}
+                                {"CRN number : "}{userSpecificData && userSpecificData.crnNumber}
                                 </Box>
                                 <Box>
                                 {"Request Id : "}{userSpecificData && userSpecificData.request_id}
