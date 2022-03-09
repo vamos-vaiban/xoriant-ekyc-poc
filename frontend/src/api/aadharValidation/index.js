@@ -1,6 +1,8 @@
 import axios from "axios"
-const host = 'http://127.0.0.1:5000/'
-const coHost = 'http://localhost:7070/'
+const host = `${process.env.REACT_APP_BACKEND_Python}:5000/` 
+// 'http://127.0.0.1:5000/'
+const coHost =  `${process.env.REACT_APP_BACKEND}:7070/` 
+// 'http://localhost:7070/'
 
 const DoCompareTheDocument = ( jsonData) => {
     let url = host+`compare_faces`;

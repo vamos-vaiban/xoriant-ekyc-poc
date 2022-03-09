@@ -61,6 +61,7 @@ export const DoUserSignInAction =(action)=>{
     }
 }
 export const DoGenerateOTPAction =(action)=>{
+    debugger
     return (dispatch)=>{
         API.DoGenerateOTP(action.userData)
         .then(data=>data.data)

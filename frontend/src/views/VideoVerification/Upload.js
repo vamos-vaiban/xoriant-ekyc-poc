@@ -24,7 +24,9 @@ export default function Upload() {
         }
     })
     
-    let custom_file_upload_url = `http://localhost:4040/uploadFile`;
+    // let custom_file_upload_url = `http://localhost:4040/uploadFile`;
+
+    let custom_file_upload_url = `${process.env.REACT_APP_BACKEND}:4040/uploadFile`
     const [image_file,setImageFile]=useState(null)
     const [image_preview,setImagePreview]=useState('')
     let user = localStorage.getItem("userData")

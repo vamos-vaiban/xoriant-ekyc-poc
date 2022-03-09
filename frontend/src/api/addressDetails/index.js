@@ -1,6 +1,6 @@
 import axios from "axios"
-const host = 'http://localhost:7575/'
-
+const host =  `${process.env.REACT_APP_BACKEND}:7575/`
+//'http://localhost:7575/' 
 const DoSaveAddressDetailsAPI = userData =>{
     return axios.post(host+"Address",userData);
 }

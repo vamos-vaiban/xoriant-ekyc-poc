@@ -190,6 +190,7 @@ export default function Signup(props) {
                   // setGenerateOTP(true)
                   setMobileNumber(mobNo)
                   //------------added for commenting login with email functionality----------
+                  debugger
                   let values = {
                     "mode_Of_Authentication": emailVerification ? "via-email" : "via-mobile",
                     "email_id": formik.values.email ? formik.values.email : "",
