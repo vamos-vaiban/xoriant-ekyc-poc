@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { Modal, Grid, Paper, Box } from '@mui/material';
 import { Button, Typography } from '@material-ui/core';
@@ -9,17 +9,17 @@ import close from '../../assets/close.png';
 export default function MoreInfo({ open, handleClose, userSpecificData }, props) {
     const classes = useStyles(props);
     const [isOpen, setIsOpen] = useState(false);
- 
+
     const togglePopup = () => {
-      setIsOpen(!isOpen);
+        setIsOpen(!isOpen);
     }
     return (
         <div style={{
-            display:"flex",
-            justifyContent:"center",
-            alignItems:"center",
-           
-            
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+
+
         }}>
             <Modal
                 open={open}
@@ -28,140 +28,48 @@ export default function MoreInfo({ open, handleClose, userSpecificData }, props)
                 aria-describedby="modal-modal-description"
             >
                 <Paper sx={{
-                    paddingTop:"5vh",
-                        width:"56vw",
-                        height:"65vh",
-                        marginLeft:"23vw",
-                        marginTop:"15vh"
+                    paddingTop: "5vh",
+                    width: "56vw",
+                    height: "65vh",
+                    marginLeft: "23vw",
+                    marginTop: "15vh"
                 }}>
-                    <Box sx={{
-                        display:"flex",
-                        flexDirection:"column",
-                    }}>
-                        <Box sx={{
-                            display:"flex",
-                            justifyContent:"space-between",
-                            alignItems:"center",
-                            paddingLeft:"1.57vw",
-                            paddingRight:"1.57vw"
-                            }}> 
-                            <Box sx={{          
-                                    fontFamily: "Hind Vadodara",
-                                    fontStyle: "normal",
-                                    fontWeight: "bold",
-                                    fontSize: "3.24vh",
-                                }}>
-                                    
-                                    Requested Information
-                                
-                            </Box>
-                            <Button style={{ float: "right" }} onClick={handleClose}>
-                                <img style={{
-                                    height:"4.1vh"
-                                }} src={close}></img>
-                            </Button>
-                        </Box>
-                        <Box sx={{
-                            display:"flex",
-                            justifyContent:"flex-start",
-                            paddingTop:"3.79vh",
-                            paddingLeft:"1.7vw"
-                            
-                        }}>
-                            <Box sx={{
-                                display:"flex",
-                                justifyContent:"space-around",
-                                flexDirection:"column",
-                                alignItems:"center",
-                                paddingRight:"1.7vw",
-                                height:"44.2vh"
-                            }}>
-                                <Box sx={{
-                                    
-                                }}> 
-                                    {userSpecificData && userSpecificData.photopath && userSpecificData.photopath.indexOf('/users/documents') == -1 ?
-                                        <img style={{ borderRadius: '50%', height: "22.4vh" }} src={userSpecificData && userSpecificData.photopath} />
-                                        : <><AccountBoxIcon sx={{ fontSize: 150 }} /></>}
-                                </Box>
-                                {/* <Box>
-                                        Document Uploaded
-                                </Box> */}
+                    <Grid container>
 
-                                {/* <Button variant='outlined' >{"Accept"}</Button>
-                                <Button variant='outlined' >{"Reject"}</Button> */}
-                                {console.log(userSpecificData)}
-                                <a href={userSpecificData && userSpecificData.s3url} target="_blank">
+                        <Grid item xs={3} style={{padding:'3%'}}>
+                            {userSpecificData && userSpecificData.photopath && userSpecificData.photopath.indexOf('/users/documents') == -1 ?
+                                <img style={{ borderRadius: '50%', height: "22.4vh" }} src={userSpecificData && userSpecificData.photopath} />
+                                : <><AccountBoxIcon sx={{ fontSize: 150 }} /></>}
+                            <a href={userSpecificData && userSpecificData.s3url} target="_blank">
                                 <Button variant='outlined'>{"View Uploaded Video"}</Button>
-                                </a>
+                            </a>
+                            {/* <div><img style={{ borderRadius: '50%' }} height={150} width={150} src={userSpecificData && userSpecificData.photopath} />  </div> */}
+                        </Grid>
+                        <Grid item xs={7} style={{ marginLeft: "5%" }}>
+                            <Box >
+                                <Typography variant={"h4"}>{" Requested Information"}</Typography>
                             </Box>
-                            <Box sx={{
-                                fontFamily: "Hind Vadodara",
-                                fontStyle: "normal",
-                                fontWeight: "600",
-                                fontSize: "2.4vh",
-                                lineHeight: "36px",
-                                display:"flex",
-                                flexDirection:"column",
-                                height:"44vh",
-                                justifyContent:"space-between"
-                            }}>
-                                <Box>
-                                {"Address : "}{userSpecificData && userSpecificData.house_no} {userSpecificData && userSpecificData.address_line_1} {userSpecificData && userSpecificData.address_line_2} {userSpecificData && userSpecificData.landmark}, {userSpecificData && userSpecificData.city}
-                                </Box>
-                                <Box>
-                                {"Mob No : "}{userSpecificData && userSpecificData.mobile_number}
-                                </Box>
-                                <Box>
-                                {"Account Number : "}{userSpecificData && userSpecificData.accountNumber}
-                                </Box>
-                                <Box>
-                                {"CRN number : "}{userSpecificData && userSpecificData.crnNumber}
-                                </Box>
-                                <Box>
-                                {"Request Id : "}{userSpecificData && userSpecificData.request_id}
-                                </Box>
-                                <Box>{"Validated Adhar Number : "}{userSpecificData && userSpecificData.aadhar_number}</Box>
-                                <Box>{"Validated Pan Number : "}{userSpecificData && userSpecificData.pan_number}</Box>
-                                <Box>{"Similarity Percentage : "}{userSpecificData && userSpecificData.similarity}</Box>
-                            </Box>
-                        </Box>
-                        {/* <Grid container spacing={2} style={{ padding: "5%" }}>
-                            <Grid item xs={4}>
-                                <Box>
-                                    {userSpecificData && userSpecificData.photopath ?
-                                        <img style={{ borderRadius: '50%',height:"22.4vh" }}  src={userSpecificData && userSpecificData.photopath} />
-                                        : <><AccountBoxIcon sx={{ fontSize: 150 }} /></>}
-                                </Box>
-                            </Grid>
-                            <Grid item xs={8}>
-                                <Box>
-                                    <Typography>{"Address : "}{userSpecificData && userSpecificData.house_no} {userSpecificData && userSpecificData.address_line_1} {userSpecificData && userSpecificData.address_line_2} {userSpecificData && userSpecificData.landmark}, {userSpecificData && userSpecificData.city}</Typography>
-                                    <Typography>{"Mob No : "}{userSpecificData && userSpecificData.mobile_number}</Typography>
+                            <Box >
+                                <Typography>{"Name : "}{userSpecificData && userSpecificData.fullName}</Typography>
+                                <Typography>{"Date of Birth : "}{userSpecificData && userSpecificData.dateOfBirth}</Typography>
+                                <Typography>{"Address : "}{userSpecificData && userSpecificData.house_no} {userSpecificData && userSpecificData.address_line_1} {userSpecificData && userSpecificData.address_line_2} {userSpecificData && userSpecificData.landmark}, {userSpecificData && userSpecificData.city}</Typography>
+                                <Typography>{"Mob No : "}{userSpecificData && userSpecificData.mobile_number}</Typography>
+                                <Typography>{"Validated Adhar Number : "}{userSpecificData && userSpecificData.aadhar_number}</Typography>
+                                <Typography>{"Validated Pan Number : "}{userSpecificData && userSpecificData.pan_number}</Typography>
+                                {/* <Typography>{"Uploaded Video : "}<a href={userSpecificData && userSpecificData.s3url} target="_blank">{userSpecificData && userSpecificData.s3url}</a></Typography> */}
+                                <Typography>{"Uploaded Document : "}<a href={userSpecificData && userSpecificData.aadhaarpath} target="_blank">{userSpecificData && userSpecificData.aadhaarpath}</a></Typography>
+                                <Typography>{"Similarity Percentage : "}{userSpecificData && userSpecificData.similarity}</Typography>            
+                                {/* <Typography variant={"h5"} style={{ marginTop: "2%" }}>{"Please note down these numbers "}</Typography> */}
+                                <Typography>{"Account Number : "}{userSpecificData && userSpecificData.accountNumber}</Typography>
+                                <Typography>{"CRN number : "}{userSpecificData && userSpecificData.crn}</Typography>
+                                <Typography>{"Request Id : "}{userSpecificData && userSpecificData.request_id}</Typography>
 
-                                    <Typography>{"Account Number : "}{userSpecificData && userSpecificData.accountNumber}</Typography>
-                                    <Typography>{"CRN number : "}{userSpecificData && userSpecificData.crnNumber}</Typography>
-                                    <Typography>{"Request Id : "}{userSpecificData && userSpecificData.request_id}</Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Box>
-                                    <Typography>{"Validated Adhar Number : "}{userSpecificData && userSpecificData.aadhar_number}</Typography>
-                                    <Typography>{"Validated Pan Number : "}{userSpecificData && userSpecificData.pan_number}</Typography>
-                                    <Typography>{"Similarity Percentage : "}{userSpecificData && userSpecificData.similarity}</Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Box>
-                                    Document Uploaded</Box>
-                            </Grid>
-                            <Grid item xs={8}>
-                                <Box style={{marginLeft:"40%",marginRight:"20%"}}>
-                                    <Button variant='outlined' style={{marginRight:"20%"}}>{"Accept"}</Button>
-                                    <Button variant='outlined'>{"Reject"}</Button>
-                                </Box>
-                            </Grid>
-                        </Grid> */}
-                    </Box>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={1} style={{ float: 'left' }}>
+                            <Button onClick={handleClose}>X</Button>
+                        </Grid>
+                    </Grid>
                 </Paper>
             </Modal>
         </div>
