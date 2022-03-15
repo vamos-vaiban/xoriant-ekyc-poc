@@ -11,7 +11,7 @@ public interface UserDetailsRepository extends CrudRepository<UserDetails,Intege
             " UC.House_no, UC.Address_line_1, UC.Address_line_2, UC.Address_line_3, UC.City, " +
             "UC.State, UC.Landmark, UC.Pincode, pp.photopath, pp.similarity,pp.aadhaarpath, " +
             "em.status,UI.account_number,UI.crn_number AS crn" +
-            ",v.s3url,UI.full_name,UI.date_of_birth from user_authentication UA"
+            ",v.s3url,UI.first_name,UI.middle_name, UI.last_name,UI.date_of_birth from user_authentication UA"
             + " join user_identification_values UI on UI.user_Request_id = UA.Request_id"
             + " join user_communication_address UC on UC.user_Request_id = UA.Request_id"
             + " join pan_photo_path pp on pp.request_id=UA.Request_id"

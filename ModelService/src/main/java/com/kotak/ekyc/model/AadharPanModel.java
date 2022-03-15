@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -19,9 +20,11 @@ public class AadharPanModel {
 	private Integer id;
 
 	@Column(name = "pan_number")
+	@NotNull
 	private String pan_number;
 
 	@Column(name = "aadhar_number")
+	@NotNull
 	private String aadhar_number;
 
 	@Column(name = "mobile_number")
@@ -43,8 +46,16 @@ public class AadharPanModel {
 	@JoinColumn(name = "user_Request_id")
 	private SingleSignInModel singleSignInModel;
 
-	@Column(name= "full_name")
-	private String fullName;
+	@Column(name= "first_name")
+	@NotNull
+	private String firstName;
+
+	@Column(name= "middle_name")
+	private String middleName;
+
+	@Column(name= "last_name")
+	@NotNull
+	private String lastName;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd/MM/yyyy",timezone="IST")
 	@Temporal(TemporalType.DATE)
@@ -152,12 +163,28 @@ public class AadharPanModel {
 		this.CRN = CRN;
 	}
 
-	public String getFullName() {
-		return fullName;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public Date getDateOfBirth() {

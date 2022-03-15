@@ -35,7 +35,9 @@ public class BankPersoneReport{
     private double similarity;
     private Date insertedDate;
     private String s3url;
-    private String fullName;
+    private String firstName;
+    private String middleName;
+    private String lastName;
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd/MM/yyyy",timezone="IST")
     private Date dateOfBirth;
     private String aadhaarpath;
@@ -181,12 +183,28 @@ public class BankPersoneReport{
         this.s3url = s3url;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public Date getDateOfBirth() {
