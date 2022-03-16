@@ -70,7 +70,7 @@ export default function RequestTable({ onReject, onShowInfo, onApprove }) {
                         setSelectedData(data)}}>
                             <ClearIcon />
                         </IconButton>
-                        <IconButton disabled={data.status === "Reject"} onClick={() => onShowInfo(data)}>
+                        <IconButton  onClick={() => onShowInfo(data)}>
                             <InfoIcon />
                         </IconButton>
                     </Box>
