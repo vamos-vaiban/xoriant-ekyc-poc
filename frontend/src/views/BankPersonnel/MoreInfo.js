@@ -94,7 +94,7 @@ export default function MoreInfo({ open, handleClose, userSpecificData }, props)
                                 <a href={userSpecificData && userSpecificData.s3url} target="_blank">
                                     <Button style={{ width: '100%' }} variant='outlined'>{"View Uploaded Video"}</Button>
                                 </a>
-                                <a href={userSpecificData && userSpecificData.s3url} target="_blank">
+                                <a href={userSpecificData && userSpecificData.aadhaarpath} target="_blank">
                                     <Button variant='outlined'>{"View Uploaded Document"}</Button>
                                 </a>
                             </Box>
