@@ -13,7 +13,7 @@ import { DoSaveAddressDetailsAction } from '../../redux/actions/addressDetailsAc
 import {findLast}from "lodash"
 import Storage from '../../utils/Storage';
 import overrideSettings from '../../theme/overrides';
-
+import {city_data } from '../../utils/common'
 export default function AddressDetails() {
   const classes = useStyles();
   const overrideClasses=overrideSettings();
@@ -21,20 +21,7 @@ export default function AddressDetails() {
   const navigation = useNavigate()
   // const [toggleEmail, setToggleEmail] = React.useState(false)
   const uiData = useSelector(data=>data.ui)
-  const data = [
-    {
-      city: "pune"
-    },
-    {
-      city: "Banglore"
-    },
-    {
-      city: "Mumbai"
-    },
-    {
-      city: "Mysore"
-    }
-  ]
+  const data = city_data
   useEffect(()=>{
     if(uiData["messages"]){
       let refObj = findLast(uiData["messages"], { key: "Save_address_details" })
@@ -135,7 +122,7 @@ export default function AddressDetails() {
                 onChange={formik.handleChange}
                 error={formik.touched.houseNumber && Boolean(formik.errors.houseNumber)}
                 helperText={formik.touched.houseNumber && formik.errors.houseNumber}
-                required
+                // required
               />
               <TextField
               className={overrideClasses.root+" "+overrideClasses.root2}
@@ -149,7 +136,7 @@ export default function AddressDetails() {
                 onChange={formik.handleChange}
                 error={formik.touched.addressLine1 && Boolean(formik.errors.addressLine1)}
                 helperText={formik.touched.addressLine1 && formik.errors.addressLine1}
-                required
+                // required
               />
               <TextField
               className={overrideClasses.root+" "+overrideClasses.root2}
@@ -163,10 +150,10 @@ export default function AddressDetails() {
                 onChange={formik.handleChange}
                 error={formik.touched.addressLine2 && Boolean(formik.errors.addressLine2)}
                 helperText={formik.touched.addressLine2 && formik.errors.addressLine2}
-                required
+                // required
               />
               <Dropdown
-                label="Select City/State * "
+                label="Select City * "
                 data={data || []}
                 objKey={"city"}
                 onChangeListner={(selectedData) => {
@@ -189,7 +176,7 @@ export default function AddressDetails() {
                 onChange={formik.handleChange}
                 error={formik.touched.landmark && Boolean(formik.errors.landmark)}
                 helperText={formik.touched.landmark && formik.errors.landmark}
-                required
+                // required
               />
             </Box>
             {/* <FormControlLabel

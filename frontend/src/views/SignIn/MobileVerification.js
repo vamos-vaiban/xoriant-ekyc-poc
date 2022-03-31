@@ -77,7 +77,7 @@ function MobileVerification(props) {
                             <Typography variant={"h5"} className={classes.alignLabel} >{"Let's get Started"}</Typography>
                             
                         </div>
-                        <Typography style={{marginTop:'2%'}}>{"Please login with your mobile number to complete your E-KYC"}</Typography>
+                        <Typography style={{marginTop:'2%'}}>{isBankPersonnel ===true? "Please login with your bank credentials" :"Please login with your mobile number to complete your E-KYC"}</Typography>
                     </Box>
                 </Box>
                 <Box >

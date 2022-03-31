@@ -1,4 +1,4 @@
-import {SAVE_USER_INFO, AUTH_LOGIN, IS_USER,AUTH_USER_SIGNIN_SUCCESS,SET_LOGIN_AS_BANK_PERSONNEL,LOGGED_IN_AS_BANK_PERSONNEL,SAVE_USER_DETAILS, USER_LIST} from "../constants/index"
+import {SAVE_USER_NAME,SAVE_USER_INFO, AUTH_LOGIN, IS_USER,AUTH_USER_SIGNIN_SUCCESS,SET_LOGIN_AS_BANK_PERSONNEL,LOGGED_IN_AS_BANK_PERSONNEL,SAVE_USER_DETAILS, USER_LIST} from "../constants/index"
 import {cloneDeep} from "lodash"
 const user =localStorage.getItem("user")
 const userData =localStorage.getItem("userData")
@@ -18,7 +18,8 @@ const initialState={
     userData : (userData&&JSON.parse(userData) || {...emptyData}),
     userlist : (userList&&JSON.parse(userList) || {...emptyData}),
     user : (user&&JSON.parse(user) || {}),
-    loggedInUserInfo : (user&&JSON.parse(loggedInUserInfo) || {})
+    loggedInUserInfo : (user&&JSON.parse(loggedInUserInfo) || {}),
+    nameAndDOB:{},
 }
 export default function AuthReducer(state = initialState,actions){
     let newState=cloneDeep(state)
@@ -38,6 +39,11 @@ export default function AuthReducer(state = initialState,actions){
         case USER_LIST:{
             newState.userlist=actions.payload
             console.log(actions.payload)
+            return {...newState};
+        }
+        case SAVE_USER_NAME:{
+            newState.nameAndDOB=actions.payload
+          
             return {...newState};
         }
         case AUTH_LOGIN:{

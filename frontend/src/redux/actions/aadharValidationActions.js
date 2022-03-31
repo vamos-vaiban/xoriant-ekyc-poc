@@ -1,4 +1,4 @@
-import { SHOW_MESSAGE,SAVE_USER_DETAILS } from "../constants/index"
+import { SHOW_MESSAGE,SAVE_USER_DETAILS,SAVE_USER_NAME } from "../constants/index"
 import API from "../../api"
 import Storage from "../../utils/Storage"
 //Action to validate PAN 
@@ -10,12 +10,15 @@ export const DoCompareTheDocumentAction = (action) => {
                 if (response) {
                     //Apoorv
                     // CHANGE IN FOLLOWING CODE - SIMILARITY AND PHOTOPATH VALUES 
-                    // try using debugger and see the values
+                    // try using  and see the values
                     let similarity = response.Similarity
                     let photoPath = response.photoPath
+                    let name=response.Name
+let adharUrl = response.docs_path
                     let data ={
                         similarity: similarity,
-                        path:photoPath
+                        photourl:photoPath,
+                        aadhaarurl:adharUrl
                     }
                    dispatch(DoSavePhotoAndSililarityAction({data:data,key:action.key}))
                     // dispatch({
@@ -84,7 +87,7 @@ export const DoSavePhotoAndSililarityAction = (action) => {
                         payload: {
                             type: "success",
                             message: "Files are uploaded",
-                            // key: action.key
+                            key: action.key
                         }
                     })
                 } else {
@@ -112,3 +115,38 @@ export const DoSavePhotoAndSililarityAction = (action) => {
     }
 }
 
+export const DoGetNameOfUserAction = (action) => {
+    
+    return (dispatch) => {
+        API.DoGetNameOfUserAPI()
+            .then(data => data.data)
+            .then(response => {
+                if (response) {
+                  dispatch({
+                      type:SAVE_USER_NAME,
+                      payload:response
+                  })
+                } else {
+                    dispatch({
+                        type: SHOW_MESSAGE,
+                        payload: {
+                            type: "error",
+                            message: "Error while fetching details",
+                            key: action.key
+                        }
+                    })
+                }
+            })
+            .catch(err => {
+                  dispatch({
+                    type: SHOW_MESSAGE,
+                    payload: {
+                        type: "error",
+                        message: err && err.response && err.response.message,
+                        key: action.key
+
+                    }
+                })
+            })
+    }
+}

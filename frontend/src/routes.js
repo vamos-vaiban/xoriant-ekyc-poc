@@ -10,6 +10,7 @@ import Review from "./views/Review"
 import AdminLayout from "./layout/Admin";
 import KYCRequests from "./views/KYCRequests";
 import BankPersonnel from "../src/views/BankPersonnel/index"
+import VideoVerification from "./views/VideoVerification";
 const appRoutes = (data)=>{
     const routes =[
         data && data === true?
@@ -47,6 +48,10 @@ const appRoutes = (data)=>{
                 {
                     path:'aadharValidation',
                     element:<AadharValidation />
+                },
+                {
+                    path:'videoVerification',
+                    element:<VideoVerification />
                 },
                 {
                     path:'review',

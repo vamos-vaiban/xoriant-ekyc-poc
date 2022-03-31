@@ -1,5 +1,6 @@
 import axios from "axios"
-const host = 'http://localhost:9090/'
+// const host = 'http://localhost:9090/'
+const host = `${process.env.REACT_APP_BACKEND}:9090/`
 // const DoSignInApi = userData =>{
 //     return axios.post(host+"signOn",userData);
 // }
@@ -8,6 +9,7 @@ export const DoValidateOTP = (action) =>{
     return axios.get(url)
 }
 const DoGenerateOTP = userData =>{
+    debugger
     return axios.post(host+"signOnn",userData);
 }
 const API =  {
