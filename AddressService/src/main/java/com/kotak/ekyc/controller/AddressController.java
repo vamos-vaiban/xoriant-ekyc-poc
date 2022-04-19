@@ -1,18 +1,18 @@
 package com.kotak.ekyc.controller;
 
 import com.kotak.ekyc.ddao.AddressRepository;
+import com.kotak.ekyc.model.City;
 import com.kotak.ekyc.model.SingleSignInModel;
+import com.kotak.ekyc.model.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.kotak.ekyc.model.AddressModel;
 import com.kotak.ekyc.service.AddressService;
+
+import java.util.List;
 
 
 @RestController
@@ -51,4 +51,32 @@ public class AddressController {
 	private static String generateRandomAccountNumber() {
 		return Double.toString(Math.random()).substring(2,12);		
 	}
+
+	@GetMapping("/getAllStates")
+	public ResponseEntity<?> getAllState() {
+		List<State> stateList = addressService.getAllState();
+		if(stateList.isEmpty() || stateList==null)
+		{
+			return new ResponseEntity<>("State list not found.", HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(stateList,HttpStatus.OK);
+		}
+	}
+
+	@GetMapping("/getAllCitiesBasedOnStateId/{state_id}")
+	public ResponseEntity<?> getAllCitiesBasedOnStateId(@PathVariable(value = "state_id") int stateId) {
+		List<City> cityList= addressService.getCitiesByStateId(stateId);
+		System.out.println("Citylist"+ cityList.toString());
+		if(cityList.isEmpty() || cityList==null)
+		{
+			return new ResponseEntity<>("City list with state id "+ stateId + " not found.", HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(cityList,HttpStatus.OK);
+		}
+	}
+
+
+
 }
